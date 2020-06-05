@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>cn.edu.lingnan</groupId>
+		<artifactId>scholat</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<groupId>cn.edu.lingnan</groupId>
+	<artifactId>scholat-provider</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>scholat-provider</name>
+	<packaging>pom</packaging>
+    <description>各个微服务的父类，抽象出一些公共依赖</description>
+
+	<dependencies>
+	
+	    <!-- 自定义公共包 -->
+		<dependency>
+			<groupId>cn.edu.lingnan</groupId>
+			<artifactId>scholat-common</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		
+		<!-- junit test -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+		</dependency>
+
+		<!-- spring web 相关依赖 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		 </dependency>
+		 
+		<!-- lombok ： 注解运行时生成get、set -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- eureka-client -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+		</dependency>
+		 
+		<!-- 引入 Feign, 可以以声明的方式调用微服务 -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-openfeign</artifactId>
+		</dependency>
+		<!-- 引入服务容错 Hystrix 的依赖 -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+		</dependency>
+		 
+		 <!-- 热部署 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+		</dependency>
+		 
+	   </dependencies>
+
+	<modules>
+		<module>scholat-provider-user</module>
+		<module>scholat-provider-common</module>
+		<module>scholat-proviser-course</module>
+	</modules>
+</project>

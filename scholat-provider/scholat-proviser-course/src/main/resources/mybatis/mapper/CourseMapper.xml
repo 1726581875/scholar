@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.scholat.proviser.course.mapper.CourseMapper">
+
+	<select id="findById" resultType="org.scholat.proviser.course.pojo.Course">
+		select * from course
+		where course_id = #{courseId}
+	</select>
+
+	<select id="findAll" resultType="org.scholat.proviser.course.pojo.Course">
+		select * from course
+	</select>
+
+	<insert id="insert">
+		insert into course(course_name,user_id,course_desc)
+		value(#{courseName},#{userId},#{courseDesc})
+	</insert>
+
+	<delete id="deleteById">
+		delete from course where course_id = #{courseId}
+	</delete>
+
+	<update id="updateSelection" parameterType="org.scholat.proviser.course.pojo.Course">
+		update course
+		<set>
+			<if test="courseImage != null">course_image=#{courseImage},</if>
+			<if test="courseName != null">course_name=#{courseName},</if>
+			<if test="courseDesc != null">course_desc=#{courseDesc}</if>
+		</set>
+		where course_id=#{courseId}
+	</update>
+
+</mapper>
+ 
