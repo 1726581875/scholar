@@ -17,6 +17,12 @@ spring:
       ddl-auto: update
     show-sql: true
     
+#配置redis    
+  redis:
+    host: 39.97.184.214
+    port: 6379
+    password: root   
+    
 #客户端注册进eureka服务列表内    
 eureka:
   client: 
@@ -30,4 +36,8 @@ eureka:
 feign:
   hystrix:
     enabled: true
+   
+
+
+  
     

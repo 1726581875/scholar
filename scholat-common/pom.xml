@@ -21,6 +21,12 @@
       <artifactId>lombok</artifactId>
       <scope>provided</scope>
    </dependency>
+   
+		<!-- spring web 相关依赖 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		 </dependency>
     
   </dependencies>
 </project>
