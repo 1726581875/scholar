@@ -18,10 +18,10 @@ spring:
     show-sql: true
     
 #配置redis    
-  redis:
-    host: 39.97.184.214
-    port: 6379
-    password: root   
+#  redis:  
+#    host: 127.0.0.1
+#    port: 6379
+#    password: root   
     
 #客户端注册进eureka服务列表内    
 eureka:

@@ -6,6 +6,11 @@ server:
 spring:
   application:
     name: scholat-gateway
+#配置redis    
+#  redis:
+#    host: 127.0.0.1
+#    port: 6379
+#    password: root 
     
 #注册进eureka服务列表内    
 eureka:
@@ -25,6 +30,7 @@ eureka:
 
 #路由配置，第二种写法
 zuul:
+  sensitiveHeaders:  #不过滤cookie
   prefix: /scholat
   routes:
     scholat-user: /user/**

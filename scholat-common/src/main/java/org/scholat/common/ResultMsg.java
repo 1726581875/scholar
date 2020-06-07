@@ -1,7 +1,7 @@
 package org.scholat.common;
 
 import org.scholat.common.exception.ComonException;
-import org.scholat.common.exception.ComonEnum;
+import org.scholat.common.exception.CommonEnum;
 
 import lombok.Data;
 
@@ -32,7 +32,7 @@ public class ResultMsg<T> {
 		this.msg = ce.getMsg();		
 	}
 	
-	public ResultMsg(ComonEnum ee , T data){
+	public ResultMsg(CommonEnum ee , T data){
 		this.status = ee.getCode();
 		this.data = data;
 		this.msg = ee.getMsg();		

@@ -1,6 +1,6 @@
 package org.scholat.common.exception;
 
-public enum ComonEnum implements BaseException{
+public enum CommonEnum implements BaseException{
 	SUCCESS(1,"success"),
 	PARAMETER_ERROR(2,"参数有误"),
 	UNKONW_ERROR(-1, "未知错误"),
@@ -10,7 +10,7 @@ public enum ComonEnum implements BaseException{
 	
 	private String errMsg;
 	
-	private ComonEnum(int errCode , String errMsg) {
+	private CommonEnum(int errCode , String errMsg) {
 		this.errCode = errCode;
 		this.errMsg = errMsg;
 	}

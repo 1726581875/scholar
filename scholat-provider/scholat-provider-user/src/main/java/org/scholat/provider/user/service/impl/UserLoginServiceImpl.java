@@ -24,15 +24,16 @@ public class UserLoginServiceImpl implements UserLoginService {
 		UserLogin user = new UserLogin();
 		user.setUserPhone(phone);
 		Optional<UserLogin> optional = userRepository.findOne(Example.of(user));
-		if (!optional.isPresent()) {// 用户名不存在
-         System.out.println("用户名不存在");
+		if (optional.isPresent()) {// 用户名不存在
+			UserLogin userLogin = optional.get();
+			if (!userLogin.getPassword().equals(getMD5(password))) {// 如果密码不一致	         
+	          return null;         
+			}else{
+				return userLogin;
+			}
 		}
-		UserLogin userLogin = optional.get();
-		if (!userLogin.getPassword().equals(getMD5(password))) {// 如果密码不一致
-          System.out.println("密码不一致");    
-          return null;         
-		}
-		return userLogin;
+		
+		return null;
 	}
 
 	@Override
