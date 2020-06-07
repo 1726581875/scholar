@@ -1,6 +1,7 @@
 package org.scholat.provider.user.controller.client;
 
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -42,16 +43,17 @@ public class UserLoginClient {
 	@PostMapping("/user/phone/login")
 	public Object loginByPhone(String phone,String password,HttpServletResponse response){		
 		UserLogin user = userLoginService.loginByPhone(phone, password);
-/*		if(user != null){//登录成功
+	/*	if(user != null){//登录成功
 		//1.随机生成一个token标识
 		String token = UUID.randomUUID().toString();	
 		//2.存到redis
-		redisTemplate.opsForValue().set(token,user.getUserPhone(),MyConstant.EXPIRE_TIME);
+		redisTemplate.opsForValue().set(token,user.getUserPhone(),MyConstant.EXPIRE_TIME,TimeUnit.SECONDS);
 		//3.设置cookie
 		CookieUtil.setCookie(response,MyConstant.TOKEN_NAME, token, MyConstant.EXPIRE_TIME);
 		}else{
 		 return ResultUtil.fail("登录失败");
-		}*/
+		}
+		*/
 		return ResultUtil.success();
 	}
 	

@@ -8,6 +8,6 @@ package org.scholat.common.constant;
 public interface MyConstant {
 
 	public final static String TOKEN_NAME = "token";
-	public final static int EXPIRE_TIME = 1000;
+	public final static int EXPIRE_TIME = 30;
 	
 }
