@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.scholat.common.ResultMsg;
 import org.scholat.common.exception.CommonEnum;
+import org.scholat.common.utils.ResultUtil;
 import org.scholat.provider.user.pojo.UserDetail;
 import org.scholat.provider.user.service.UserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class UserDetailClient {
    @GetMapping("/users") 
    public Object findAll(){		
 	   List<UserDetail> userList = userService.findAll();	
-	  return new ResultMsg<Object>(CommonEnum.SUCCESS, userList);
+	  return ResultUtil.success(userList);
 	}
 	
    @GetMapping("/users/{userId}") 
