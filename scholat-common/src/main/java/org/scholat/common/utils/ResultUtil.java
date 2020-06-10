@@ -1,7 +1,8 @@
 package org.scholat.common.utils;
 
 import org.scholat.common.ResultMsg;
-import org.scholat.common.exception.CommonEnum;
+import org.scholat.common.message.BaseMsg;
+import org.scholat.common.message.enums.CommonEnum;
 
 /**
  * @author xmz
@@ -36,13 +37,12 @@ public class ResultUtil {
 	 * @return
 	 *Object
 	 */
-	public static Object fail(CommonEnum errMsg){
+	public static Object fail(BaseMsg errMsg){
 		return new ResultMsg<Object>(errMsg,null);	
 	}
 	
 	public static Object fail(String errMsg){
 		return new ResultMsg<Object>(-999,errMsg,null);	
 	}
-	
-	
+
 }

@@ -1,21 +1,11 @@
 package org.scholat.provider.user.controller.client;
 
-import java.util.UUID;
-import java.util.concurrent.TimeUnit;
-
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.scholat.common.ResultMsg;
-import org.scholat.common.constant.MyConstant;
-import org.scholat.common.exception.CommonEnum;
-import org.scholat.common.utils.CookieUtil;
 import org.scholat.common.utils.ResultUtil;
 import org.scholat.provider.user.pojo.UserLogin;
 import org.scholat.provider.user.service.UserLoginService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;

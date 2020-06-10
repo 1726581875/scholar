@@ -3,7 +3,7 @@ package org.scholat.provider.user.controller.client;
 import java.util.List;
 
 import org.scholat.common.ResultMsg;
-import org.scholat.common.exception.CommonEnum;
+import org.scholat.common.message.enums.CommonEnum;
 import org.scholat.common.utils.ResultUtil;
 import org.scholat.provider.user.pojo.UserDetail;
 import org.scholat.provider.user.service.UserDetailService;

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/scholat-common/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/scholat-eureka/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/scholat-eureka/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/scholat-provider-api/scholat-provider-user-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/scholat-provider/scholat-provider-common/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/scholat-provider/scholat-provider-user/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/scholat-provider/scholat-provider-user/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/scholat-provider/scholat-proviser-course/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/scholat-provider/scholat-proviser-course/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/scholat-zuul-gateway/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/scholat-zuul-gateway/src/main/resources" charset="UTF-8" />
+  </component>
+</project>

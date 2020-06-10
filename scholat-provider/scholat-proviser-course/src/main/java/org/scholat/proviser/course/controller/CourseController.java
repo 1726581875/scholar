@@ -6,28 +6,47 @@ import org.scholat.provider.api.service.UserDetailServiceApi;
 import org.scholat.proviser.course.pojo.Course;
 import org.scholat.proviser.course.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/course-api")
 public class CourseController {
 	
 	@Autowired
 	private CourseService courseService;
 		
-	@Autowired
-	private UserDetailServiceApi userServiceApi;
+	//@Autowired
+	//private UserDetailServiceApi userServiceApi;
+	//
+	//@GetMapping("/user/{userId}")
+	//public Object getUser(@PathVariable Integer userId){
+	//	return userServiceApi.findUserDetail(userId);
+	//}
 	
-	@GetMapping("/user/{userId}")
-	public Object getUser(@PathVariable Integer userId){		
-		return userServiceApi.findUserDetail(userId);
-	}
-	
-	@GetMapping("/courses")
+	@GetMapping("/all")
 	public List<Course> findAll(){
 		return courseService.findAll();
 	}
-	
+
+//	@GetMapping("/find/{courseId}")
+//	public Course findCourseById(@PathVariable Integer courseId){
+//		return courseService.findById(courseId);
+//	}
+
+	@PostMapping("/update")
+    public int updateCourse(Course course){
+		return courseService.updateSelection(course);
+	}
+
+
+	@PostMapping("/delete")
+	public int deleteCourseById(Integer courseId){
+		return courseService.deleteById(courseId);
+	}
+
+	@PostMapping("/insert")
+    public int insertCourse(Course course){
+		return courseService.insert(course);
+	}
 	
 }

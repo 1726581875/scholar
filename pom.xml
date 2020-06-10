@@ -67,7 +67,6 @@
     </dependencyManagement>
   
   <modules>
-    <module>schlat-eureka</module>
     <module>scholat-zuul-gateway</module>
     <module>scholat-common</module>
     <module>scholat-provider</module>

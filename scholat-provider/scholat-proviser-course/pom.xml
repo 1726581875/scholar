@@ -36,6 +36,13 @@
 			<artifactId>scholat-provider-user-api</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-			
+
+		<!-- 热部署 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+		</dependency>
+
+
 	</dependencies>
 </project>

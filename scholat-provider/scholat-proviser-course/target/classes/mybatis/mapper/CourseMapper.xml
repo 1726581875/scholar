@@ -4,25 +4,36 @@
 
 <mapper namespace="org.scholat.proviser.course.mapper.CourseMapper">
 
-	<select id="findById" resultType="org.scholat.proviser.course.pojo.Course">
-		select * from course
-		where course_id = #{courseId}
+	<resultMap id="courseResultMap" type="CourseDto">
+		<id property="courseId" column="course_id" />
+		<result property="courseName" column="courseName"/>
+		<result property="courseImage" column="course_image"/>
+		<result property="userName" column="user_name"/>
+		<result property="courseDesc" column="course_desc"/>
+	</resultMap>
+
+
+	<select id="findById" resultType="CourseDto">
+		select c.course_id,c.course_name,c.course_image,c.course_desc,u.user_name
+		from course c, user_detail u
+		where c.user_id = u.user_id
+		and course_id = #{courseId}
 	</select>
 
-	<select id="findAll" resultType="org.scholat.proviser.course.pojo.Course">
+	<select id="findAll" resultType="Course">
 		select * from course
 	</select>
 
 	<insert id="insert">
-		insert into course(course_name,user_id,course_desc)
-		value(#{courseName},#{userId},#{courseDesc})
+		insert into course(course_name,user_id,course_desc,course_image)
+		value(#{courseName},#{userId},#{courseDesc},#{courseImage})
 	</insert>
 
 	<delete id="deleteById">
 		delete from course where course_id = #{courseId}
 	</delete>
 
-	<update id="updateSelection" parameterType="org.scholat.proviser.course.pojo.Course">
+	<update id="updateSelection" parameterType="Course">
 		update course
 		<set>
 			<if test="courseImage != null">course_image=#{courseImage},</if>
@@ -31,6 +42,25 @@
 		</set>
 		where course_id=#{courseId}
 	</update>
+
+	
+	<sql id="courseClumn">
+		${c}.course_id,${c}.course_name,${c}.course_image,${c}.course_desc,${u}.user_name
+	</sql>
+	
+	<select id="findByName" resultType="CourseDto">
+		select c.course_id,c.course_name,c.course_image,c.course_desc,u.user_name
+		from course c, user_detail u
+		where c.user_id = u.user_id
+		and course_name like  concat('%',#{courseName},'%')
+	</select>
+
+	<select id="findByPage" resultType="CourseDto">
+		select c.course_id,c.course_name,c.course_image,c.course_desc,u.user_name
+		from course c ,user_detail u
+		where c.user_id = u.user_id
+	    limit #{begin},#{size}
+	</select>
 
 </mapper>
  
