@@ -3,7 +3,7 @@ package org.scholat.proviser.course.service;
 import java.util.List;
 
 import org.scholat.proviser.course.dto.CourseDto;
-import org.scholat.proviser.course.pojo.Course;
+import org.scholat.proviser.course.entity.Course;
 
 public interface CourseService {
 
@@ -19,6 +19,6 @@ public interface CourseService {
 	
 	public int insert(Course course);
 
-	public List<CourseDto> findByPage(int page);
+	public List<CourseDto> findByuserId(int userId);
 	
 }

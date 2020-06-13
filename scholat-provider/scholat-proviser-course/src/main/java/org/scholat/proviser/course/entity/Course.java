@@ -1,4 +1,4 @@
-package org.scholat.proviser.course.pojo;
+package org.scholat.proviser.course.entity;
 
 import java.util.Date;
 

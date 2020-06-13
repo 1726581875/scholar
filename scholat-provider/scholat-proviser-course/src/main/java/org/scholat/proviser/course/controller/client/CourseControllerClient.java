@@ -3,26 +3,24 @@ package org.scholat.proviser.course.controller.client;
 import static org.scholat.common.utils.ResultUtil.*;
 
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.scholat.common.constant.MyConstant;
 import org.scholat.common.message.enums.CommonEnum;
 import org.scholat.common.message.enums.CourseEnum;
-import org.scholat.common.message.exception.CommonException;
+import org.scholat.common.message.exception.CourseException;
 import org.scholat.common.utils.CheckUtil;
 import org.scholat.common.utils.MyFileUtil;
 import org.scholat.common.utils.ResultUtil;
 import org.scholat.proviser.course.dto.CourseDto;
-import org.scholat.proviser.course.pojo.Course;
+import org.scholat.proviser.course.entity.Course;
 import org.scholat.proviser.course.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
-import java.util.UUID;
 
 @CrossOrigin
 @RestController
@@ -38,36 +36,51 @@ public class CourseControllerClient {
 //        return (n == 0) ? fail(CourseEnum.COURSE_UPDATE_FAIL) : success();
 //    }
 
+    /**
+     * 查找方法
+     * 可以通过id查找，或者课程名字查找
+     * @param search 查找的词
+     * @return
+     */
+
     @GetMapping("/find")
     public Object findCourseByIdOrName(@RequestParam String search){
         CourseDto course = null;
-        if(CheckUtil.isNumber(search)){
+        if(CheckUtil.isNumber(search)){//如果是纯数字，调用按id查找
             course = courseService.findById(Integer.parseInt(search));
-        }else{
+        }else{//否则根据名字查
             List<CourseDto> coursedto = courseService.findByName(search);
             return success(coursedto);
         }
         return success(course);
     }
 
-
-    @GetMapping("/find/page/{page}")
-    public Object findCourseByPage(@PathVariable int page){
-        return success(courseService.findByPage(page));
+    /**
+     * 根据教师查找自己开设的课程
+     * @param page
+     * @return
+     */
+    @GetMapping("/find/{userId}/{page}")
+    public Object findCourseByPage(@PathVariable int userId , @PathVariable int page){
+        List<CourseDto> courseDtoList = courseService.findByuserId(userId);
+        //使用分页插件分页，设置页面大小和第几页
+        PageHelper.startPage(page,MyConstant.PAGE_SIZE);
+        PageInfo<CourseDto> pageInfo = new PageInfo<CourseDto>(courseDtoList);
+        return success(pageInfo);
     }
 
 
     /**
      * 新增课程
-     * @param file
-     * @param course
+     * @param file 课程图片
+     * @param course 课程信息
      * @return
      */
     @PostMapping(value = "/insert")
     public Object addCourse(@RequestParam(value = "fileName",required = false) MultipartFile file , Course course) {
          //。。。省略参数校验
 
-        String fileName = MyConstant.FILE_NAME;//先给个默认图片，如果用户没传图片给个默认图片
+        String fileName = MyConstant.DEFAULT_IMAGE;//先给个默认图片，如果用户没传图片给个默认图片
         if (file != null) {//如果不为空，说明用户有上传图片
             fileName = MyFileUtil.uploadImage(file);//调用工具类上传图片方法，并获取返回的新文件名
         }
@@ -77,25 +90,36 @@ public class CourseControllerClient {
     }
 
     /**
-     * 更新课程
+     * 更新课程的方法
+     * 表单一起提交，可能需要更新图片
      * @param file
      * @param course
      * @return
      */
     @PostMapping(value = "/update")
     public Object updateCourse(@RequestParam(value = "fileName",required = false) MultipartFile file , Course course) {
-
-        //。。。省略参数校验
-
-        CourseDto courseDto = courseService.findById(course.getCourseId());
-        if(courseDto != null) {
-            String oldName = courseDto.getCourseImage();
+        //参数校验
+        if(course.getCourseId() == null){//如果不传id
+            throw new CourseException(CommonEnum.PARAMETER_ERROR);//抛出异常
         }
-        if (file != null) {//需要修改图片
+
+        //判断是否有传来图片
+        if (file != null) {//不为空，表示需要修改图片
+            CourseDto courseDto = courseService.findById(course.getCourseId());
+            //1.删除服务器原来图片
+            if(courseDto != null) {
+                String oldPath = courseDto.getCourseImage();
+                String oldName = oldPath.substring(oldPath.lastIndexOf("/") + 1,oldPath.length());
+                log.info("oldName============>{}",oldName);
+                if(!oldName.equals(MyConstant.DEFAULT_IMAGE)){//如果不是默认图片（default.png）
+                    MyFileUtil.dropFile(MyConstant.IMAGE_PATH + oldName);//删除
+                }
+            }
+            //2.把新图片保存到服务器
             String newName = MyFileUtil.uploadImage(file);//保存新图片，并获取新名字
-            course.setCourseImage(MyConstant.IMAGE_PRE + newName);//设置存入数据库的文件名
+            course.setCourseImage(MyConstant.IMAGE_PRE + newName);//设置更新课程的新路径
         }
-
+            //3.更新课程
         int m = courseService.updateSelection(course);
         return m==1 ? ResultUtil.success() : ResultUtil.fail(CourseEnum.COURSE_UPDATE_FAIL);
     }
