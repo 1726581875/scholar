@@ -16,6 +16,6 @@ public interface MyConstant {
 
 	public final static String IMAGE_PRE = "/image/"; //图片映射路径
 
-	public final static String FILE_NAME = MyConstant.IMAGE_PRE + "default.png"; //位置默认图片
+	public final static String DEFAULT_IMAGE = MyConstant.IMAGE_PRE + "default.png"; //位置默认图片
 	
 }

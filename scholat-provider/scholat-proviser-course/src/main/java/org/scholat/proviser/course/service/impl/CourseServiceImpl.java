@@ -5,7 +5,7 @@ import java.util.List;
 import org.scholat.common.constant.MyConstant;
 import org.scholat.proviser.course.dto.CourseDto;
 import org.scholat.proviser.course.mapper.CourseMapper;
-import org.scholat.proviser.course.pojo.Course;
+import org.scholat.proviser.course.entity.Course;
 import org.scholat.proviser.course.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +26,7 @@ public class CourseServiceImpl implements CourseService{
 	}
 
 	@Override
-	public List<Course> findAll() {		
+	public List<Course> findAll() {
 		return courseMapper.findAll();
 	}
 
@@ -46,11 +46,9 @@ public class CourseServiceImpl implements CourseService{
 	}
 
 	@Override
-	public List<CourseDto> findByPage(int page) {
-		return courseMapper.findByPage(MyConstant.PAGE_SIZE * (page-1),MyConstant.PAGE_SIZE);
+	public List<CourseDto> findByuserId(int userId) {
+		return courseMapper.findByuserId(userId);
 	}
-
-
 
 
 

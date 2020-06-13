@@ -1,15 +1,17 @@
 package org.scholat.proviser.course.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import org.scholat.provider.api.service.UserDetailServiceApi;
-import org.scholat.proviser.course.pojo.Course;
+import org.scholat.proviser.course.entity.Course;
 import org.scholat.proviser.course.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/course-api")
+@CrossOrigin
 public class CourseController {
 	
 	@Autowired
@@ -23,9 +25,13 @@ public class CourseController {
 	//	return userServiceApi.findUserDetail(userId);
 	//}
 	
-	@GetMapping("/all")
-	public List<Course> findAll(){
-		return courseService.findAll();
+	@PostMapping("/all")
+	public Object findAll(String courseName,String courseDesc){
+		System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("courseName",courseName);
+		map.put("courseDesc",courseDesc);
+		return map;
 	}
 
 //	@GetMapping("/find/{courseId}")

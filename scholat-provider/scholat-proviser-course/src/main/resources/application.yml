@@ -18,7 +18,7 @@ mybatis:
   config-location: classpath:mybatis-config.xml
   mapper-locations:
   - classpath:mybatis/mapper/*.xml
-  type-aliases-package: org.scholat.proviser.course.pojo
+  type-aliases-package: org.scholat.proviser.course.entity
                         org.scholat.proviser.course.dto
 
 
@@ -40,3 +40,10 @@ feign:
   hystrix:
     enabled: true
 
+
+# 分页配置
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql
