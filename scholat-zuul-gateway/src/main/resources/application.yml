@@ -33,7 +33,7 @@ zuul:
   sensitiveHeaders:  #不过滤cookie
   prefix: /scholat
   routes:
-    scholat-user: /user/**
+    scholat-userLogin: /user/**
     scholat-course: /course/**
     #微服务应用实例名: /xxxx/***
     
