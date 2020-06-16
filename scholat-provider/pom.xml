@@ -71,5 +71,7 @@
 		<module>scholat-provider-common</module>
 		<module>scholat-proviser-course</module>
 		<module>scholat-provider-iuser</module>
-	</modules>
+        <module>scholat-provider-notice</module>
+    </modules>
+
 </project>

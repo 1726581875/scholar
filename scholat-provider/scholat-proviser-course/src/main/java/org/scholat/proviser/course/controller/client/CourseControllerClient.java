@@ -1,8 +1,5 @@
 package org.scholat.proviser.course.controller.client;
 
-import static org.scholat.common.utils.ResultUtil.*;
-
-
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +17,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import static org.scholat.common.utils.ResultUtil.success;
 
 @CrossOrigin
 @RestController
@@ -30,11 +30,14 @@ public class CourseControllerClient {
     @Autowired
     private CourseService courseService;
 
-//    @PostMapping("/update")
-//    public Object updateCourse(Course course){
-//        int n = courseService.updateSelection(course);
-//        return (n == 0) ? fail(CourseEnum.COURSE_UPDATE_FAIL) : success();
-//    }
+
+    @PostMapping("/delete")
+    public Object deleteCourse(Integer courseId){
+        log.info("accept =====> courseId={}",courseId);
+        int m = courseService.deleteById(courseId);
+        return m == 1 ? ResultUtil.success() : ResultUtil.fail("删除课程失败");
+    }
+
 
     /**
      * 查找方法
@@ -44,15 +47,21 @@ public class CourseControllerClient {
      */
 
     @GetMapping("/find")
-    public Object findCourseByIdOrName(@RequestParam String search){
-        CourseDto course = null;
+    public Object findCourseByIdOrName(@RequestParam String search,
+                                       @RequestParam(value="page",defaultValue = "1") Integer page){
+        //使用分页插件分页，设置页面大小和第几页
+        PageHelper.startPage(page,MyConstant.PAGE_SIZE);
+
+        List<CourseDto> coursedtoList = null;
         if(CheckUtil.isNumber(search)){//如果是纯数字，调用按id查找
-            course = courseService.findById(Integer.parseInt(search));
+            coursedtoList = new ArrayList<>();
+            CourseDto course = courseService.findById(Integer.parseInt(search));
+            coursedtoList.add(course);
         }else{//否则根据名字查
-            List<CourseDto> coursedto = courseService.findByName(search);
-            return success(coursedto);
+            coursedtoList = courseService.findByName(search);
         }
-        return success(course);
+        PageInfo<CourseDto> pageInfo = new PageInfo<CourseDto>(coursedtoList);
+        return success(pageInfo);
     }
 
     /**
@@ -60,11 +69,12 @@ public class CourseControllerClient {
      * @param page
      * @return
      */
-    @GetMapping("/find/{userId}/{page}")
-    public Object findCourseByPage(@PathVariable int userId , @PathVariable int page){
-        List<CourseDto> courseDtoList = courseService.findByuserId(userId);
+    @GetMapping("/user/{userId}/all")
+    public Object findCourseByPage(@PathVariable int userId ,
+                                   @RequestParam(value="page",defaultValue = "1") int page){
         //使用分页插件分页，设置页面大小和第几页
-        PageHelper.startPage(page,MyConstant.PAGE_SIZE);
+        PageHelper.startPage(page,MyConstant.PAGE_SIZE,"course_id DESC");
+        List<CourseDto> courseDtoList = courseService.findByuserId(userId);
         PageInfo<CourseDto> pageInfo = new PageInfo<CourseDto>(courseDtoList);
         return success(pageInfo);
     }
@@ -123,6 +133,9 @@ public class CourseControllerClient {
         int m = courseService.updateSelection(course);
         return m==1 ? ResultUtil.success() : ResultUtil.fail(CourseEnum.COURSE_UPDATE_FAIL);
     }
+
+
+
 
 
 

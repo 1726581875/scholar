@@ -8,6 +8,7 @@
 		<artifactId>scholat-provider-api</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
+
 	<groupId>cn.edu.lingnan</groupId>
 	<artifactId>scholat-provider-user-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>

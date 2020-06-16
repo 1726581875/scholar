@@ -10,6 +10,7 @@
 		from course c ,user_detail u,course_user cu
 		where c.user_id = u.user_id and cu.course_id = c.course_id
 		and cu.user_id = #{userId}
+		order by create_time desc
 	</select>
 
 
@@ -50,7 +51,11 @@
 
 
 
-	<!-- 批量删除 -->
+	<!-- 根据courseId删除课程用户 -->
+	<delete id="deleteUserByCourseId">
+		delete from course_user
+		where course_id = #{courseId}
+	</delete>
 
 
 </mapper>

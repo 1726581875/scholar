@@ -10,7 +10,7 @@ public interface MyConstant {
 	public final static String TOKEN_NAME = "token";
 	public final static int EXPIRE_TIME = 1000;
 
-	public final static int PAGE_SIZE = 10;
+	public final static int PAGE_SIZE = 6;
 
 	public final static String IMAGE_PATH = "F://image//";//服务器存放图片位置
 

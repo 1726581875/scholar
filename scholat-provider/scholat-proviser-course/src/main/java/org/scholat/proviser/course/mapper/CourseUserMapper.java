@@ -12,7 +12,7 @@ import java.util.List;
 public interface CourseUserMapper {
 
     //删除用户课程表记录
-    public int deleteById(int userId ,int courseId);
+    public int deleteById(@Param("userId") int userId ,@Param("courseId") int courseId);
     //插入
     public int insert(CourseUser courseUser);
     //更新
@@ -26,4 +26,5 @@ public interface CourseUserMapper {
     //查找某课程的所有班级
     public List<String> findCourseClass(int courseId);
 
+    public int deleteUserByCourseId(int courseId);
 }
