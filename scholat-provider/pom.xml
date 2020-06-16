@@ -68,8 +68,8 @@
 	   </dependencies>
 
 	<modules>
-		<module>scholat-provider-user</module>
 		<module>scholat-provider-common</module>
 		<module>scholat-proviser-course</module>
-	</modules>
+        <module>scholat-provider-notice</module>
+    </modules>
 </project>

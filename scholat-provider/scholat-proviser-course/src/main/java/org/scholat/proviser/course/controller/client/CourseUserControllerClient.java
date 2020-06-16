@@ -3,7 +3,7 @@ package org.scholat.proviser.course.controller.client;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.scholat.common.ResultMsg;
+import lombok.extern.slf4j.Slf4j;
 import org.scholat.common.constant.MyConstant;
 import org.scholat.common.utils.ResultUtil;
 import org.scholat.proviser.course.dto.CourseDto;
@@ -16,19 +16,21 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
+@Slf4j
 public class CourseUserControllerClient {
 
     @Autowired
     private CourseUserService courseUserService;
 
-    @PostMapping("/join")
-    public Object joinCourse(CourseUser courseUser){
+    @GetMapping("/join")
+    public Object joinaCourse(CourseUser courseUser){
         int m = courseUserService.joinCourse(courseUser);
         return (m==1) ? ResultUtil.success() : ResultUtil.fail("加入课程失败");
     }
 
-    @PostMapping("/out")
+    @PostMapping(value = "/out")
    public Object outCurse(Integer userId , Integer courseId){
+        log.info("userId={} , courseId={}",userId,courseId);
        int m = courseUserService.outCourse(userId, courseId);
        return (m==1) ? ResultUtil.success() : ResultUtil.fail("退出课程失败");
    }
@@ -39,11 +41,11 @@ public class CourseUserControllerClient {
      * @param page
      * @return
      */
-    @GetMapping("/{userId}/join/{page}")
-   public Object findMyJoInCourse(@PathVariable  Integer userId, @PathVariable Integer page){
-        List<CourseDto> courses = courseUserService.findUserjoinCourses(userId);
+    @GetMapping("/user/{userId}/all/join")
+   public Object findMyJoInCourse(@PathVariable  Integer userId,Integer page){
         //使用分页插件分页，设置页面大小和第几页
         PageHelper.startPage(page, MyConstant.PAGE_SIZE);
+        List<CourseDto> courses = courseUserService.findUserjoinCourses(userId);
         PageInfo<CourseDto> pageInfo = new PageInfo<CourseDto>(courses);
         return ResultUtil.success(pageInfo);
    }
@@ -54,8 +56,8 @@ public class CourseUserControllerClient {
      * @param className
      * @return
      */
-   @GetMapping("/{courseId}/class/name")
-   public Object findCourseUser(@PathVariable  Integer courseId ,@RequestParam String className){
+   @GetMapping("/{courseId}/class/user")
+   public Object findCourseUser(@PathVariable  Integer courseId ,@RequestParam(value = "className" ,required = false) String className){
 
         return ResultUtil.success(courseUserService.findCourseUser(courseId,className));
     }

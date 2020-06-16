@@ -20,4 +20,6 @@ public interface CourseUserService {
     public List<CourseUserDto> findCourseUser(int courseId,String className);
 
     public List<String> findCourseClass(int courseId);
+
+    public int deleteUserByCourseId(int courseId);
 }

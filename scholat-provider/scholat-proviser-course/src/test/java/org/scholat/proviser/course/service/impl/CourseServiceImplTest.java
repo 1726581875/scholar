@@ -4,7 +4,6 @@ import junit.framework.TestCase;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.scholat.proviser.course.dto.CourseDto;
-import org.scholat.proviser.course.pojo.Course;
 import org.scholat.proviser.course.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -32,7 +31,7 @@ public class CourseServiceImplTest{
 
     @Test
     public void testFindAll() {
-        courseService.findByPage(4).forEach(System.out::println);
+      //  courseService.findByPage(4).forEach(System.out::println);
     }
 
     public void testUpdateSelection() {
