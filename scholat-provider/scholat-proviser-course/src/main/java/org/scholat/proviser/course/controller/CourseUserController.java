@@ -9,7 +9,7 @@ import org.scholat.proviser.course.entity.CourseUser;
 import org.scholat.proviser.course.service.CourseUserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,7 +22,7 @@ public class CourseUserController {
     @Autowired
     private CourseUserService courseUserService;
 
-    @PostMapping("/join")
+    @PutMapping(value = "/join")
     public ResultMsg<Object> joinCourse(@RequestBody CourseUserInfo courseUser){
         log.info("course服务，接收参数CourseUser======>{}",courseUser);
 

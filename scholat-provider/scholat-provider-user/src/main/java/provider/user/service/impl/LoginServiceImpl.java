@@ -38,7 +38,6 @@ public class LoginServiceImpl implements UserLoginService{
         if (op.isPresent()) {
             return op.get();
         }
-
         return null;
     }
 

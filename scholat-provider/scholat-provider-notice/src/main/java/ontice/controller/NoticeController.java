@@ -3,16 +3,13 @@ package ontice.controller;
 import cn.scholat.service.CourseUserServiceApi;
 import lombok.extern.slf4j.Slf4j;
 import ontice.model.SelectionNotice;
+import ontice.service.MyWebSoket;
 import ontice.service.NoticeService;
 import org.scholat.common.ResultMsg;
 import org.scholat.common.pojo.CourseUserInfo;
+import org.scholat.common.utils.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-import javax.transaction.Transactional;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
@@ -20,7 +17,13 @@ import javax.transaction.Transactional;
 public class NoticeController {
 
     @Autowired
+    private MyWebSoket webSoket;
+
+    @Autowired
     private NoticeService noticeService;
+
+    @Autowired
+    private MyWebSoket myWebSoket;
 
     @Autowired
     private CourseUserServiceApi courseUserApi;
@@ -33,13 +36,12 @@ public class NoticeController {
 
     @GetMapping("/all")
     public Object findAllMsg(@RequestParam("userId") Integer userId, @RequestParam(value="page",defaultValue = "1") Integer page){
-
-        return noticeService.findAllByAcceptId(userId,page);
+        myWebSoket.sendMessage("11111111");
+        return ResultUtil.success(noticeService.findAllByAcceptId(userId,page));
     }
 
 
     @GetMapping("/addCourse")
-    @Transactional
     public Object addCourse(CourseUserInfo courseUser,int noticeId){
         log.info("[通知服务] =======>{}noticeId={}",courseUser,noticeId);
        ResultMsg<Object> result = courseUserApi.joinCourse(courseUser);
@@ -47,6 +49,12 @@ public class NoticeController {
             noticeService.setNoticeResult(noticeId);
         }
         return result;
+    }
+
+
+    @PostMapping("/send/to/all")
+    public void sendMessagetoAll(String message){
+        webSoket.sendMessage(message);
     }
 
 

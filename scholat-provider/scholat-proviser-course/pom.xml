@@ -50,5 +50,13 @@
 			<version>1.2.10</version>
 		</dependency>
 
+        <!-- 通知服务api-->
+		<dependency>
+			<groupId>cn.edu.lingnan</groupId>
+			<artifactId>scholat-provider-notice-api</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+
 	</dependencies>
 </project>

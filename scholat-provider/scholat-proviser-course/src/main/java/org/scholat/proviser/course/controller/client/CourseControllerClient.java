@@ -1,5 +1,6 @@
 package org.scholat.proviser.course.controller.client;
 
+import cn.scholat.service.NoticeServiceApi;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +30,9 @@ public class CourseControllerClient {
 
     @Autowired
     private CourseService courseService;
+
+    @Autowired
+    public NoticeServiceApi noticeServiceApi;
 
 
     @PostMapping("/delete")
@@ -76,6 +80,9 @@ public class CourseControllerClient {
         PageHelper.startPage(page,MyConstant.PAGE_SIZE,"course_id DESC");
         List<CourseDto> courseDtoList = courseService.findByuserId(userId);
         PageInfo<CourseDto> pageInfo = new PageInfo<CourseDto>(courseDtoList);
+
+        noticeServiceApi.sendMessagetoAll("hahahaahahhahahahhaah");
+
         return success(pageInfo);
     }
 

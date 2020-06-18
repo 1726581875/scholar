@@ -70,7 +70,7 @@
 	<modules>
 		<module>scholat-provider-common</module>
 		<module>scholat-proviser-course</module>
-		<module>scholat-provider-iuser</module>
+		<module>scholat-provider-user</module>
         <module>scholat-provider-notice</module>
     </modules>
 

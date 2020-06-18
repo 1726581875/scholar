@@ -30,3 +30,13 @@ eureka:
 feign:
   hystrix:
     enabled: true
+
+### Hystrix 配置
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            # 熔断器超时时间，默认：1000/毫秒
+            timeoutInMilliseconds: 5000

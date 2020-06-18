@@ -35,5 +35,6 @@
   <modules>
     <module>scholat-provider-user-api</module>
       <module>scholat-provider-course-api</module>
+      <module>scholat-provider-notice-api</module>
   </modules>
 </project>
