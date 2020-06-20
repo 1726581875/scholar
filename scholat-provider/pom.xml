@@ -75,15 +75,11 @@
 	<modules>
 		<module>scholat-provider-common</module>
 		<module>scholat-proviser-course</module>
-<<<<<<< HEAD
         <module>scholat-provider-resource</module>
 		<module>scholat-provider-task</module>
-	</modules>
-=======
 		<module>scholat-provider-user</module>
         <module>scholat-provider-notice</module>
 		<module>scholat-provider-question</module>
     </modules>
 
->>>>>>> 48760fc2388e1ec2a5a0329dbcf4e49a010fb8dd
 </project>
