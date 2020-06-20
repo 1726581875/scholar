@@ -1,0 +1,34 @@
+package org.scholat.provider.question.service;
+
+import java.util.List;
+
+import org.scholat.provider.question.pojo.Question;
+import org.scholat.provider.question.pojo.SingleQueAndRepList;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
+/*
+ * @author lsx
+ * 提问service接口
+ */
+public interface QuestionService {
+	
+	//发布提问
+	void addQuestion(Question question);
+	
+	//删除评论
+	void deleteQuestion(Integer questionId);
+	
+	//查看提问并显示回复
+	SingleQueAndRepList findSingleQuestion(Integer questionId);
+	
+	//所有提问(分页)
+	Page<Question> allQuestion(Pageable pageable);
+	
+	//根据教师号查找所发布的评论(分页)
+	Page<Question> findQuestionByTeacher(Integer userId,Pageable pageable);
+	
+	//查找提问
+	Question findQuestion(Integer questionId);
+	
+}
