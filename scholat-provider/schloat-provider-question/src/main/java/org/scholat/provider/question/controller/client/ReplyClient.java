@@ -33,6 +33,7 @@ public class ReplyClient {
 	@Autowired
 	private ReplyService replyService;
 	
+	//根据问题的Id查找该问题的所有回复
 	@GetMapping("/replys/findReplyList/{questionId}/{page}")
 	public Object queReply(@PathVariable Integer questionId,@PathVariable Integer page){
 		PageRequest pageReques=PageRequest.of(page,8);  //第page+1页的8条记录
@@ -40,24 +41,18 @@ public class ReplyClient {
 		   return new ResultMsg<Object>(1,ReplyList,"success"); 
 	}
 	
+	//删除回复
 	@DeleteMapping("/replys/deleteReply/{replyId}")
 	public Object deleteReply(@PathVariable Integer replyId){
 		replyService.deleteReply(replyId);
 		return new ResultMsg<Object>(1,null,"success");
 	}
 	
-	@GetMapping("/replys/replyWithQues/{page}")
-	public Object findReplyWithQue(@PathVariable Integer page,HttpServletRequest request){
+	//查找个人的所有回复并显示回复的问题
+	@GetMapping("/replys/replyWithQues/{userId}/{page}")
+	public Object findReplyWithQue(@PathVariable Integer userId,@PathVariable Integer page,HttpServletRequest request){
 		PageQuestionAndReply pageQuestionAndReply = new PageQuestionAndReply();
 		PageRequest pageReques=PageRequest.of(page,8);  //第page+1页的8条记录		
-//		// Cookie cookie=new Cookie("sessionId","CookieTestInfo");
-//		Cookie[] cookies = (Cookie[]) request.getCookies();
-//		if(cookies != null){
-//		for(Cookie cookie : cookies){
-//		if(cookie.getName().equals("sessionId")){
-//			userId =  cookie.getValue();
-//		}
-		Integer userId = 2;    //测试数据:仅作测试使用
 //		List<QuestionAndReply> ReplyByUser = replyService.findReplyByUser(userId);
 		pageQuestionAndReply.setQuestionAndReply(replyService.findReplyByUser(userId,pageReques).getContent());
 		pageQuestionAndReply.setPageCount(replyService.findReplyByUser(userId,pageReques).getTotalPages());
@@ -66,6 +61,7 @@ public class ReplyClient {
 	}
 	
     
+	//回复问题
     @PutMapping("/replys/addReply")
     public Object addReply(@RequestBody Reply reply){
     	System.out.println(reply);
