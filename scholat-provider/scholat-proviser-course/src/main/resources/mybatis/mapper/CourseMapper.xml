@@ -55,11 +55,10 @@
 		and course_name like  concat('%',#{courseName},'%')
 	</select>
 
-	<select id="findByPage" resultType="CourseDto">
+	<select id="findByuserId" resultType="CourseDto">
 		select c.course_id,c.course_name,c.course_image,c.course_desc,u.user_name
 		from course c ,user_detail u
-		where c.user_id = u.user_id
-	    limit #{begin},#{size}
+		where c.user_id = u.user_id and c.user_id = #{userId}
 	</select>
 
 </mapper>

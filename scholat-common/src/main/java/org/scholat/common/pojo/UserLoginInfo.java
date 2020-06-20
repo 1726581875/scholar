@@ -16,9 +16,11 @@ public class UserLoginInfo {
 	private String userMail;
 	
 	private String password;
+
+	private Integer role;
 	
     public static UserLoginInfo invalid() {
-        return new UserLoginInfo(-1, "", "", "");
+        return new UserLoginInfo(-1, "","", "", null);
     }
 	
 }

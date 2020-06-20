@@ -33,6 +33,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		 </dependency>
+<<<<<<< HEAD
       <!--   导入OAP，做日志     -->
       <dependency>
           <groupId>org.springframework.boot</groupId>
@@ -47,5 +48,24 @@
           <groupId>org.springframework.boot</groupId>
           <artifactId>spring-boot-starter-log4j2</artifactId>
       </dependency>
+=======
+
+
+      <!-- jwt依赖 -->
+      <dependency>
+          <groupId>io.jsonwebtoken</groupId>
+          <artifactId>jjwt</artifactId>
+          <version>0.9.1</version>
+      </dependency>
+
+
+      <dependency>
+          <groupId>org.apache.commons</groupId>
+          <artifactId>commons-lang3</artifactId>
+      </dependency>
+
+
+
+>>>>>>> 48760fc2388e1ec2a5a0329dbcf4e49a010fb8dd
   </dependencies>
 </project>

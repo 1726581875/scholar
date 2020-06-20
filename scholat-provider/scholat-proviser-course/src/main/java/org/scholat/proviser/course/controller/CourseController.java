@@ -1,20 +1,22 @@
 package org.scholat.proviser.course.controller;
 
-import java.util.List;
-
-import org.scholat.provider.api.service.UserDetailServiceApi;
-import org.scholat.proviser.course.pojo.Course;
+import cn.scholat.service.NoticeServiceApi;
+import org.scholat.proviser.course.entity.Course;
 import org.scholat.proviser.course.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/course-api")
+@CrossOrigin(allowCredentials = "true",allowedHeaders = "*")
 public class CourseController {
 	
 	@Autowired
 	private CourseService courseService;
-		
+
+	@Autowired
+	private NoticeServiceApi noticeServiceApi;
+
 	//@Autowired
 	//private UserDetailServiceApi userServiceApi;
 	//
@@ -22,10 +24,16 @@ public class CourseController {
 	//public Object getUser(@PathVariable Integer userId){
 	//	return userServiceApi.findUserDetail(userId);
 	//}
-	
-	@GetMapping("/all")
-	public List<Course> findAll(){
-		return courseService.findAll();
+
+	/**
+	 * 测试
+	 * @return
+	 */
+	@GetMapping("/send")
+	public Object findAll(){
+	//	noticeServiceApi.sendMessageToCourseUser( 1,"交作业11111啦啦啦啦");
+		noticeServiceApi.sendMessageToOne(1,"交作业11111啦啦啦啦");
+		return "ok";
 	}
 
 //	@GetMapping("/find/{courseId}")

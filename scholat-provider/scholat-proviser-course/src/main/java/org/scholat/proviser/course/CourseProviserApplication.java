@@ -7,9 +7,8 @@ import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
-
-@EnableFeignClients(basePackages={"org.scholat.provider.api"})
-@ComponentScan(basePackages={"org.scholat.provider.api","org.scholat.proviser.course"})
+@EnableFeignClients(basePackages={"org.scholat.provider.api","cn.scholat.service"})
+@ComponentScan(basePackages={"org.scholat.provider.api","org.scholat.proviser.course","cn.scholat.service"})
 @EnableCircuitBreaker
 @SpringBootApplication
 @EnableEurekaClient

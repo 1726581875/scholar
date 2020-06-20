@@ -1,0 +1,35 @@
+<head>
+    <meta charset="UTF-8" />
+    <title>springboot登录</title>
+    <style type="text/css">
+        ul li{
+            list-style: none;
+        }
+    </style>
+</head>
+<body>
+<div >
+    <form name="form" accept-charset="utf-8"  action="/doLogin">
+        <ul >
+            <li>
+                <label  class="input-tips2">用户名：</label>
+                <div class="inputOuter2">
+                    <input type="text" id="phone" name="phone" maxlength="16" />
+                </div>
+            </li>
+            <li>
+                <label class="input-tips2">密码：</label>
+                <div >
+                    <input type="password" id="password"  name="password" maxlength="16"/>
+                </div>
+            </li>
+            <li>
+                <div >
+                    <input type="submit" value="登录"/>
+                    <a href="/regist">注册</a>
+                </div>
+            </li>
+        </ul>
+    </form>
+</div>
+</body>

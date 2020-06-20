@@ -1,5 +1,6 @@
 package org.scholat.common.utils;
 
+import lombok.extern.slf4j.Slf4j;
 import org.scholat.common.constant.MyConstant;
 import org.scholat.common.message.enums.CommonEnum;
 import org.scholat.common.message.enums.CourseEnum;
@@ -10,6 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 
+@Slf4j
 public class MyFileUtil {
 
     /**
@@ -46,9 +48,9 @@ public class MyFileUtil {
      * @param path
      */
     public static void dropFile(String path){
-
        File file = new File(path);
        if(file.exists()){//如果文件存在
+           log.info("========>delete file {} in {}",file.getName(),file.getAbsolutePath());
            file.delete();//删除
        }
     }
