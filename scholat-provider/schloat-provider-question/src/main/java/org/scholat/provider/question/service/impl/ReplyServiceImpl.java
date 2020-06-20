@@ -26,9 +26,9 @@ public class ReplyServiceImpl implements ReplyService{
 	private QuestionService questionService;
 
 	@Override
-	public List<Reply> findReply(Integer questionId) {
+	public Page<Reply> findReply(Integer questionId,Pageable pageable) {
 		// TODO Auto-generated method stub
-		return replyReporitory.findByQuestionId(questionId);
+		return replyReporitory.findByQuestionId(questionId,pageable);
 	}
 
 	@Override
@@ -62,5 +62,6 @@ public class ReplyServiceImpl implements ReplyService{
 		// TODO Auto-generated method stub
 	    replyReporitory.save(reply);
 	}
+
 
 }

@@ -3,6 +3,8 @@ package org.scholat.provider.question.pojo;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+
 import lombok.Data;
 /*
  * @author lsx
@@ -12,6 +14,6 @@ public class SingleQueAndRepList {
 	
 	private Optional<Question> question;
 	
-	private List<Reply> replyList;
+	private Page<Reply> replyList;
 
 }

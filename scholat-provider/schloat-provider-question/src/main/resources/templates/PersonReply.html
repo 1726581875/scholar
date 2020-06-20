@@ -126,10 +126,8 @@
 			success : function(result) {//如果ajax请求发送成功调用的回调函数
 				if (result.success) {//判断后台是否正常返回
 					totalPage = result.data.pageCount;      //获取总页数
-				//	$('total').append('总共'+totalPage+'页');    
 					document.getElementById("total").innerHTML = totalPage;  //在分页栏那里输出
-					size = result.data.size;                //获取记录总数
-				//	$('size').append('共'+size+'条记录');    
+					size = result.data.size;                //获取记录总数 
 				    document.getElementById("size").innerHTML = size;  //在分页栏输出总共多少条记录
 				    document.getElementById("nowPage").innerHTML = page + 1;    //设置当前页
 				    var questionAndReply = result.data.questionAndReply;

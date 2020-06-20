@@ -45,15 +45,16 @@ public class QuestionController {
 		questionService.deleteQuestion(questionId);
 	}
 	
-	@GetMapping("/question/singleQuestion/{questionId}")
-	public SingleQueAndRepList findSingleQuestion(@PathVariable Integer questionId){
-		return questionService.findSingleQuestion(questionId);
+	@GetMapping("/question/singleQuestion/{questionId}/{page}")
+	public SingleQueAndRepList findSingleQuestion(@PathVariable Integer questionId,@PathVariable Integer page){
+		PageRequest pageReques=PageRequest.of(page,8);  //第page+1页的8条记录
+		return questionService.findSingleQuestion(questionId,pageReques);
 	}
 	
 	@GetMapping("/question/questionListByUser/{page}")
 	public PageQuestion findQuestionByUser(@PathVariable Integer page){
 		PageQuestion pagePersonQuestion = new PageQuestion();
-		PageRequest pageReques=PageRequest.of(page,2);  //第page+1页的2条记录		
+		PageRequest pageReques=PageRequest.of(page,8);  //第page+1页的8条记录		
 //		// Cookie cookie=new Cookie("sessionId","CookieTestInfo");
 //		Cookie[] cookies = (Cookie[]) request.getCookies();
 //		if(cookies != null){

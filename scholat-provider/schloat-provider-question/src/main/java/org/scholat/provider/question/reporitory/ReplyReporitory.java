@@ -3,6 +3,8 @@ package org.scholat.provider.question.reporitory;
 import java.util.List;
 
 import org.scholat.provider.question.pojo.Reply;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 /*
  * @author lsx
@@ -10,8 +12,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface ReplyReporitory extends JpaRepository<Reply, Integer>{
 
 	//查找提问对应的评论
-	List<Reply> findByQuestionId(Integer questionId);
+	Page<Reply> findByQuestionId(Integer questionId,Pageable pageable);
 	
 	//查找个人评论
 	List<Reply> findByUserId(Integer userId);
+	
 }

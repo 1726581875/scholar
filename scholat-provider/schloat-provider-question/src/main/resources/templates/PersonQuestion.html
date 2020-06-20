@@ -293,7 +293,7 @@
      function getCourse(){
     	 $.ajax({
  			type : "GET",
- 			url : "根据userId获取个人所教的课程",
+ 			url : "http://localhost:8001/scholat/course/user/"+userId+"/all",
  			success : function(result) {//如果ajax请求发送成功调用的回调函数
  				if (result.success) {//判断后台是否正常返回
  				    var course = result.data;

@@ -12,6 +12,7 @@ import org.scholat.provider.question.pojo.QuestionAndReply;
 import org.scholat.provider.question.pojo.Reply;
 import org.scholat.provider.question.service.ReplyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -32,9 +33,10 @@ public class ReplyClient {
 	@Autowired
 	private ReplyService replyService;
 	
-	@GetMapping("/replys/findReplyList/{questionId}")
-	public Object queReply(@PathVariable Integer questionId){
-		   List<Reply> ReplyList = replyService.findReply(questionId);
+	@GetMapping("/replys/findReplyList/{questionId}/{page}")
+	public Object queReply(@PathVariable Integer questionId,@PathVariable Integer page){
+		PageRequest pageReques=PageRequest.of(page,8);  //第page+1页的8条记录
+		   Page<Reply> ReplyList = replyService.findReply(questionId,pageReques);
 		   return new ResultMsg<Object>(1,ReplyList,"success"); 
 	}
 	

@@ -39,12 +39,12 @@ public class QuestionServiceImpl implements QuestionService{
 	}
 
 	@Override
-	public SingleQueAndRepList findSingleQuestion(Integer questionId) {
+	public SingleQueAndRepList findSingleQuestion(Integer questionId,Pageable pageable) {
 		// TODO Auto-generated method stub		
 		SingleQueAndRepList singQueAndRepList = new SingleQueAndRepList();
 		Optional<Question> question = questionReporitory.findById(questionId);
 		singQueAndRepList.setQuestion(question);
-		List<Reply> replyList = replyService.findReply(questionId);
+		Page<Reply> replyList = replyService.findReply(questionId,pageable);
 		singQueAndRepList.setReplyList(replyList);
 		return singQueAndRepList;
 	}

@@ -44,9 +44,10 @@ public class QuestionClient {
 		return new ResultMsg<Object>(1, null,"success");
 	}
 	
-	@GetMapping("/questions/singleQuestion/{questionId}")
-	public ResultMsg<Object> findSingleQuestion(@PathVariable Integer questionId){
-		SingleQueAndRepList singleQuestion = questionService.findSingleQuestion(questionId);
+	@GetMapping("/questions/singleQuestion/{questionId}/{page}")
+	public ResultMsg<Object> findSingleQuestion(@PathVariable Integer questionId,@PathVariable Integer page){
+		PageRequest pageReques=PageRequest.of(page,8);  //第page+1页的8条记录
+		SingleQueAndRepList singleQuestion = questionService.findSingleQuestion(questionId,pageReques);
 		return new ResultMsg<Object>(1,singleQuestion,"success");
 	}
 	

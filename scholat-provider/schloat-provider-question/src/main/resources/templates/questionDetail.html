@@ -51,71 +51,20 @@
 		</table>
 	</div>
 
-   
+   <!-- 分页按钮 -->
+	<div id="setPage">
+	    <a href="#" onclick="up()" id="prePage">上一页</a>|共<nobr id="size"></nobr>条记录|<a href="#" onclick="down()" id="nextPage">下一页</a>|当前第<nobr id="nowPage"></nobr>页|总共<nobr id="total"></nobr>页 	    
+	</div>
 
 
 </body>
 <script type="text/javascript">
+var page = 1;   //设置默认第一页
+var totalPage = 0;     //总页数
+var size = 0;          //总记录数
 jQuery(document).ready(
 		function() { //页面加载完成	
-			/****************************************
-			*接收地址栏传来的参数questionId
-			*/
-			//使用正则表达式获取url中的参数
-			function getUrlParam(name) {
-				//构造一个含有目标参数的正则表达式对象
-				var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
-	        	//匹配目标参数 
-	        	var r = window.location.search.substr(1).match(reg);  
-	        	//返回参数值
-	        	if (r != null) return unescape(r[2]); return null;
-	        }
-	        var questionId = getUrlParam('questionId');
-		
-		/**********************************************
-		 *1.查提问的问题及回复的ajax
-		 **********************************************
-		 */	
-         //向接口http://localhost:8001/scholat/question/questions/singleQuestion/1 发送ajax获取提问的问题及回复信息
-			$.ajax({
-				type : "GET",
-				url : "http://localhost:8001/scholat/question/questions/singleQuestion/"+questionId,
-				success : function(result) {//如果ajax请求发送成功调用的回调函数
-					if (result.success) {//判断后台是否正常返回
-						var question = result.data.question;  //获取提问的问题
-					    $('#question').append(//输出问题
-					    		'<tr><td>' + question.questionId
-								+ '</td><td>'
-								+ question.courseId
-								+ '</td>' + '<td>'
-								+ question.userId
-								+ '</td><td>'
-								+ question.questionContent
-								+ '</td><td>'
-								+ question.createTime
-								+ '</td><td>'
-								+ '<a href="#" onclick="ShowTxt()">回复</a>'     //打开回复弹窗
-								+ '</td></tr>'
-								);
-					    var reply = result.data.replyList;//获取回复的List集
-						for (var i = 0; i < reply.length; i++) {
-							$('#replyList').append(//for循环动态拼接到id为‘ myTbody’的表单里
-									'<tr><td>' + reply[i].replyId
-											+ '</td><td>'
-											+ reply[i].userId
-											+ '</td>' + '<td>'
-											+ reply[i].replyContent
-											+ '</td><td>'
-											+ reply[i].createTime
-											+ '</td><td>'
-											+  '<a href="#" onclick = "deleteReply('+reply[i].replyId+')">删除 </a>'
-											+ '</td></tr>');
-						}
-					} else {//否则是后台没正确返回数据
-						alert("后台失败");
-					}
-				}
-			});
+			getInformation(page-1);
 		})
 		
 		
@@ -234,6 +183,118 @@ jQuery(document).ready(
  		       }
  		   });
         }
+        
+        /**************************************************
+        *7.获取页面信息的ajax
+        ***************************************************
+        */
+        function getInformation(page){
+        	/****************************************
+			*接收地址栏传来的参数questionId
+			*/
+			//使用正则表达式获取url中的参数
+			function getUrlParam(name) {
+				//构造一个含有目标参数的正则表达式对象
+				var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+	        	//匹配目标参数 
+	        	var r = window.location.search.substr(1).match(reg);  
+	        	//返回参数值
+	        	if (r != null) return unescape(r[2]); return null;
+	        }
+	        var questionId = getUrlParam('questionId');
+	        /**********************************************
+			 *1.查提问的问题及回复的ajax
+			 **********************************************
+			 */	
+	         //向接口http://localhost:8001/scholat/question/questions/singleQuestion/1 发送ajax获取提问的问题及回复信息
+				$.ajax({
+					type : "GET",
+					url : "http://localhost:8001/scholat/question/questions/singleQuestion/"+questionId+"/"+page,
+					success : function(result) {//如果ajax请求发送成功调用的回调函数
+						if (result.success) {//判断后台是否正常返回
+							totalPage = result.data.replyList.totalPages;      //获取总页数
+							document.getElementById("total").innerHTML = totalPage;  //在分页栏那里输出
+							size = result.data.replyList.totalElements;                //获取记录总数 
+						    document.getElementById("size").innerHTML = size;  //在分页栏输出总共多少条记录
+						    document.getElementById("nowPage").innerHTML = page + 1;    //设置当前页
+							var question = result.data.question;  //获取提问的问题
+						    $('#question').append(//输出问题
+						    		'<tr><td>' + question.questionId
+									+ '</td><td>'
+									+ question.courseId
+									+ '</td>' + '<td>'
+									+ question.userId
+									+ '</td><td>'
+									+ question.questionContent
+									+ '</td><td>'
+									+ question.createTime
+									+ '</td><td>'
+									+ '<a href="#" onclick="ShowTxt()">回复</a>'     //打开回复弹窗
+									+ '</td></tr>'
+									);
+						    var reply = result.data.replyList.content;//获取回复的List集
+						    if(reply.length == 0){
+						    	$('#replyList').append(//for循环动态拼接到id为‘ replyList’的表单里
+						    			'<tr><td><font color="red">暂时还没回复哦!</font></td></tr>');
+						    }else{
+						    	for (var i = 0; i < reply.length; i++) {
+									$('#replyList').append(//for循环动态拼接到id为‘ replyList’的表单里
+											'<tr><td>' + reply[i].replyId
+													+ '</td><td>'
+													+ reply[i].userId
+													+ '</td>' + '<td>'
+													+ reply[i].replyContent
+													+ '</td><td>'
+													+ reply[i].createTime
+													+ '</td><td>'
+													+  '<a href="#" onclick = "deleteReply('+reply[i].replyId+')">删除 </a>'
+													+ '</td></tr>');
+								}
+						    }							
+						} else {//否则是后台没正确返回数据
+							alert("后台失败");
+						}
+					}
+				});
+	        
+        }
+        
+        /**********************************************
+     	*8.上一页控制
+     	***********************************************
+     	*/
+     	function up(){	
+            page = parseInt(document.getElementById("nowPage").innerHTML); 
+     		if(page == 1){
+     			alert("已经是第一页了");
+     		}else{
+     			page = page -1;
+     			document.getElementById("nowPage").innerHTML = page;			
+     			//刷新本页面
+     		}
+     		$('#question').html('');
+     		$('#replyList').html('');
+     		getInformation(page-1);
+     	}
+     	
+     	/**********************************************
+     	*9.控制下一页
+     	***********************************************
+     	*/
+     	function down(){
+     		totalPage = parseInt(document.getElementById("total").innerHTML);   //获取总页数
+     		page = parseInt(document.getElementById("nowPage").innerHTML);
+     		if(page == totalPage){
+     			alert("已经是最后一页了");
+     		}else{
+     			page = page + 1;
+     			//刷新本页面
+     			document.getElementById("nowPage").innerHTML = page;			
+     		}
+     		$('#question').html('');
+     		$('#replyList').html('');
+     		getInformation(page-1);
+     	}
         
         
 </script>

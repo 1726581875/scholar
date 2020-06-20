@@ -9,6 +9,7 @@ import org.scholat.provider.question.pojo.QuestionAndReply;
 import org.scholat.provider.question.pojo.Reply;
 import org.scholat.provider.question.service.ReplyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,9 +25,10 @@ public class ReplyController {
 	@Autowired
 	private ReplyService replyService;
 	
-	@GetMapping("/reply/findReplyList/{questionId}")
-	public List<Reply> queReply(@PathVariable Integer questionId){
-		return replyService.findReply(questionId);
+	@GetMapping("/reply/findReplyList/{questionId}/{page}")
+	public Page<Reply> queReply(@PathVariable Integer questionId,@PathVariable Integer page){
+		PageRequest pageReques=PageRequest.of(page,8);  //第page+1页的2条记录	
+		return replyService.findReply(questionId,pageReques);
 	}
 	
 	@DeleteMapping("/reply/deleteReply/{replyId}")
@@ -37,7 +39,7 @@ public class ReplyController {
 	@GetMapping("/reply/replyWithQues/{page}")
 	public PageQuestionAndReply findReplyWithQue(@PathVariable Integer page,HttpServletRequest request){
 		PageQuestionAndReply pageQuestionAndReply = new PageQuestionAndReply();
-		PageRequest pageReques=PageRequest.of(page,2);  //第page+1页的2条记录		
+		PageRequest pageReques=PageRequest.of(page,8);  //第page+1页的2条记录		
 //		// Cookie cookie=new Cookie("sessionId","CookieTestInfo");
 //		Cookie[] cookies = (Cookie[]) request.getCookies();
 //		if(cookies != null){

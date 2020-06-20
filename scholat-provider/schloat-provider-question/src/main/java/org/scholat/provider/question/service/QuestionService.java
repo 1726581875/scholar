@@ -19,8 +19,8 @@ public interface QuestionService {
 	//删除评论
 	void deleteQuestion(Integer questionId);
 	
-	//查看提问并显示回复
-	SingleQueAndRepList findSingleQuestion(Integer questionId);
+	//查看提问并分页显示回复
+	SingleQueAndRepList findSingleQuestion(Integer questionId,Pageable pageable);
 	
 	//所有提问(分页)
 	Page<Question> allQuestion(Pageable pageable);

@@ -14,13 +14,14 @@ import org.springframework.data.domain.Pageable;
 public interface ReplyService {
 
 	//查找提问对应的评论
-	List<Reply> findReply(Integer questionId);
+	Page<Reply> findReply(Integer questionId,Pageable pageable);
 	
 	//删除评论
 	void deleteReply(Integer replyId);
 	
 	//查找个人评论并显示提问的问题信息
 	Page<QuestionAndReply> findReplyByUser(Integer userId,Pageable pageable);
+	
 	
 	//发布评论
 	void addReply(Reply reply);
