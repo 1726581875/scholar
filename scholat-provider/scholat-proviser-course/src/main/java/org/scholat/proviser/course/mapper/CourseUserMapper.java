@@ -26,5 +26,10 @@ public interface CourseUserMapper {
     //查找某课程的所有班级
     public List<String> findCourseClass(int courseId);
 
+    public List<CourseUser> findAllCourseUserByCourseId(Integer courseId);
+
     public int deleteUserByCourseId(int courseId);
+
+
+
 }

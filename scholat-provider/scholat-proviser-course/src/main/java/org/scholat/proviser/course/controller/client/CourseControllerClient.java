@@ -32,13 +32,15 @@ public class CourseControllerClient {
     private CourseService courseService;
 
     @Autowired
-    public NoticeServiceApi noticeServiceApi;
+    private NoticeServiceApi noticeServiceApi;
+
 
 
     @PostMapping("/delete")
     public Object deleteCourse(Integer courseId){
         log.info("accept =====> courseId={}",courseId);
         int m = courseService.deleteById(courseId);
+
         return m == 1 ? ResultUtil.success() : ResultUtil.fail("删除课程失败");
     }
 
@@ -80,8 +82,6 @@ public class CourseControllerClient {
         PageHelper.startPage(page,MyConstant.PAGE_SIZE,"course_id DESC");
         List<CourseDto> courseDtoList = courseService.findByuserId(userId);
         PageInfo<CourseDto> pageInfo = new PageInfo<CourseDto>(courseDtoList);
-
-        noticeServiceApi.sendMessagetoAll("hahahaahahhahahahhaah");
 
         return success(pageInfo);
     }

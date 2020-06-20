@@ -53,4 +53,10 @@ public class CourseUserServiceImpl implements CourseUserService {
 
         return courseUserMapper.deleteUserByCourseId(courseId);
     }
+
+    @Override
+    public List<CourseUser> findAllCourseUserByCourseId(int courseId) {
+
+        return courseUserMapper.findAllCourseUserByCourseId(courseId);
+    }
 }
