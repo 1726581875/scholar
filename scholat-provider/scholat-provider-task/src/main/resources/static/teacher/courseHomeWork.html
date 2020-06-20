@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学生提交的作业详情</title>
+    <link href="http://res.scholat.com/scholat/course/styles/T_BackManager.gzcss?_dc=e6e9b591575" rel="stylesheet"
+        type="text/css" />
+    <link href="http://res.scholat.com/scholat/course/styles/T_BackToolbar.gzcss?_dc=58b86543e2b" rel="stylesheet"
+        type="text/css" />
+    <link href="http://res.scholat.com/scholat/portal/styles/portalTop.gzcss?_dc=c66acc21bf1" rel="stylesheet"
+        type="text/css" />
+</head>
+
+<body>
+    <div class="bodyStyle">
+        <div class="head" style="padding-bottom: 5px; text-align: center;">
+            <div style="display: inline;">
+                <div class="head-title">
+                    <!-- 课程名字 -->
+                </div>
+                <div id="msgImg" class="head-notice">
+                    <div style="width: 135px; float: right; cursor: pointer">
+                        欢迎您, <span id="username"></span>&nbsp;&nbsp;
+                    </div>
+                </div>
+            </div>
+            <div class="head-toolbar">
+                <div id="lnews" class="head-toolbar-item head-toolbar-item-news"
+                    onClick="javascript:window.location.href='/course/T_latestNews.html?courseId=2954'">
+                    <div class="head-toolbar-item-detail">
+                        最新动态
+                        <div style="font-size: 12px;">
+                            What's New
+                        </div>
+                    </div>
+                </div>
+                <div id="nlist" class="head-toolbar-item head-toolbar-item-notice"
+                    onClick="javascript:window.location.href='/course/T_noticeList.html?courseId=2954'">
+                    <div class="head-toolbar-item-detail">
+                        教学公告
+                        <div style="font-size: 12px;">
+                            Alerts
+                        </div>
+                    </div>
+                </div>
+                <div id="tresou" class="head-toolbar-item head-toolbar-item-resource"
+                    onClick="javascript:window.location.href='/course/T_allResources.html?courseId=2954'">
+                    <div class="head-toolbar-item-detail w1">
+                        教学资源
+                        <div style="font-size: 12px;">
+                            Resources
+                        </div>
+                    </div>
+                </div>
+                <div id="courseTask" class="head-toolbar-item head-toolbar-item-homework">
+                    <div class="head-toolbar-item-detail w2" style="margin-left: -39px;">
+                        作业管理
+                        <div style="font-size: 12px;">
+                            Homework
+                        </div>
+                    </div>
+                </div>
+                <div id="ques" class="head-toolbar-item head-toolbar-item-question"
+                    onClick="javascript:window.location.href='/course/T_allQuestions.html?courseId=2954'">
+                    <div class="head-toolbar-item-detail">
+                        互动交流
+                        <div style="font-size: 12px;">
+                            Interaction
+                        </div>
+                    </div>
+                </div>
+                <div id="cinfo" class="head-toolbar-item head-toolbar-item-courseInfo"
+                    onClick="javascript:window.location.href='/course/T_editCourseInfo.html?courseId=2954'">
+                    <div class="head-toolbar-item-detail w3">
+                        课程管理
+                        <div style="font-size: 12px;">
+                            Management
+                        </div>
+                    </div>
+                </div>
+                <div id="cclass" class="head-toolbar-item head-toolbar-item-stuManage"
+                    onClick="javascript:window.location.href='/course/T_manageStudents.html?courseId=2954'">
+                    <div class="head-toolbar-item-detail w4" style="margin-left: -39px;">
+                        学生管理
+                        <div style="font-size: 12px;">
+                            Students
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- 课程功能选择 end -->
+
+
+        <div
+            style="border: dotted 1px #aaa; padding-left: 10px; padding-bottom: 10px; margin-top: 10px; font-size: 14px; text-align: center; color: black; line-height: 20px; padding-top: 10px;">
+            <p>
+                <span style="color: red; font-weight: bold;">
+                    作业布置日期：2020-06-12&nbsp;&nbsp;&nbsp;
+                    作业截止日期：2020-06-12 </span>
+            </p>
+            <p style="margin-top: 10px;">
+                <span class="blue">班级：</span>未分班学生
+            </p>
+            <p style="margin-top: 10px;">
+                <span class="blue">作业题目：</span>test
+
+                <span style="color: red;">&nbsp;[此作业不可延时提交]</span>
+
+            </p>
+            <div style="margin-top: 10px;">
+                <div id="homework_content">
+                    <span class="blue">作业内容：</span>
+                    <p>xxxxxxxxxxxxxxxxxxx</p>
+                </div>
+                <div id="read-more"
+                    style="float: right; cursor: pointer; margin-right: 10px; margin-bottom: 10px; display: none;">
+                    <img src="http://res.scholat.com/scholat/course/images/zhankai.png" title="更多" style="width: 18px;">
+                </div>
+            </div>
+
+            <div style="clear: both; height: 1px;"></div>
+        </div>
+
+        <div style="text-align: center;">
+            <p id="statistical_homework" style="border: 1px dotted grey; margin-top: 10px; padding: 10px;">
+                <span
+                    style="display: block; color: #F15191; font-weight: bold; margin-bottom: 8px;">作业统计（注：评分、点评皆反馈给学生，同时供教师作成绩参考，学生提交的作业文件服务器保留1年。）</span>
+                <span><a href="T_checkHomework.html?courseId=2954&amp;classId=9302&amp;homeworkId=22380&amp;tag=0"><span
+                            id="tip0" class="tip" title="点击查看全部作业">总人数：1人</span>
+                    </a>
+                </span>
+                <span><a href="T_checkHomework.html?courseId=2954&amp;classId=9302&amp;homeworkId=22380&amp;tag=1"><span
+                            id="tip1" class="tip" title="点击查看按时提交的作业">按时提交：0人</span>
+                    </a>
+                </span>
+                <span><a href="T_checkHomework.html?courseId=2954&amp;classId=9302&amp;homeworkId=22380&amp;tag=2"><span
+                            id="tip2" class="tip" title="点击查看未交的作业">未交：1人</span>
+                    </a>
+                </span>
+                <span><a href="T_checkHomework.html?courseId=2954&amp;classId=9302&amp;homeworkId=22380&amp;tag=3"><span
+                            id="tip3" class="tip" title="点击查看补交的作业">补交：0人</span>
+                    </a>
+                </span>
+                <span><a href="T_checkHomework.html?courseId=2954&amp;classId=9302&amp;homeworkId=22380&amp;tag=4"><span
+                            id="tip4" class="tip" title="点击查看已点评的作业">已点评：0人</span>
+                    </a>
+                </span>
+                <span><a href="T_checkHomework.html?courseId=2954&amp;classId=9302&amp;homeworkId=22380&amp;tag=5"><span
+                            id="tip5" class="tip" title="点击查看未点评的作业">未点评：0人</span>
+                    </a>
+                </span> &nbsp;&nbsp;
+            </p>
+        </div>
+        <br /><br />
+        <table class="datalist" id="datalist" cellspacing="1" style="margin-left: 0px; font-size: 13px;">
+            <thead>
+                <th width="95px">序号</th>
+                <th width="95px">
+                    姓名
+                </th>
+                <th width="185px">
+                    学号
+                </th>
+                <th width="100px" onclick="SortTable('datalist',2)" style="cursor:pointer" ;>
+                    提交日期 ↓
+                </th>
+                <th width="100px">
+                    作业状态
+                </th>
+                <th width="125px" onclick="SortTable('datalist',4)" style="cursor:pointer" ;>
+                    附件
+                </th>
+                <th width="100px">
+                    作业点评
+                </th>
+                <th width="210px">
+                    回复附件
+                </th>
+            </thead>
+            <!-- id="taskTbody" -->
+
+            <tbody id="taskTbody">
+                <!-- ajax请求成功返回 -->
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>
