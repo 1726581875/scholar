@@ -72,6 +72,7 @@
 		<module>scholat-proviser-course</module>
 		<module>scholat-provider-user</module>
         <module>scholat-provider-notice</module>
+		<module>scholat-provider-question</module>
     </modules>
 
 </project>
