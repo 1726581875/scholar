@@ -1,12 +1,23 @@
 package org.scholat.provider.question.controller;
 
+import java.util.List;
+import java.util.Optional;
+
+import javax.servlet.http.HttpServletResponse;
+
 import org.scholat.provider.question.pojo.PageQuestion;
 import org.scholat.provider.question.pojo.Question;
 import org.scholat.provider.question.pojo.SingleQueAndRepList;
 import org.scholat.provider.question.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /*
  * @author lsx
@@ -18,6 +29,7 @@ public class QuestionController {
 	@Autowired
 	private QuestionService questionService;
 	
+	//所以问题
 	@GetMapping("/question/allQuestion/{page}")
 	public PageQuestion findAllQuestion(@PathVariable Integer page){
 		PageQuestion pageQuestion = new PageQuestion();
@@ -29,34 +41,31 @@ public class QuestionController {
 		
 	}
 	
+	//删除问题
 	@DeleteMapping("/question/deleteQuestion/{questionId}")
 	public void deleteQuestion(@PathVariable Integer questionId){
 		questionService.deleteQuestion(questionId);
 	}
 	
+	//问题详情及该问题的回复
 	@GetMapping("/question/singleQuestion/{questionId}/{page}")
 	public SingleQueAndRepList findSingleQuestion(@PathVariable Integer questionId,@PathVariable Integer page){
 		PageRequest pageReques=PageRequest.of(page,8);  //第page+1页的8条记录
 		return questionService.findSingleQuestion(questionId,pageReques);
 	}
 	
-	@GetMapping("/question/questionListByUser/{page}")
-	public PageQuestion findQuestionByUser(@PathVariable Integer page){
+	//个人的全部提问的问题
+	@GetMapping("/question/questionListByUser/{userId}/{page}")
+	public PageQuestion findQuestionByUser(@PathVariable Integer userId,@PathVariable Integer page){
 		PageQuestion pagePersonQuestion = new PageQuestion();
 		PageRequest pageReques=PageRequest.of(page,8);  //第page+1页的8条记录		
-//		// Cookie cookie=new Cookie("sessionId","CookieTestInfo");
-//		Cookie[] cookies = (Cookie[]) request.getCookies();
-//		if(cookies != null){
-//		for(Cookie cookie : cookies){
-//		if(cookie.getName().equals("sessionId")){
-//			userId =  cookie.getValue();
-//		}
-		pagePersonQuestion.setQuestionList(questionService.findQuestionByTeacher(2,pageReques).getContent());   //此参数2仅作为测试数据，其实应是cookie的userId
-		pagePersonQuestion.setPageCount(questionService.findQuestionByTeacher(2,pageReques).getTotalPages());
-		pagePersonQuestion.setSize(questionService.findQuestionByTeacher(2,pageReques).getTotalElements());
+		pagePersonQuestion.setQuestionList(questionService.findQuestionByTeacher(userId,pageReques).getContent());   //此参数2仅作为测试数据，其实应是cookie的userId
+		pagePersonQuestion.setPageCount(questionService.findQuestionByTeacher(userId,pageReques).getTotalPages());
+		pagePersonQuestion.setSize(questionService.findQuestionByTeacher(userId,pageReques).getTotalElements());
 		return pagePersonQuestion;
 	}
 	
+	//发布新的提问
 	@PutMapping("/question/addQuestion")
 	public void addQuestion(Question question){
 		questionService.addQuestion(question);
