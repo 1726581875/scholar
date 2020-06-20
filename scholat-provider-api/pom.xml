@@ -25,16 +25,25 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
         </dependency>
+<<<<<<< HEAD
+        <dependency>
+=======
       <dependency>
+>>>>>>> 48760fc2388e1ec2a5a0329dbcf4e49a010fb8dd
 			<groupId>cn.edu.lingnan</groupId>
 			<artifactId>scholat-common</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
-		</dependency>         
+		</dependency>
   </dependencies>
   <packaging>pom</packaging>
   <modules>
     <module>scholat-provider-user-api</module>
+<<<<<<< HEAD
+      <module>scholat-provider-task-api</module>
+      <module>scholat-provider-resource-api</module>
+=======
       <module>scholat-provider-course-api</module>
       <module>scholat-provider-notice-api</module>
+>>>>>>> 48760fc2388e1ec2a5a0329dbcf4e49a010fb8dd
   </modules>
 </project>
