@@ -1,0 +1,34 @@
+server:
+  port: 10001
+
+spring:
+  application:
+    name: scholat-homework
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/scholat?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
+    driver-class-name: #com.mysql.jdbc.Driver
+    username: root
+    password: 123456
+  servlet:
+    multipart:
+      max-file-size: 300MB
+      max-request-size: 600MB
+
+eureka:
+  client: #客户端注册进eureka服务列表内
+    service-url:
+      defaultZone: http://localhost:7001/eureka/
+  instance:
+    instance-id: task-server   #自定义服务名称信息
+    prefer-ip-address: true     #访问路径可以显示IP地址
+
+feign:
+  hystrix:
+    enabled: true
+#mybatis配置文件位置
+mybatis:
+    config-location: classpath:conf/mybatis-config.xml
+
+#日志配置
+logging:
+  config: classpath:log4j-boot.xml

@@ -1,21 +1,18 @@
 package org.scholat.common.aliyunOSS;
 
 
-import com.aliyun.oss.OSS;
-import com.aliyun.oss.OSSClientBuilder;
-
 /**
  * @author yrk
  * @date 2020/6/14 - 9:21
  * 获取存储空间的信息
  */
 
-public class BuckeNameUtil {
+public class OSSClientConstants {
 
-    final static String endpoint = "http://oss-cn-shenzhen.aliyuncs.com";
-    final static String accessKeyId = "LTAI4GJBocQHoQ3Y36ouShZk";
-    final static String accessKeySecret = "zJwcnzVgFvBWRUpqahCmggtxC9TFaY";
-    final static String bucketName = "scholat";
-    final static String homeworkFolder = "homework";
-    final static String resourseFolder = "resourse/"
+    public final static String ENDPOINT = "http://oss-cn-shenzhen.aliyuncs.com";
+    public final static String ACCESS_KEY_ID = "LTAI4GJBocQHoQ3Y36ouShZk";
+    public final static String ACCESS_KEY_SECRET = "zJwcnzVgFvBWRUpqahCmggtxC9TFaY";
+    public final static String BACKET_NAME = "scholat";
+    public final static String HOMEWORKFOLDER = "homework/";
+    public final static String RESOURSEFOLDER = "resourse/";
 }
