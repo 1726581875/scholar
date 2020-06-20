@@ -9,6 +9,9 @@
 <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
 <script
 	src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
+<script src="https://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+ <script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 
 <style type="text/css">
     div.selectCourseId input {
@@ -51,8 +54,7 @@
                      <a>课程:</a>
                      <input id="courseId" type="text" list="courseIdList">
                      <datalist id="courseIdList">
-                        <option>1</option>
-                        <option>2</option>
+                     
                       </datalist>
                   </div>
                   <textarea id="questionContent" name="questionContent" style="display:none" cols="70" rows="8"></textarea>
@@ -70,6 +72,7 @@
     var page = 1;       //默认设置为第一页
     var totalPage = 0;
     var size = 0;
+    var userId = $.cookie('userId');   //获取cookie中的userId值
 	jQuery(document).ready(
 			function() { //页面加载完成
 				getInformation(page-1);
@@ -89,7 +92,7 @@
 		function getInformation(page){
 		$.ajax({
 			type : "GET",
-			url : "http://localhost:8001/scholat/question/questions/questionListByUser/"+page,
+			url : "http://localhost:8001/scholat/question/questions/questionListByUser/"+userId+"/"+page,
 			success : function(result) {//如果ajax请求发送成功调用的回调函数
 				if (result.success) {//判断后台是否正常返回
 					totalPage = result.data.pageCount;      //获取总页数
@@ -211,7 +214,7 @@
 		 document.getElementById("wordCount").style.display="inline";
 		 document.getElementById("submit").style.display="inline";
 		 document.getElementById("cancel").style.display="inline";
-		 //getCourse();       //获取下拉框的课程号
+		 getCourse();       //获取下拉框的课程号
 		}
 			
 			
@@ -290,6 +293,7 @@
      *7.发送ajax获取个人所教课程
      ************************************************************
      */
+     
      function getCourse(){
     	 $.ajax({
  			type : "GET",
