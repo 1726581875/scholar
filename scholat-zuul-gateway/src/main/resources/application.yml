@@ -36,5 +36,7 @@ zuul:
     scholat-userLogin: /user/**
     scholat-course: /course/**
     scholat-question: /question/**
+    scholat-notice: /notice/**
+    scholat-homework: /task/**
     #微服务应用实例名: /xxxx/***
     

@@ -2,7 +2,11 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title></title>		 
+		<title></title>
+
+		<!-- 引入ajax的前缀路径，统一管理-->
+		<script src="path.js"></script>
+
 		<link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.0.1/css/bootstrap.min.css" rel="stylesheet">
 		<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
 		<script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.0.1/js/bootstrap.min.js"></script>
@@ -110,7 +114,7 @@
 					formdata.append('fileName', this.avatar);
 					formdata.append('userId', 1);
 					axios
-						.post('http://localhost:9002/insert', formdata)
+						.post(urlPath.course()+'/insert', formdata)
 						.then(response => {
 							if(response.data.success){
 								document.getElementById("modal-container-610527").style.display="none";

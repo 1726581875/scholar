@@ -3,6 +3,8 @@
 	<head>
 		<meta charset="utf-8">
 		<title></title>
+		<!-- 引入ajax的前缀路径，统一管理-->
+		<script src="path.js"></script>
 
 		<link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.0.1/css/bootstrap.min.css" rel="stylesheet">
 		<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
@@ -75,7 +77,7 @@
 
 				findMyMsg: function(userId) {
 					axios
-						.get('http://localhost:9004/all?userId=' + userId)
+						.get(urlPath.notice()+'/all?userId=' + userId)
 						.then(response => {
 							this.massage = response.data.data.content;
 						})
@@ -86,7 +88,7 @@
 
 				deleteMsg: function(msgId) {
 					axios
-						.get('http://localhost:9004/delete/' + msgId)
+						.get(urlPath.notice()+'/delete/' + msgId)
 						.then(response => {
 							location.reload();
 						})
@@ -97,7 +99,7 @@
 
 				read: function(msgId) {
 					axios
-						.get('http://localhost:9004/read/' + msgId)
+						.get(urlPath.notice()+'/read/' + msgId)
 						.then(response => {
 							location.reload();
 						})

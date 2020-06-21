@@ -1,0 +1,80 @@
+<html>
+<head>
+    <title>Title</title>
+    <meta charset="UTF-8">
+    <!-- 引入ajax的前缀路径，统一管理-->
+    <script src="path.js"></script>
+     <script src="https://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	 <script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+</head>
+<body>
+       <label>上传图片</label>
+       <img src="" alt="" id="img" width="80px" height="80px"/>
+       <form id="itemForm" enctype="multipart/form-data">
+        <input id="imgFile" type="file" name="fileName" onchange="showImg(this)"/>
+		<br/><input id="courseName" type="text">
+		<br/><input id="courseDesc" type="text">
+        <br/><input id="submit" type="button" value="上传"/>
+      </form>
+    <p>图片:</p>
+    <img id="result" src=""/>
+</body>
+<script type="text/javascript">   
+  
+      var userId = $.cookie('userId');
+	  if(userId == null){
+		 $.cookie('userId',1);
+	  }
+      //页面加载完成  
+     function showImg(obj) {
+            var file=$(obj)[0].files[0];    //获取文件信息
+            var imgdata='';
+            if(file)
+            {
+                var reader=new FileReader();  //调用FileReader
+                reader.readAsDataURL(file); //将文件读取为 DataURL(base64)
+                reader.onload=function(evt){   //读取操作完成时触发。
+                    $("#img").attr('src',evt.target.result)  //将img标签的src绑定为DataURL
+                };
+            }
+            else{
+                alert("上传失败");
+            }
+        };
+   
+    jQuery(document).ready(function(){
+	   //登录按钮绑定click事件   
+	   
+	  $("#submit").on("click",function(){
+		   
+		     var formdata=new FormData();
+		        formdata.append('fileName',$('#imgFile').get(0).files[0]);
+		        formdata.append('courseName',$('#courseName').val());
+		        formdata.append('courseDesc',$('#courseDesc').val());
+			    formdata.append('courseId',1);
+			 $.ajax({
+		            async: false,
+		            type: 'POST',
+		            url: urlPath.course()+"/update",
+		            data: formdata,
+		            contentType:false,
+		            processData:false,        		  
+			   //ajax发送成功
+		       success : function(result){	
+       			   
+		    	  alert(result.msg);
+		    	// $("#result").attr('src', 'http://localhost:8080/' + result.pic);
+		       }
+			   ,
+		       //ajax发送失败
+		       error : function(result){
+		    	    alert("ajax发送失败:"+result.responseText);
+		       }
+		   });
+	   });
+   }); 
+
+   
+</script>
+
+</html>

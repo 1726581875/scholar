@@ -3,6 +3,9 @@
 	<head>
 		<meta charset="utf-8">
 		<title></title>
+		<!-- 引入ajax的前缀路径，统一管理-->
+		<script src="path.js"></script>
+
 		<link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.0.1/css/bootstrap.min.css" rel="stylesheet">
 		<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
 		<script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.0.1/js/bootstrap.min.js"></script>
@@ -82,7 +85,7 @@
 										<a href="#" class="dropdown-toggle" data-toggle="dropdown">更多<strong class="caret"></strong></a>
 										<ul class="dropdown-menu">
 											<li>
-												<a href="addCourseBs.html">新增课程</a>
+												<a href="addCourse.html">新增课程</a>
 											</li>
 											<li>
 												<a href="#">扩展</a>
@@ -136,6 +139,7 @@
 													<span v-if="pageFlag == 2">删除</span>
 													<span v-if="pageFlag == 0">加入</span>
 												</a>
+												<a v-if="pageFlag == 2" :href="'updateCourseJQ.html?courseId='+ course.courseId"><span>修改</span></a>
 											</p>
 										</div>
 									</div>
@@ -261,7 +265,7 @@
 
 					checkMessage: function() {
 						axios
-							.get('http://localhost:9004/check?userId=2')
+							.get(urlPath.notice()+'/check?userId=2')
 							.then(response => {
 								this.msgUnReadData = response.data;
 							})
@@ -273,7 +277,7 @@
 
 					findMyJoInCourse: function(page) {
 						axios
-							.get('http://localhost:9002/user/1/all/join?page=' + page)
+							.get(urlPath.course()+'/user/1/all/join?page=' + page)
 							.then(response => {
 								this.courses = response.data.data.list;
 								this.pages = response.data.data.pages;
@@ -291,7 +295,7 @@
 
 					findMyCourse: function(page) {
 						axios
-							.get('http://localhost:9002/user/1/all?page=' + page)
+							.get(urlPath.course()+'/user/1/all?page=' + page)
 							.then(response => {
 								var mydata = response.data.data;
 								this.courses = mydata.list;
@@ -312,7 +316,7 @@
 						var keyword = document.getElementById("keyword").value;
 
 						axios
-							.get('http://localhost:9002/find?search=' + keyword)
+							.get(urlPath.course()+'/find?search=' + keyword)
 							.then(response => {
 								this.courses = response.data.data.list;
 								console.log(response.data.data);
@@ -335,7 +339,7 @@
 						formData.append('courseId', courseId);
 						//{headers:{'Content-Type':'application/x-www-form-urlencoded'}}
 						axios
-							.post('http://localhost:9002/out', formData).then(response => {
+							.post(urlPath.course()+'/out', formData).then(response => {
 								console.log(response.data.msg);
 								alert("退出课程成功");
 							})
@@ -360,7 +364,7 @@
 						var formData = new FormData()
 						formData.append('courseId', this.courseId);
 						axios
-							.post('http://localhost:9002/delete', formData).then(response => {
+							.post(urlPath.course()+'/delete', formData).then(response => {
 								console.log(response.data.msg);
 								alert("删除课程成功");
 							}).catch(function(error) {
