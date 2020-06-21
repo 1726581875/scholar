@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+
+		<!-- 引入ajax的前缀路径，统一管理-->
+		<script src="path.js"></script>
+
+		<link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.0.1/css/bootstrap.min.css" rel="stylesheet">
+		<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+		<script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.0.1/js/bootstrap.min.js"></script>
+				
+		
+		<script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+		<script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+	</head>
+	<body>
+    <div id="app">		
+		
+		<div class="container">
+			<div class="row clearfix">
+				<div class="col-md-2 column">
+				</div>
+				<div class="col-md-6 column">
+					<form role="form">				
+						<div class="form-group">
+							 <label for="exampleInputFile">课程图片：</label>
+																					  
+							 <img alt="课程图片" ref="avatar" src="" class="img-rounded" width="250px" height="250px"/><br />
+							 <input type="file" id="exampleInputFile" @change="showImg" ref="file" accept="image/gif, image/jpeg, image/png" />
+							 <!-- <input type="file" id="exampleInputFile" /> -->
+							 
+														  
+							<p class="help-block">
+								要求选择图片文件大小适中..
+							</p>
+						</div>
+						
+						<div class="form-group">
+							 <label for="exampleInputEmail1">课程名称：</label>
+							 <input type="email" class="form-control" id="exampleInputEmail1" v-model="courseName" />
+						</div>
+						<div class="form-group">
+							 <label for="exampleInputPassword1">课程描述：</label>
+							<!-- <input type="password" class="form-control" id="exampleInputPassword1" v-model="courseDesc"/> 	 -->
+						<textarea id="inputDescription" class="form-control" v-model="courseDesc"></textarea>
+						
+						</div>
+
+						<a id="modal-610527" href="#modal-container-610527" role="button" class="btn" data-toggle="modal">
+						 <button type="button" class="btn btn-default">创建课程</button>
+						</a>
+					</form>
+					
+										
+					<!-- 遮照窗体   -->
+					<a id="modal-610527" href="#modal-container-610527" role="button" class="btn" data-toggle="modal">
+						
+					</a>
+					
+					<div class="modal fade" id="modal-container-610527" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+									<h4 class="modal-title" id="myModalLabel">
+										提示
+									</h4>
+								</div>
+								<div class="modal-body">
+									是否要创建课程？
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+									<button type="button" class="btn btn-primary" @click="createCourse">确定</button>
+								</div>
+							</div>
+					
+						</div>
+					
+					</div>
+					
+					
+					
+					
+					
+					
+				</div>
+				<div class="col-md-4 column">
+				</div>
+			</div>
+		</div>
+		
+	</div>	
+	</body>
+	<script type="text/javascript">
+
+		
+		var vm = new Vue({
+			el: "#app",
+			data: {
+				msg: "",
+				courseName: null,
+				courseDesc: null,
+				avatar: null
+	
+			},
+			methods: {
+				createCourse: function() {
+					var formdata = new FormData();
+					formdata.append('courseName', this.courseName);
+					formdata.append('courseDesc', this.courseDesc);
+					formdata.append('fileName', this.avatar);
+					formdata.append('userId', 1);
+					axios
+						.post(urlPath.course()+'/insert', formdata)
+						.then(response => {
+							if(response.data.success){
+								document.getElementById("modal-container-610527").style.display="none";
+								alert("添加课程成功");
+								window.location.href="index.html";  
+							}else{
+							 this.msg = response.data.msg;
+							}
+						})
+						.catch(function(error) { // 请求失败处理
+							console.log(error);
+						});
+					
+	                   
+				},
+				click2: function() {
+					console.log('click2......');
+				},
+	
+				showImg: function(event) {
+					console.log("1111");
+					var imgFile = event.target.files[0]
+					var fr = new FileReader()
+					var that = this
+					fr.onload = function() {
+						that.$refs.avatar.src = fr.result
+					}
+					fr.readAsDataURL(imgFile)
+					this.avatar = imgFile
+				},
+	
+			}
+		});
+	</script>
+	
+</html>

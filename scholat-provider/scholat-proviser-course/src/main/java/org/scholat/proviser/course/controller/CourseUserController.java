@@ -9,10 +9,9 @@ import org.scholat.proviser.course.entity.CourseUser;
 import org.scholat.proviser.course.service.CourseUserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/course-api")
@@ -34,6 +33,16 @@ public class CourseUserController {
         }
         return new ResultMsg<>(CommonEnum.UNKONW_ERROR,null);
     }
+
+
+    @GetMapping("/all/course/{courseId}")
+    public List<CourseUser> findAllCourseUserByCourseId(@PathVariable Integer courseId){
+        log.info("[课程微服务] findAllCourseUserByCourseId  ====>courseId={}",courseId);
+      return  courseUserService.findAllCourseUserByCourseId(courseId);
+    }
+
+
+
 
 }
 

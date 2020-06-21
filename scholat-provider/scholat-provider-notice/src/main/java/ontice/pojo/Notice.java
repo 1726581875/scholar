@@ -1,6 +1,7 @@
 package ontice.pojo;
 
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,15 +11,16 @@ import java.util.Date;
 
 @Data
 @Entity
+@Accessors(chain = true)
 public class Notice {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-   private Integer noticeId;
+    private Integer noticeId;
 
     private Integer sendId;
 
-    private String acceptId;
+    private Integer acceptId;
 
     private String noticeContent;
 

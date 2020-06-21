@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>教学资源界面</title>
+    <link href="http://res.scholat.com/scholat/course/styles/T_BackManager.gzcss?_dc=e6e9b591575" rel="stylesheet"
+        type="text/css" />
+    <link href="http://res.scholat.com/scholat/course/styles/T_BackToolbar.gzcss?_dc=58b86543e2b" rel="stylesheet"
+        type="text/css" />
+    <link href="http://res.scholat.com/scholat/portal/styles/portalTop.gzcss?_dc=c66acc21bf1" rel="stylesheet"
+        type="text/css" />
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.0.1/css/bootstrap.min.css" rel="stylesheet">
+    <!-- bootstrap -->
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+    <div class="head" style="padding-bottom: 5px; text-align: center;">
+        <div style="display: inline;">
+            <div class="head-title">
+                微服务
+            </div>
+            <div id="msgImg" class="head-notice">
+                <div style="width: 135px; float: right; cursor: pointer">
+                    欢迎您，叶汝铿老师&nbsp;&nbsp;
+                </div>
+            </div>
+        </div>
+        <div class="head-toolbar">
+            <div id="lnews" class="head-toolbar-item head-toolbar-item-news"
+                onClick="javascript:window.location.href='/course/T_latestNews.html?courseId=2954'">
+                <div class="head-toolbar-item-detail">
+                    最新动态
+                    <div style="font-size: 12px;">
+                        What's New
+                    </div>
+                </div>
+            </div>
+            <div id="nlist" class="head-toolbar-item head-toolbar-item-notice"
+                onClick="javascript:window.location.href='/course/T_noticeList.html?courseId=2954'">
+                <div class="head-toolbar-item-detail">
+                    教学公告
+                    <div style="font-size: 12px;">
+                        Alerts
+                    </div>
+                </div>
+            </div>
+            <div id="tresou" class="head-toolbar-item head-toolbar-item-resource"
+                onClick="javascript:window.location.href='/course/T_allResources.html?courseId=2954'">
+                <div class="head-toolbar-item-detail w1">
+                    教学资源
+                    <div style="font-size: 12px;">
+                        Resources
+                    </div>
+                </div>
+            </div>
+            <div id="taskl" class="head-toolbar-item head-toolbar-item-homework"
+                onClick="javascript:window.location.href='/course/T_homeworkList.html?courseId=2954'">
+                <div class="head-toolbar-item-detail w2" style="margin-left: -39px;">
+                    作业管理
+                    <div style="font-size: 12px;">
+                        Homework
+                    </div>
+                </div>
+            </div>
+            <div id="ques" class="head-toolbar-item head-toolbar-item-question"
+                onClick="javascript:window.location.href='/course/T_allQuestions.html?courseId=2954'">
+                <div class="head-toolbar-item-detail">
+                    互动交流
+                    <div style="font-size: 12px;">
+                        Interaction
+                    </div>
+                </div>
+            </div>
+            <div id="cinfo" class="head-toolbar-item head-toolbar-item-courseInfo"
+                onClick="javascript:window.location.href='/course/T_editCourseInfo.html?courseId=2954'">
+                <div class="head-toolbar-item-detail w3">
+                    课程管理
+                    <div style="font-size: 12px;">
+                        Management
+                    </div>
+                </div>
+            </div>
+            <div id="cclass" class="head-toolbar-item head-toolbar-item-stuManage"
+                onClick="javascript:window.location.href='/course/T_manageStudents.html?courseId=2954'">
+                <div class="head-toolbar-item-detail w4" style="margin-left: -39px;">
+                    学生管理
+                    <div style="font-size: 12px;">
+                        Students
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <!-- 添加课程按钮 -->
+    <div style="text-align: center;">
+        <a href="" class="btn btn-info btn-lg">
+            <span class="glyphicon glyphicon-plus"></span> 添加资源
+        </a>
+    </div>
+    <br />
+    <div class="container">
+        <div class="row clearfix">
+            <div class="col-md-4 column">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            教学资源分类
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        java文档
+                    </div>
+                    <div class="panel-footer">
+                        课件
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 column">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td>
+                                1
+                            </td>
+                            <td>
+                                TB - Monthly
+                            </td>
+                            <td>
+                                01/04/2012
+                            </td>
+                            <td>
+                                Default
+                            </td>
+                        </tr>
+
+                        <tr class="error">
+                            <td>
+                                2
+                            </td>
+                            <td>
+                                TB - Monthly
+                            </td>
+                            <td>
+                                02/04/2012
+                            </td>
+                            <td>
+                                Declined
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+
+</html>

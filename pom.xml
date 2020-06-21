@@ -72,5 +72,6 @@
     <module>scholat-provider</module>
     <module>scholat-eureka</module>
     <module>scholat-provider-api</module>
+      <module>scholat-client</module>
   </modules>
 </project>

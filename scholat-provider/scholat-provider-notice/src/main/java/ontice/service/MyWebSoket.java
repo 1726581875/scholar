@@ -10,6 +10,7 @@ import javax.websocket.Session;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
@@ -22,7 +23,7 @@ public class MyWebSoket {
     private Session session;
 
     private static int onlineCount = 0;
-    //concurrent包的线程安全Set，用来存放每个客户端对应的MyWebSocket对象。若要实现服务端与单一客户端通信的话，可以使用Map来存放，其中Key可以为用户标识
+
     private static ConcurrentHashMap<Integer, MyWebSoket> webSocketMap = new ConcurrentHashMap<>();
 
     //建立连接会调用的方法
@@ -63,19 +64,38 @@ public class MyWebSoket {
 
     }
 
+
+
+    /**
+     *  向某个课程在线用户发通知
+     */
+
+    public void sendMessageToCourseUser(String message, List<Integer> userIds){
+        userIds.forEach(e ->{
+            if(webSocketMap.get(e) != null) {
+                try {
+                    webSocketMap.get(e).session.getBasicRemote().sendText(message);
+                    log.info("[websocket消息] 向用户{} 推送信息：message={}",e,message);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+            }
+        });
+
+    }
+
+
+
+     //向某个人发通知
     public void sendMessage(String message,Integer toUser){
-        if(webSocketMap.get(toUser) != null){//如果用户已登录
+        if(webSocketMap.get(toUser) != null){
             log.info("[websocket消息] 向{}发消息，message={}",toUser,message);
             try {
                 webSocketMap.get(toUser).session.getBasicRemote().sendText(message);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
-        }else{//没有登录，先存起来
-
         }
-
 
     }
 

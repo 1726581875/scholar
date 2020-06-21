@@ -12,6 +12,10 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import provider.user.entity.UserLogin;
 import provider.user.service.LoginService;
 
@@ -27,6 +31,7 @@ import java.util.Optional;
 @RestController
 @Slf4j
 @CrossOrigin(allowCredentials = "true", allowedHeaders = "*")
+
 public class UserLoginController {
 
     @Autowired

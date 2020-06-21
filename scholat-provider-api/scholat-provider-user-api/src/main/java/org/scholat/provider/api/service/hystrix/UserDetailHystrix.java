@@ -9,6 +9,7 @@ public class UserDetailHystrix implements UserDetailServiceApi{
 
 	@Override
 	public UserDetailInfo findUserDetail(int userId) {		
+
 		return UserDetailInfo.invalid();
 	}
 

@@ -12,7 +12,7 @@ spring:
 #    port: 6379
 #    password: root 
     
-#注册进eureka服务列表内    
+#注册进eureka服务列表内
 eureka:
   client:
     service-url:
@@ -35,5 +35,8 @@ zuul:
   routes:
     scholat-userLogin: /user/**
     scholat-course: /course/**
+    scholat-question: /question/**
+    scholat-notice: /notice/**
+    scholat-homework: /task/**
     #微服务应用实例名: /xxxx/***
     

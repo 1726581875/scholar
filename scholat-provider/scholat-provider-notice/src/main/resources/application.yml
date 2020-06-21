@@ -1,6 +1,6 @@
 #端口
 server:
-  port: 9003
+  port: 9004
 
 spring:
   application:
@@ -40,3 +40,8 @@ hystrix:
           thread:
             # 熔断器超时时间，默认：1000/毫秒
             timeoutInMilliseconds: 5000
+
+
+logging:
+  level:
+    org.hibernate.type.descriptor.sql.BasicBinder: trace

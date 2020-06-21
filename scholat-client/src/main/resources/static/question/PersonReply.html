@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>PersonReply</title>
+    <link
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+            rel="stylesheet">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script
+            src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script src="https://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+    <!-- 引入ajax的前缀路径，统一管理-->
+    <script src="path.js"></script>
+</head>
+<body>
+<div id="table-div">
+    <table class="table">
+        <caption>ReplyList</caption>
+        <thead>
+        <tr>
+            <th>序号/课程</th>
+            <th>问题序号</th>
+            <th>回复者/发布者</th>
+            <th>内容</th>
+            <th>发布时间</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody id="myTbody">
+
+        </tbody>
+    </table>
+</div>
+
+<!-- 分页按钮 -->
+<div id="setPage">
+    <a href="#" onclick="up()" id="prePage">上一页</a>|共
+    <nobr id="size"></nobr>
+    条记录|<a href="#" onclick="down()" id="nextPage">下一页</a>|当前第
+    <nobr id="nowPage"></nobr>
+    页|总共
+    <nobr id="total"></nobr>
+    页
+</div>
+
+<script type="text/javascript">
+    var page = 1;       //默认设置为第一页
+    var totalPage = 0;
+    var size = 0;
+    var userId = $.cookie('userId');
+
+    jQuery(document).ready(
+        function () { //页面加载完成
+            /**********************************************
+             *1.查全部提问的问题的ajax
+             **********************************************
+             */
+            getInformation(page - 1);
+        }
+    )
+
+    /***************************************************
+     *2.页面跳转并传questionId
+     ***************************************************
+     */
+    function urlLocaltion(questionId) {
+        window.location.href = 'templates/questionDetail.html?questionId=' + questionId;
+    }
+
+    /************************************************
+     *3.删除回复
+     *************************************************
+     */
+    function deleteById(id) {
+        $.ajax({
+            type: "DELETE",
+            url: urlPath.question() +"/question/replys/deleteReply/" + id,
+            data: {
+                "replyId": id,
+            },
+            success: function (result) {//ajax发送成功
+                if (result.success) {//如果成功
+                    //刷新本页面
+                    location.reload();
+                } else {
+                    alert(result.msg);
+                }
+            },
+            //ajax发送失败
+            error: function (result) {
+                alert("登录ajax发送失败:" + result.responseText);
+            }
+        });
+    }
+
+    /**********************************************
+     *2.上一页控制
+     ***********************************************
+     */
+    function up() {
+        page = parseInt(document.getElementById("nowPage").innerHTML);
+        if (page == 1) {
+            alert("已经是第一页了");
+        } else {
+            page = page - 1;
+            document.getElementById("nowPage").innerHTML = page;
+            //刷新本页面
+        }
+        $('#myTbody').html('');
+        getInformation(page - 1);
+    }
+
+    /**********************************************
+     *3.控制下一页
+     ***********************************************
+     */
+    function down() {
+        totalPage = parseInt(document.getElementById("total").innerHTML);   //获取总页数
+        page = parseInt(document.getElementById("nowPage").innerHTML);
+        if (page == totalPage) {
+            alert("已经是最后一页了");
+        } else {
+            page = page + 1;
+            //刷新本页面
+            document.getElementById("nowPage").innerHTML = page;
+        }
+        $('#myTbody').html('');
+        getInformation(page - 1);
+    }
+
+    function getInformation(page) {
+        //向接口 http://localhost:8001/scholat/question/questions/allQuestion 发送ajax获取全部问题信息
+        $.ajax({
+            type: "GET",
+            url: urlPath.question() +"/question/replys/replyWithQues/" + userId + "/" + page,
+            success: function (result) {//如果ajax请求发送成功调用的回调函数
+                if (result.success) {//判断后台是否正常返回
+                    totalPage = result.data.pageCount;      //获取总页数
+                    document.getElementById("total").innerHTML = totalPage;  //在分页栏那里输出
+                    size = result.data.size;                //获取记录总数
+                    document.getElementById("size").innerHTML = size;  //在分页栏输出总共多少条记录
+                    document.getElementById("nowPage").innerHTML = page + 1;    //设置当前页
+                    var questionAndReply = result.data.questionAndReply;
+                    for (var i = 0; i < size; i++) {
+                        $('#myTbody').append(//for循环动态拼接到id为‘ myTbody’的表单里
+                            '<tr><td><font color="red">' + questionAndReply[i].reply.replyId + '</font></font><br/>' + questionAndReply[i].question.courseId
+                            + '</td><td><font color="red">'
+                            + questionAndReply[i].reply.questionId + '</font><br/>' + questionAndReply[i].question.questionId
+                            + '</td><td><font color="red">'
+                            + questionAndReply[i].reply.userId + '</font><br/>' + questionAndReply[i].question.userId
+                            + '</td><td><font color="red">'
+                            + questionAndReply[i].reply.replyContent + '</font><br/>' + questionAndReply[i].question.questionContent
+                            + '</td><td><font color="red">'
+                            + questionAndReply[i].reply.createTime + '</font><br/>' + questionAndReply[i].question.createTime
+                            + '</td><td>'
+                            + '<a href="#" onclick = "deleteById(' + questionAndReply[i].reply.replyId + ')">删除</a>' + '<br/>' + '<a href="#" target="_self" onclick = "urlLocaltion(' + questionAndReply[i].question.questionId + ')">查看  </a>'
+                            + '</td></tr>');
+                    }
+                } else {//否则是后台没正确返回数据
+                    alert("后台失败");
+                }
+            }
+        });
+    }
+
+</script>
+</body>
+
+</html>

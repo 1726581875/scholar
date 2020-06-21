@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<!-- 引入ajax的前缀路径，统一管理-->
+		<script src="path.js"></script>
+		<link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.0.1/css/bootstrap.min.css" rel="stylesheet">
+		<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+		<script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.0.1/js/bootstrap.min.js"></script>
+
+
+		<script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+		<script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+		<style>
+			li{list-style-type:none}
+		 </style>
+	</head>
+	<body>
+
+		<div class="container">
+			<div class="row clearfix">
+				<div class="col-md-12 column">
+					<div class="btn-group open">
+						<button class="btn btn-default">Action</button> <button data-toggle="dropdown" class="btn btn-default dropdown-toggle"><span
+							 class="caret"></span></button>
+						<ul class="dropdown-menu">
+							<li>
+								<a href="#">操作</a>
+							</li>
+						</ul>
+					</div>
+					<table class="table">
+						<thead>
+							<tr>
+								<th>姓名</th>
+								<th>班级</th>
+								<th>学号</th>
+							</tr>
+						</thead>
+						<tbody>
+
+							<div id="app">
+
+								<li v-for="user in users">
+									<img alt="300x200" :src="'http://localhost:9002'+ user.userImage" width="80px" height="80px"/>
+							{{user.userName}}
+							{{user.className}}
+							{{user.sno}} 
+									<tr class="success">
+								<!-- <td v-text = "user.userName"></td>
+								<td v-text = "user.className"></td>
+								<td v-text = "user.sno"></td> -->
+										<td>{{user.userName}}</td>
+										<td>{{user.className}}</td>
+										<td>{{user.sno}}</td>
+									</tr>
+
+								</li>
+
+
+
+							</div>
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+
+	</body>
+
+	<script type="text/javascript">
+		new Vue({
+			el: '#app',
+			data: {        
+               users: null,
+			},
+			mounted() {
+				axios
+					.get(urlPath.course()+'/1/class/name')
+					.then(response => (this.users = response.data.data))
+					.catch(function(error) { // 请求失败处理
+						console.log(error);
+					});
+			}
+		})
+	</script>
+</html>

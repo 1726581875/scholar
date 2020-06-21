@@ -29,7 +29,7 @@ public class UserDetailInfo {
 	
 	private String description;
 	
-	 public static UserDetailInfo invalid() {
+	public static UserDetailInfo invalid() {
 	        return new UserDetailInfo(-1, "", "", "", 0 ,"","","","","");
 	    }
 	

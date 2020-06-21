@@ -15,5 +15,4 @@ public class CourseDto {
 
     private String courseDesc;
 
-
 }

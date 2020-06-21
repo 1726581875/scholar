@@ -32,13 +32,27 @@ public class CourseControllerClient {
     private CourseService courseService;
 
     @Autowired
-    public NoticeServiceApi noticeServiceApi;
+    private NoticeServiceApi noticeServiceApi;
+
+
+
+    @GetMapping("/find/{courseId}")
+    public Object findCourse(@PathVariable Integer courseId){
+        log.info("accept =====> courseId={}",courseId);
+        CourseDto courseDto = courseService.findById(courseId);
+        if(courseDto == null){
+            ResultUtil.fail(CourseEnum.COURSE_NOT_EXIST);
+        }
+        return  ResultUtil.success(courseDto);
+    }
+
 
 
     @PostMapping("/delete")
     public Object deleteCourse(Integer courseId){
         log.info("accept =====> courseId={}",courseId);
         int m = courseService.deleteById(courseId);
+
         return m == 1 ? ResultUtil.success() : ResultUtil.fail("删除课程失败");
     }
 
@@ -80,8 +94,6 @@ public class CourseControllerClient {
         PageHelper.startPage(page,MyConstant.PAGE_SIZE,"course_id DESC");
         List<CourseDto> courseDtoList = courseService.findByuserId(userId);
         PageInfo<CourseDto> pageInfo = new PageInfo<CourseDto>(courseDtoList);
-
-        noticeServiceApi.sendMessagetoAll("hahahaahahhahahahhaah");
 
         return success(pageInfo);
     }
@@ -128,7 +140,7 @@ public class CourseControllerClient {
                 String oldPath = courseDto.getCourseImage();
                 String oldName = oldPath.substring(oldPath.lastIndexOf("/") + 1,oldPath.length());
                 log.info("oldName============>{}",oldName);
-                if(!oldName.equals(MyConstant.DEFAULT_IMAGE)){//如果不是默认图片（default.png）
+                if(!oldPath.equals(MyConstant.DEFAULT_IMAGE)){//如果不是默认图片（default.png）
                     MyFileUtil.dropFile(MyConstant.IMAGE_PATH + oldName);//删除
                 }
             }

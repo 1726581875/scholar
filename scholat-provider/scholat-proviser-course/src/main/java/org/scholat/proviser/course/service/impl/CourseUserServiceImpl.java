@@ -5,15 +5,15 @@ import org.scholat.proviser.course.dto.CourseUserDto;
 import org.scholat.proviser.course.entity.CourseUser;
 import org.scholat.proviser.course.mapper.CourseUserMapper;
 import org.scholat.proviser.course.service.CourseUserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @Service
 public class CourseUserServiceImpl implements CourseUserService {
 
-    @Autowired
+    @Resource 
     private CourseUserMapper courseUserMapper;
 
 
@@ -52,5 +52,11 @@ public class CourseUserServiceImpl implements CourseUserService {
     public int deleteUserByCourseId(int courseId) {
 
         return courseUserMapper.deleteUserByCourseId(courseId);
+    }
+
+    @Override
+    public List<CourseUser> findAllCourseUserByCourseId(int courseId) {
+
+        return courseUserMapper.findAllCourseUserByCourseId(courseId);
     }
 }

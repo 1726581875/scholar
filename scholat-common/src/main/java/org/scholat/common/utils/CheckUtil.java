@@ -16,7 +16,8 @@ public class CheckUtil {
      * @return
      */
     public static boolean isNumber(String str) {
-        if (str == null) return false;
+        if (str == null)
+            return false;
         Pattern pattern = Pattern.compile("^-?\\d+(\\.\\d+)?$");
         return pattern.matcher(str).matches();
     }

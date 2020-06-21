@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>修改布置的作业</title>
+    <!-- 引入ajax的前缀路径，统一管理-->
+    <script src="path.js"></script>
+    <link href="http://res.scholat.com/scholat/course/styles/T_BackManager.gzcss?_dc=e6e9b591575" rel="stylesheet"
+        type="text/css" />
+    <link href="http://res.scholat.com/scholat/course/styles/T_BackToolbar.gzcss?_dc=58b86543e2b" rel="stylesheet"
+        type="text/css" />
+    <link href="http://res.scholat.com/scholat/portal/styles/portalTop.gzcss?_dc=c66acc21bf1" rel="stylesheet"
+        type="text/css" />
+
+      <!-- 富文本编辑器 -->
+      <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+      <script charset="utf-8" src="js/kindeditor/kindeditor-all-min.js"></script>
+      <script charset="utf-8" src="js/kindeditor/lang/zh-CN.js"></script>
+
+    <!-- jquery文件上传组件pekeUpload -->
+    <link href="http://res.scholat.com/scholat/course/styles/pekeUpload.gzcss?_dc=752e1006f46" rel="stylesheet" type="text/css" />
+    <script src="http://res.scholat.com/scholat/course/scripts/pekeUpload.gzjs?_dc=54b7e3a2b18" type="text/javascript"></script>
+    <!-- 时间选择器js -->
+    <script type="text/javascript" src="http://www.scholat.com/teamworkActivity/laydate/laydate.gzjs?_dc=89815aa4fac"></script>
+  
+
+    <!-- 富文本编辑器 begin -->
+    <script type="text/javascript">
+        var editor;
+        // 富文本
+        $(document).ready(function () {
+            KindEditor.ready(function (K) {
+                editor = K.create('textarea[name="content"]', {});
+            });
+        });
+    </script>
+
+</head>
+
+<body>
+    <div class="bodyStyle">
+        <div class="head" style="padding-bottom: 5px; text-align: center;">
+            <div style="display: inline;">
+                <div class="head-title">
+                    <!-- 课程名字 -->
+                </div>
+                <div id="msgImg" class="head-notice">
+                    <div style="width: 135px; float: right; cursor: pointer">
+                        欢迎您, <span id="username"></span>&nbsp;&nbsp;
+                    </div>
+                </div>
+            </div>
+            <div class="head-toolbar">
+                <div id="lnews" class="head-toolbar-item head-toolbar-item-news"
+                    onClick="javascript:window.location.href='/course/T_latestNews.html?courseId=2954'">
+                    <div class="head-toolbar-item-detail">
+                        最新动态
+                        <div style="font-size: 12px;">
+                            What's New
+                        </div>
+                    </div>
+                </div>
+                <div id="nlist" class="head-toolbar-item head-toolbar-item-notice"
+                    onClick="javascript:window.location.href='/course/T_noticeList.html?courseId=2954'">
+                    <div class="head-toolbar-item-detail">
+                        教学公告
+                        <div style="font-size: 12px;">
+                            Alerts
+                        </div>
+                    </div>
+                </div>
+                <div id="tresou" class="head-toolbar-item head-toolbar-item-resource"
+                    onClick="javascript:window.location.href='/course/T_allResources.html?courseId=2954'">
+                    <div class="head-toolbar-item-detail w1">
+                        教学资源
+                        <div style="font-size: 12px;">
+                            Resources
+                        </div>
+                    </div>
+                </div>
+                <div id="courseTask" class="head-toolbar-item head-toolbar-item-homework">
+                    <div class="head-toolbar-item-detail w2" style="margin-left: -39px;">
+                        作业管理
+                        <div style="font-size: 12px;">
+                            Homework
+                        </div>
+                    </div>
+                </div>
+                <div id="ques" class="head-toolbar-item head-toolbar-item-question"
+                    onClick="javascript:window.location.href='/course/T_allQuestions.html?courseId=2954'">
+                    <div class="head-toolbar-item-detail">
+                        互动交流
+                        <div style="font-size: 12px;">
+                            Interaction
+                        </div>
+                    </div>
+                </div>
+                <div id="cinfo" class="head-toolbar-item head-toolbar-item-courseInfo"
+                    onClick="javascript:window.location.href='/course/T_editCourseInfo.html?courseId=2954'">
+                    <div class="head-toolbar-item-detail w3">
+                        课程管理
+                        <div style="font-size: 12px;">
+                            Management
+                        </div>
+                    </div>
+                </div>
+                <div id="cclass" class="head-toolbar-item head-toolbar-item-stuManage"
+                    onClick="javascript:window.location.href='/course/T_manageStudents.html?courseId=2954'">
+                    <div class="head-toolbar-item-detail w4" style="margin-left: -39px;">
+                        学生管理
+                        <div style="font-size: 12px;">
+                            Students
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- 课程功能选择 end -->
+
+        <!-- 作业标题 -->
+        <!-- <form id="taskAddForm" name="reg_testdate" onsubmit="return checkTitle();; return validateForm_taskAddForm();" -->
+            <!-- action="/course/T_saveEditedHomework.html" method="post" enctype="multipart/form-data"> -->
+            <ul>
+                <input type="hidden" value="2954" name="courseId" id="courseId" />
+                <input type="hidden" value="22380" id="homeworkId" name="homeworkId" />
+                <input type="hidden" value="9302" id="classId" name="classId" />
+                <input type="hidden" value="-1" id="classId1" name="classId1" />
+
+                <div>
+                    <p><span class="needed">*</span>作业标题：
+                        <span id="test" style="margin-top:-5px; color:#F15191; font-size:13px; display:none;"></span>
+                    </p>
+                </div>
+                <span>
+                    <input id="taskTitle" type="text" name="taskTitle"
+                        style="margin-top:10px;width:93%;height:30px; border:1px solid #399;line-height:30px;"
+                        onkeyup="titleChangeTest(this.value)" />
+                </span>
+                <!-- <span style="font-size: 15px;font-weight: bold;line-height: 30px;" id="wordCheck">0/30</span> -->
+                <!-- 作业内容 -->
+                <div style="padding-top: 10px;">
+                    <div style="margin-bottom:5px;">
+                        作业内容：&nbsp;&nbsp;
+                    </div>
+                    <!-- 富文本编辑器 -->
+
+                    <div>
+                        <textarea id="taskContext" name="content" style="width:100%;height:600px;border: 0 none;">
+                               <!-- ajax返回 -->
+                        </textarea>
+
+                        <!-- <textarea rows="" cols="" name="ncontent" id="addeditor_id" style="display:none;"></textarea> -->
+                    </div>
+
+                </div>
+                <!--截止日期  -->
+                <div style="padding-top: 10px;">
+                    <span class="needed">*</span>截止日期：
+                    <input name="endTime" id="endTime" type="text" readonly
+                        style="width: 100px; height: 20px; padding: 0; margin-right: 0px; border-radius: 0px;"
+                        placeholder="请选择日期" value="" />
+                </div>
+                <!--能否延时提交  -->
+                <div style="padding:10px 0px;">
+                    &nbsp;&nbsp;&nbsp;能否延时提交：
+                    <select name="canDelaySub" id="isDelaySubmit">
+                        <option value="0">
+                            不可延时提交
+                        </option>
+                        <option value="1">
+                            可延时提交
+                        </option>
+                    </select>
+                </div>
+
+                <div>
+                    <div style="float:left; width:100px; margin-top:3px;">&nbsp;&nbsp;&nbsp;作业附件：</div>
+                    <div style="float:left; width:500px;">
+                        <input id='selectFile' type='file' name='file' style="display: none;" />
+                        <input type="button" value="添加附件" style="padding:3px 8px;" onclick="showfilesend()" />
+                        <input id="links" type="hidden" name="linksId" value="" />
+                        <div id="addLink" style="padding-top:10px; margin-bottom:15px;"></div>
+                    </div>
+                </div>
+                <div style="clear:left"></div>
+                <div class="sel_class">
+                    <div style="float:left; width:100px;">
+                        <span class="needed">*</span>选择班级：
+                    </div>
+                    <div style="float:left; width:500px;">
+                        <div id="classNames" style="width:500px; height:25px;">
+                            <!-- ajax返回班级名称 -->
+                        </div>
+                        <input type="checkbox" id="selectAll" />&nbsp;&nbsp;全选
+                    </div>
+                </div>
+                <div style="width:200px;">
+                    <input class="btn_save_t" type="submit" value="保存" onclick="submitUpdateTask()" />
+                    <input class="btn_cancel_t" style="margin-left:20px;" type="button" value="取消"
+                        onclick="javascript:history.go(-1)" />
+                </div>
+            </ul>
+        <!-- </form> -->
+    </div>
+
+
+    <script>
+        //全局变量
+        var courseId; //课程Id
+        var taskId; //作业Id
+
+        //获取homworkManager.html页面传过来的courseId和taskId
+        $(function () {
+            //获取homworkManager.html页面传过来的courseId和taskId
+            getCourseIdAndTaskId();
+
+            //修改作业要求之前，回显作业要求
+            //发送ajax上传文件
+            $.ajax({
+                url: urlPath.task() + '/courseTask/echoCourseTask?courseId=' + courseId + '&taskId=' + taskId,
+                type: 'GET',
+                crossDomain: true, //允许跨域请求
+                // data :  //请求的数据
+                dataType: 'json', //这里是返回类型，一般是json,text等
+                success: function (result) { //提交成功后自动执行的处理函数，参数data就是服务器返回的数据。
+
+                    var taskClaim = result.data;
+                    //var classNames = new Array();
+
+                    if (result.success) {
+
+                        $("#taskTitle").val(taskClaim.taskTitle);
+                        $("#taskContext").val(taskClaim.taskContent);
+                        $("#endTime").val(taskClaim.endTime.substring(0, 10));
+                        $("#isDelaySubmit").val(1); // 0表示可延迟提交， 1表示不可延迟提交
+                        var classNames = " ";
+                        for(var i = 0; i < taskClaim.className.length; i++){
+                            console.log("====> taskClaim.classNames ===>" + taskClaim.className[i]);
+                            classNames += '<input name="selected" type="checkbox" value="9302" checked="checked'
+                                +'disabled="disabled" />&nbsp;&nbsp;'+ taskClaim.className[i] ;
+                        };
+                        $("#classNames").html(classNames);
+                        console.log("taskClaim.taskTitle text()===>" + $("#taskTitle").val());
+                        console.log("taskClaim.taskContent text()===>" + $("#taskContext").val());
+                        console.log(" $('endTime').val()====>" + $("#endTime").val());
+                        console.log("  $('#isDelaySubmit').val(====>" + $("#isDelaySubmit").val());
+
+                    } else {
+                        alert("程序出现错误！");
+                    }
+                },
+
+            }); //end ajax
+        });
+
+        //获取URL中的参数
+        function getUrlParam(name) { //封装方法
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+            var r = window.location.search.substr(1).match(reg); //匹配目标参数
+            if (r != null) return unescape(r[2]);
+            return null; //返回参数值
+        }
+
+        function getCourseIdAndTaskId() {
+            courseId = getUrlParam("courseId");
+            taskId = getUrlParam("taskId");
+
+            console.log("courseId===>" + courseId);
+            console.log("taskId===>" + taskId);
+        }
+
+        //提交更新作业要求
+        function submitUpdateTask() {
+            var updateData = {};
+            updateData.courseId = courseId;
+            updateData.taskId = taskId;
+            updateData.taskTitle = $("#taskTitle").val();
+            updateData.taskContent = $("#taskContext").val();
+            console.log("修改后的 ===> $('#taskContext').val()" + $("#taskContext").val());
+            updateData.endTime = $("#endTime").val();
+            updateData.isDelaySubmit = $("#isDelaySubmit").val();
+            
+            $.ajax({
+                url: urlPath.task() + '/courseTask/updateTaskDemand',
+                type: 'post',
+                contentType: 'application/json',
+                //crossDomain: true, //允许跨域请求
+                data: JSON.stringify(updateData),
+                dataType: 'json', //这里是返回类型，一般是json,text等
+                success: function (result) { //提交成功后自动执行的处理函数，参数data就是服务器返回的数据。
+
+                    var taskClaim = result.data;
+
+                    if (result.success) {
+                       alert("修改成功！");
+                       window.location.href = "homeworkManager.html";
+                    } else {
+                        alert("程序出现错误！");
+                    }
+                },
+
+            }); //end ajax
+        };
+
+        function showfilesend() {
+           //pekeUpload():jquery文件上传组件
+            $("#selectFile").pekeUpload({
+                allowedExtensions: 'txt|doc|docx|pdf|zip|tar|rar|jpeg|bmp|gif|png|jpg|xls|xlsx|ppt|pptx|mp3|mp4|avi|rm|rmvb|wma|wmv',
+                url: urlPath.task() + '/uploadAnnex?courseId=' + courseId + '&taskId=' + taskId,
+                maxSize: 100, //Set the file size limit in MB, 0 means no limit
+               // type: 'homework'
+            });
+        }
+
+        //检查作业截止时间
+        function check_time() {
+            var currTime = new Date(); //获得今天时间
+            var endTime = $("#endTime").val();
+            var flag_1 = isEmpty(endTime, "作业截止时间不能为空");
+            if (flag_1) alert("作业截止时间不能为空");
+            //if (flag_1) return false;
+        }
+
+        function timeCompare(time1, time2) {
+            if (time1.getTime() >= time2.getTime()) return true;
+            else return false;
+        }
+
+        laydate.render({
+            elem: '#endTime',
+            type: 'date'
+        });
+    </script>
+</body>
+
+</html>

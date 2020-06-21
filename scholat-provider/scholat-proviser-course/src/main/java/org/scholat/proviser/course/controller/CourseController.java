@@ -1,24 +1,22 @@
 package org.scholat.proviser.course.controller;
 
+import cn.scholat.service.NoticeServiceApi;
 import org.scholat.proviser.course.entity.Course;
 import org.scholat.proviser.course.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.HashMap;
-import java.util.Map;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/course-/a")
-@CrossOrigin
+@RequestMapping("/course-api")
+@CrossOrigin(allowCredentials = "true",allowedHeaders = "*")
 public class CourseController {
 	
 	@Autowired
 	private CourseService courseService;
-		
+
+	@Autowired
+	private NoticeServiceApi noticeServiceApi;
+
 	//@Autowired
 	//private UserDetailServiceApi userServiceApi;
 	//
@@ -26,13 +24,16 @@ public class CourseController {
 	//public Object getUser(@PathVariable Integer userId){
 	//	return userServiceApi.findUserDetail(userId);
 	//}
-	
-	@PostMapping("/all")
-	public Object findAll(String courseName,String courseDesc){
-		Map<String,String> map = new HashMap<String,String>();
-		map.put("courseName",courseName);
-		map.put("courseDesc",courseDesc);
-		return map;
+
+	/**
+	 * 测试
+	 * @return
+	 */
+	@GetMapping("/send")
+	public Object findAll(){
+	//	noticeServiceApi.sendMessageToCourseUser( 1,"交作业11111啦啦啦啦");
+		noticeServiceApi.sendMessageToOne(1,"交作业11111啦啦啦啦");
+		return "ok";
 	}
 
 //	@GetMapping("/find/{courseId}")

@@ -22,4 +22,7 @@ public interface CourseUserService {
     public List<String> findCourseClass(int courseId);
 
     public int deleteUserByCourseId(int courseId);
+
+    public List<CourseUser> findAllCourseUserByCourseId(int courseId);
+
 }
