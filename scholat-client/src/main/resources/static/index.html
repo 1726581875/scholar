@@ -129,8 +129,8 @@
 
 											</p>
 											<p>
-												<a  v-if="pageFlag==1" class="btn btn-primary" :href="'student/homework.html?courseId='+ course.courseId">进入查看1</a>
-												<a  v-if="pageFlag==2" class="btn btn-primary" :href="'teacher/homeworkManager.html?courseId='+ course.courseId">进入查看2</a>
+												<a  v-if="pageFlag==1" class="btn btn-primary" :href="'student/homework.html?courseId='+ course.courseId">进入查看</a>
+												<a  v-if="pageFlag==2" class="btn btn-primary" :href="'teacher/homeworkManager.html?courseId='+ course.courseId">进入查看</a>
 												<a class="btn" href="#">{{course.userName}}</a>
 
 												<a id="modal-610527" @click="getCourseId(course.courseId)" href="#modal-container-610527" role="button"
@@ -139,7 +139,7 @@
 													<span v-if="pageFlag == 2">删除</span>
 													<span v-if="pageFlag == 0">加入</span>
 												</a>
-												<a v-if="pageFlag == 2" :href="'updateCourseJQ.html?courseId='+ course.courseId"><span>修改</span></a>
+												<a v-if="pageFlag == 2" :href="'updateCourse.html?courseId='+ course.courseId"><span>修改</span></a>
 											</p>
 										</div>
 									</div>
@@ -252,7 +252,7 @@
 					};
 					//发生错误弹框
 					websocket.onerror = function(event) {
-						alert('websocket通信发生错误！');
+						console.log('websocket通信发生错误！');
 					};
 					//当关闭窗口关闭websocket
 					window.onbeforeunload = function() {

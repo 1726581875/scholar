@@ -36,6 +36,18 @@ public class CourseControllerClient {
 
 
 
+    @GetMapping("/find/{courseId}")
+    public Object findCourse(@PathVariable Integer courseId){
+        log.info("accept =====> courseId={}",courseId);
+        CourseDto courseDto = courseService.findById(courseId);
+        if(courseDto == null){
+            ResultUtil.fail(CourseEnum.COURSE_NOT_EXIST);
+        }
+        return  ResultUtil.success(courseDto);
+    }
+
+
+
     @PostMapping("/delete")
     public Object deleteCourse(Integer courseId){
         log.info("accept =====> courseId={}",courseId);
@@ -128,7 +140,7 @@ public class CourseControllerClient {
                 String oldPath = courseDto.getCourseImage();
                 String oldName = oldPath.substring(oldPath.lastIndexOf("/") + 1,oldPath.length());
                 log.info("oldName============>{}",oldName);
-                if(!oldName.equals(MyConstant.DEFAULT_IMAGE)){//如果不是默认图片（default.png）
+                if(!oldPath.equals(MyConstant.DEFAULT_IMAGE)){//如果不是默认图片（default.png）
                     MyFileUtil.dropFile(MyConstant.IMAGE_PATH + oldName);//删除
                 }
             }
