@@ -1,12 +1,11 @@
 package org.scholat.privider.task.studentHomeWork.service.impl;
 
 import org.scholat.common.pojo.CourseTask;
-import org.scholat.common.pojo.HomeWork;
 import org.scholat.privider.task.mapper.HomeWorkMapper;
 import org.scholat.privider.task.studentHomeWork.service.IHomeWorkService;
+import org.scholat.privider.task.vo.HomeWorkVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -21,10 +20,16 @@ public class HomeWorkServiceImpl implements IHomeWorkService {
 
 
     @Override
-    public List<CourseTask> getHomeWorkByCourseId(int courseId) {
+    public HomeWorkVo getHomeWorkByCourseId(int courseId) {
 
         List<CourseTask> homeWorkByCourseId = homeWorkMapper.getHomeWorkByCourseId(courseId);
-        return homeWorkMapper.getHomeWorkByCourseId(courseId);
+        List<CourseTask> taskList =  homeWorkMapper.getHomeWorkByCourseId(courseId);
+        String courseName = homeWorkMapper.queryCourseName(courseId);
+        System.out.println(courseName);
+        HomeWorkVo homeWorkVo = new HomeWorkVo();
+        homeWorkVo.setCourseName(courseName);
+        homeWorkVo.setTaskList(taskList);
+        return homeWorkVo;
     }
 
     @Override

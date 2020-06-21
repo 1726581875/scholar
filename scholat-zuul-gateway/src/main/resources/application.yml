@@ -35,5 +35,6 @@ zuul:
   routes:
     scholat-userLogin: /user/**
     scholat-course: /course/**
+    scholat-question: /question/**
     #微服务应用实例名: /xxxx/***
     

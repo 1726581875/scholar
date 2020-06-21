@@ -1,9 +1,7 @@
 package org.scholat.privider.task.studentHomeWork.service;
 
 import org.scholat.common.pojo.CourseTask;
-import org.scholat.common.pojo.HomeWork;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.scholat.privider.task.vo.HomeWorkVo;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -20,7 +18,7 @@ public interface IHomeWorkService {
      * @return
      */
 
-    List<CourseTask> getHomeWorkByCourseId (int courseId);
+    HomeWorkVo getHomeWorkByCourseId (int courseId);
 
     /**
      * 查询用户的所有作业任务

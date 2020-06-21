@@ -14,7 +14,7 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/scholat?useUnicode=true&characterEncoding=utf8&useSSL=false
     username: root
-    password: sx199902
+    password: root
 #Jpa一些配置
   jpa:
     hibernate:

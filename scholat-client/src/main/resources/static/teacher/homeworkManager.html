@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>作业管理页面</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link href="http://res.scholat.com/scholat/course/styles/T_BackManager.gzcss?_dc=e6e9b591575" rel="stylesheet"
+        type="text/css" />
+    <link href="http://res.scholat.com/scholat/course/styles/T_BackToolbar.gzcss?_dc=58b86543e2b" rel="stylesheet"
+        type="text/css" />
+    <link href="http://res.scholat.com/scholat/portal/styles/portalTop.gzcss?_dc=c66acc21bf1" rel="stylesheet"
+        type="text/css" />
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+
+<body style="background: url('');background-repeat:no-repeat;">
+    <!-- <strong>include 'test.html'</strong>   -->
+    <!-- <iframe src="scholatnav.html" width=""; height="" frameborder="0" scrolling="no" ></iframe>   -->
+
+    <!-- 课程功能选择 公共代码 begin -->
+    <div class="bodyStyle">
+        <div class="head" style="padding-bottom: 5px; text-align: center;">
+            <div style="display: inline;">
+                <div class="head-title">
+                    <!-- 课程名字 -->
+                </div>
+                <div id="msgImg" class="head-notice">
+                    <div style="width: 135px; float: right; cursor: pointer">
+                        欢迎您, <span id="username"></span>&nbsp;&nbsp;
+                    </div>
+                </div>
+            </div>
+            <div class="head-toolbar">
+                <div id="lnews" class="head-toolbar-item head-toolbar-item-news"
+                    onClick="javascript:window.location.href='/course/T_latestNews.html?courseId=2954'">
+                    <div class="head-toolbar-item-detail">
+                        最新动态
+                        <div style="font-size: 12px;">
+                            What's New
+                        </div>
+                    </div>
+                </div>
+                <div id="nlist" class="head-toolbar-item head-toolbar-item-notice"
+                    onClick="javascript:window.location.href='/course/T_noticeList.html?courseId=2954'">
+                    <div class="head-toolbar-item-detail">
+                        教学公告
+                        <div style="font-size: 12px;">
+                            Alerts
+                        </div>
+                    </div>
+                </div>
+                <div id="tresou" class="head-toolbar-item head-toolbar-item-resource"
+                    onClick="javascript:window.location.href='/course/T_allResources.html?courseId=2954'">
+                    <div class="head-toolbar-item-detail w1">
+                        教学资源
+                        <div style="font-size: 12px;">
+                            Resources
+                        </div>
+                    </div>
+                </div>
+                <div id="courseTask" class="head-toolbar-item head-toolbar-item-homework">
+                    <div class="head-toolbar-item-detail w2" style="margin-left: -39px;">
+                        作业管理
+                        <div style="font-size: 12px;">
+                            Homework
+                        </div>
+                    </div>
+                </div>
+                <div id="ques" class="head-toolbar-item head-toolbar-item-question"
+                    onClick="javascript:window.location.href='/course/T_allQuestions.html?courseId=2954'">
+                    <div class="head-toolbar-item-detail">
+                        互动交流
+                        <div style="font-size: 12px;">
+                            Interaction
+                        </div>
+                    </div>
+                </div>
+                <div id="cinfo" class="head-toolbar-item head-toolbar-item-courseInfo"
+                    onClick="javascript:window.location.href='/course/T_editCourseInfo.html?courseId=2954'">
+                    <div class="head-toolbar-item-detail w3">
+                        课程管理
+                        <div style="font-size: 12px;">
+                            Management
+                        </div>
+                    </div>
+                </div>
+                <div id="cclass" class="head-toolbar-item head-toolbar-item-stuManage"
+                    onClick="javascript:window.location.href='/course/T_manageStudents.html?courseId=2954'">
+                    <div class="head-toolbar-item-detail w4" style="margin-left: -39px;">
+                        学生管理
+                        <div style="font-size: 12px;">
+                            Students
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- 课程功能选择 end -->
+
+        <!-- 具体内容 -->
+        <div class="container">
+            <hr class="managehr" />
+            <!-- 添加课程按钮 -->
+            <div style="text-align: center;">
+                <a href="#" class="btn btn-info btn-lg">
+                    <span class="glyphicon glyphicon-plus"></span> 添加作业
+                </a>
+            </div>
+            <hr>
+            <!-- 表格面板 -->
+            <div class="underContent">
+                <div style="float:left;margin-top:7px;">
+                    <span style="color:#000000"><strong>班级选择</strong> </span>:
+                    <select id="classSelected" style="width: 200px; height: 25px; line-height: 25px;"
+                        name="selectedClassId" onchange="confirm2()">
+                        <option value="-1" selected="selected">
+                            全部
+                        </option>
+                        <option value="9302">
+                            未分班学生
+                        </option>
+                    </select>
+                </div>
+
+                <div id="myselect" style="text-align: center;">
+                    <input type="radio" name="RADIO" id="selectAll" />全选
+                    <input type="radio" name="RADIO" id="reverse">反选
+                    <input type="button" name="downloadAll" id="downloadAll" value="批量下载">
+                </div>
+
+
+                <div style="clear: both;"></div>
+
+                <table class="datalist" id="datalist" cellspacing="1" style="margin-left: 0px; font-size: 13px;">
+                    <thead>
+                        <th width="95px">选择</th>
+                        <th width="95px">
+                            班级
+                        </th>
+                        <th width="185px">
+                            作业标题
+                        </th>
+                        <th width="100px" onclick="SortTable('datalist',2)" style="cursor:pointer" ;>
+                            布置日期 ↓
+                        </th>
+                        <th width="100px">
+                            布置教师
+                        </th>
+                        <th width="125px" onclick="SortTable('datalist',4)" style="cursor:pointer" ;>
+                            截止日期 ↓
+                        </th>
+                        <th width="100px">
+                            已交/应交
+                        </th>
+                        <th width="210px">
+                            操作
+                        </th>
+                    </thead>
+                    <!-- id="taskTbody" -->
+
+                    <tbody id="taskTbody">
+                        <!-- ajax请求成功返回 -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script type="text/javascript">
+
+    var courseId = getUrlParam("courseId");
+    //获取URL中的参数
+    function getUrlParam(name) { //封装方法
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+        var r = window.location.search.substr(1).match(reg); //匹配目标参数
+        if (r != null) return unescape(r[2]);
+        return null; //返回参数值
+    };
+
+
+    var flag = 0; //全选与反选的标记
+    //全选
+    $("#selectAll").click(function () {
+        if (flag == 0) {
+            //把所有的复选框选中
+            $("tbody tr td  input").prop("checked", true);
+            var a = $("tbody input :checkbox");
+            console.log(a);
+            flag = 0;
+        } else {
+            $("tbody tr td  input").prop("checked", false);
+            flag == 0;
+        }
+    });
+    //反选
+    $("#reverse").click(function () {
+        $("tbody tr td  input").each(function () {
+            //遍历所有的复选框，然后取值进行！非操作
+            $(this).prop("checked", !$(this).prop("checked"));
+        });
+    });
+</script>
+<script>
+    $('#courseTask').click(function () {
+        //避免appen()重复最佳内容
+        //$("#taskTbody").empty();
+        $.ajax({
+            type: "POST", //请求类型
+            url: "http://localhost:10001/courseTask/list/"+courseId,
+            // data: //发送到服务器的数据，要求是Object或string类型的参数。如果已经不是字符串，将自动转换为字符串格式。
+            dataType: "json", //预期服务器返回的数据类型
+            // crossDomain: true, //允许跨域请求
+            success: function (result) {
+                if (result.success) {
+                    var courseTask = result.data; //获取返回的学生作业信息courseTask
+                    console.log(courseTask);
+                    //设置课程的名字
+                    $(".head-title").text(courseTask[0].courseName);
+                    //设置用户名，传入用户名
+                    $("#username").text("叶汝铿")
+                    var htmlstr = "";
+                    for (var i = 0; i < courseTask.length; i++) {
+                        //var classNameLen = courseTask[i].classNames
+                        var taskId = courseTask[i].taskId; //作业Id
+                        var courseId = courseTask[i].courseId; //课程Id
+
+                        console.log(courseTask[i].className);
+
+                        // for(var j = 0; j < courseTask[j].classNames.length; j++)
+                        // {
+                        //     console.log(" -----courseTask[j].classNames------" + courseTask[j].classNames[j]);
+                        // }
+
+                        //$("#taskTbody").append(
+                        htmlstr += '<tr class="info">' +
+                            '<td><input type="checkbox"/></td><td>' +
+                            courseTask[i].className
+                            + '</td><td>' +
+                            courseTask[i].taskTitle +
+                            '</td><td>' +
+                            courseTask[i].createTime.substring(0, 10) +
+                            '</td><td>' +
+                            courseTask[i].userName +
+                            '</td><td>' +
+                            courseTask[i].endTime.substring(0, 10) +
+                            '</td><td>' +
+                            '<ul class="nav navbar-nav">' +
+                            '<li class="active"> <a href="#">' +
+                            '43/42' +
+                            '</a> </li>' +
+                            '</ul>' +
+                            '</td>' +
+                            '<td class="operate">' +
+                            '<a class="btn_edit" style="margin-right: -13px;" onclick="editCourseTask(' + taskId +',' + courseId + ')"' +
+                            'title="编辑"><i></i> </a> &nbsp;' +
+                            '<a class="btn_open" style="margin-right: -13px;" onclick="Button1(2954,22160,9302,-1)"' +
+                            'title="评价"><i></i> </a> &nbsp;' +
+                            '<a class="btn_down" style="margin-right: -13px;" onclick="downLoad(' +
+                            taskId + ')"' +
+                            'title="下载作业"><i></i> </a> &nbsp;' +
+                            '<a class="btn_del" style="margin-right: -13px;" onclick="delcfm(2954,22160,9302,-1)"' +
+                            'title="删除"><i></i> </a>' +
+                            '</td></tr>';
+
+                        //);
+                    };
+                    $("#taskTbody").html(htmlstr);
+                    //console.log(htmlstr);
+                }
+            }
+        });
+    });
+
+    //下载学生作业
+    function downLoad(taskId) {
+        console.log("taskID====>" + taskId);
+        $.ajax({
+            url: 'http://localhost:10001/homeworkZipDownLoad?className=17外包2班&taskId=' + taskId,
+            type: 'GET',
+            xhrFields : {withCredentials : true},
+            //crossDomain: true, //允许跨域请求
+            dataType: 'json', //这里是返回类型，一般是json,text等
+            success: function (result) { //提交成功后自动执行的处理函数，参数data就是服务器返回的数据。
+                var taskClaim = result.data;
+                if (result.status == 1) {
+                    alert("下载成功！");
+                } else {
+                    alert("下载失败！");
+                }
+
+            },
+
+        });
+    }
+
+    //编辑布置的作业
+    function editCourseTask(taskId,courseId) {
+
+        console.log("courseId===>" + courseId);
+        console.log("taskId===>" + taskId);
+
+        //将课程Id，作业Id传至editCourseTask.html页面
+        url = "editCourseTask.html?courseId="+courseId+"&taskId="+taskId;//此处拼接内容
+        window.location.href = url;
+
+    };
+</script>
+
+</html>

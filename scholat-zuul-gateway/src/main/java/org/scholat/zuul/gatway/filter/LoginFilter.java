@@ -1,17 +1,10 @@
 package org.scholat.zuul.gatway.filter;
 
 import com.netflix.zuul.ZuulFilter;
-import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;
-import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
-import org.scholat.common.constant.MyConstant;
-import org.scholat.common.utils.CookieUtil;
-import org.scholat.common.utils.JwtUtil;
 import org.springframework.stereotype.Component;
-
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 /**
  * @author xmz
@@ -20,10 +13,12 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Component
 @Slf4j
+@CrossOrigin(allowCredentials = "true" ,allowedHeaders = "*")
 public class LoginFilter extends ZuulFilter{
 
 	@Override
 	public Object run() throws ZuulException {
+	/*
 		//拦截所有请求
         RequestContext ctx = RequestContext.getCurrentContext();
         HttpServletRequest request = ctx.getRequest();
@@ -54,6 +49,8 @@ public class LoginFilter extends ZuulFilter{
             ctx.getResponse().sendRedirect("/errPage.html");
         } catch (Exception e) {
         }
+
+	 */
         return null;
 	}
 

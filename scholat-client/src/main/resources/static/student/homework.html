@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>作业提交页面</title>
+    <link href="http://res.scholat.com/scholat/course/styles/T_BackManager.gzcss?_dc=e6e9b591575" rel="stylesheet"
+        type="text/css" />
+    <link href="http://res.scholat.com/scholat/course/styles/T_BackToolbar.gzcss?_dc=58b86543e2b" rel="stylesheet"
+        type="text/css" />
+    <link href="http://res.scholat.com/scholat/portal/styles/portalTop.gzcss?_dc=c66acc21bf1" rel="stylesheet"
+        type="text/css" />
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.0.1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <!--功能选择 公共代码 -->
+    <div class="head" style="padding-bottom: 5px; text-align: center;">
+        <div style="display: inline;">
+            <div class="head-title">
+                <!-- 课程名字 -->
+            </div>
+            <div id="msgImg" class="head-notice">
+                <div style="width: 135px; float: right; cursor: pointer">
+                    欢迎您，<span id="username"></span>&nbsp;&nbsp;
+                </div>
+            </div>
+        </div>
+        <div class="head-toolbar">
+            <div id="lnews" class="head-toolbar-item head-toolbar-item-news"
+                onClick="javascript:window.location.href='/course/T_latestNews.html?courseId=2954'">
+                <div class="head-toolbar-item-detail">
+                    最新动态
+                    <div style="font-size: 12px;">
+                        What's New
+                    </div>
+                </div>
+            </div>
+            <div id="nlist" class="head-toolbar-item head-toolbar-item-notice"
+                onClick="javascript:window.location.href='/course/T_noticeList.html?courseId=2954'">
+                <div class="head-toolbar-item-detail">
+                    教学公告
+                    <div style="font-size: 12px;">
+                        Alerts
+                    </div>
+                </div>
+            </div>
+            <div id="tresou" class="head-toolbar-item head-toolbar-item-resource"
+                onClick="javascript:window.location.href='/course/T_allResources.html?courseId=2954'">
+                <div class="head-toolbar-item-detail w1">
+                    教学资源
+                    <div style="font-size: 12px;">
+                        Resources
+                    </div>
+                </div>
+            </div>
+            <div id="homeWork" class="head-toolbar-item head-toolbar-item-homework">
+                <div class="head-toolbar-item-detail w2" style="margin-left: -39px;">
+                    课程作业
+                    <div style="font-size: 12px;">
+                        Homework
+                    </div>
+                </div>
+            </div>
+            <div id="ques" class="head-toolbar-item head-toolbar-item-question"
+                onClick="window.location.href='../question/AllQuestion.html'">
+                <div class="head-toolbar-item-detail">
+                    互动交流
+                    <div style="font-size: 12px;">
+                        Interaction
+                    </div>
+                </div>
+            </div>
+
+            <div id="cinfo" class="head-toolbar-item head-toolbar-item-courseInfo"
+                onClick="window.location.href='/course/T_editCourseInfo.html?courseId=2954'">
+                <div class="head-toolbar-item-detail w3">
+                    班级信息
+                    <div style="font-size: 12px;">
+                        Management
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 布局 -->
+    <div class="container">
+        <div class="row clearfix">
+            <div class="col-md-12 column">
+                <!-- 提示信息 -->
+                <div class="alert alert-danger" role="alert">
+                    温馨提示：当您出现无法上传作业时，请更换浏览器，比如chrome，Firefox，IE等。<br />
+                    🔴 请同学们自觉遵守互联网行为规范，如发现恶意访问，将注销账号并通报所在单位。<br />
+                    🔴 特别注意：学生更换班级、退出班级，对应作业或将丢失，请操作前及时做好备份工作！
+                </div>
+
+                <!-- 作业管理表格 -->
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>状态</th>
+                            <th>作业标题</th>
+                            <th>布置日期</th>
+                            <th>截至日期</th>
+                            <th>发布人</th>
+                            <th>操作</th>
+                            <th>评语</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="taskTbody">
+                        <!-- ajax请求返回数据 -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- 作业要求遮罩窗体 begin-->
+    <div class="container">
+        <div class="row clearfix">
+            <div class="col-md-12 column">
+                <div class="modal fade" id="modal-container-418204" role="dialog" aria-labelledby="myModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                <h4 class="modal-title" id="myModalLabel">
+                                    <!-- 作业标题 ajax返回 -->
+
+                                </h4>
+                            </div>
+                            <div class="modal-body" id="demandContext">
+                                <!-- 作业 内容... ajax返回 -->
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                <!-- <button type="button" class="btn btn-primary">保存</button> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 作业要求遮罩窗体 end-->
+
+    <script>
+        var courseId = getUrlParam("courseId");
+        //获取URL中的参数
+        function getUrlParam(name) { //封装方法
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+            var r = window.location.search.substr(1).match(reg); //匹配目标参数
+            if (r != null) return unescape(r[2]);
+            return null; //返回参数值
+        };
+
+        function getCourseIdAndTaskId() {
+            courseId = getUrlParam("courseId");
+            taskId = getUrlParam("taskId");
+
+            console.log("courseId===>" + courseId);
+            console.log("taskId===>" + taskId);
+        };
+
+        $('#homeWork').click(function () {
+            //避免appen()重复最佳内容
+            $("#taskTbody").empty();
+            $.ajax({
+                type: "POST", //请求类型
+                url: "http://localhost:10001/homeWork/list/"+ courseId,
+                // data: //发送到服务器的数据，要求是Object或string类型的参数。如果已经不是字符串，将自动转换为字符串格式。
+                dataType: "json", //预期服务器返回的数据类型
+                // crossDomain: true, //允许跨域请求
+                success: function (result) {
+                    if (result.success) {
+                        var courseTask = result.data.taskList; //获取返回的学生作业信息courseTask
+                        //设置课程的名字
+                        if(result.data.courseName){
+                            $(".head-title").text(result.data.courseName);
+                        }else{
+                            $(".head-title").text("课程异常");
+                        }
+
+                        //设置用户名，传入用户名
+                        $("div span").text("叶汝铿");
+                        var htmlstr = "";
+                        for (var i = 0; i < courseTask.length; i++) {
+                            var taskId = courseTask[i].taskId;
+                            //$("#taskTbody").append(                      
+                            htmlstr += '<tr class="info"><td id="submitState">' +
+                                '未提交' +
+                                '</td><td>' +
+                                courseTask[i].taskTitle +
+                                '</td><td>' +
+                                courseTask[i].createTime.substring(0, 10) +
+                                '</td><td>' +
+                                courseTask[i].endTime.substring(0, 10) +
+                                '</td><td>' +
+                                courseTask[i].userName +
+                                '</td><td style="padding-left:8px;">'
+                                // + '<a style="cursor:pointer;">'
+                                +
+                                '<a id="modal-418204" onclick="taskDemand(' + taskId +
+                                ')" href="#modal-container-418204" role="button" class="btn" data-toggle="modal">' +
+                                '作业要求' +
+                                '</a>&nbsp;'
+                                // + '<a id="tasksubmit" style="cursor:pointer;">已交</a>'
+                                +
+                                '|&nbsp;<a onclick="taskupdate(' + taskId +
+                                ')" style="cursor:pointer;">修改</a> <input type="file" onchange="selectUploadFile(' +
+                                taskId +
+                                ')"  style="display:none" id="uploadtask" name="homeWork" multiple/>' +
+                                '</td><td>' +
+                                '很好' +
+                                '</td></tr>';
+
+                        };
+                        $("#taskTbody").html(htmlstr);
+
+                    }
+                }
+            });
+        });
+
+
+        //执行作业的提交与修改
+        function taskupdate(taskId) {
+            console.log("taskId===>" + taskId);
+            $("#uploadtask").click();
+        };
+
+        function selectUploadFile(taskId) {
+
+            var formData = new FormData();
+            formData.append('homeWork', $("#uploadtask")[0].files[0]);
+            console.log("formdata====>" + formData);
+            //发送ajax上传文件
+            $.ajax({
+                url: 'http://localhost:10001/uploadHomeWork?taskId='+taskId+'&courseId='+courseId,
+                type: 'POST',
+                //crossDomain: true, //允许跨域请求
+                data: formData, //请求的数据
+                contentType: false, // 当有文件要上传时，此项是必须的，否则后台无法识别文件流的起始位置
+                processData: false, // 是否序列化data属性，默认true(注意：false时type必须是post)
+                dataType: 'json', //这里是返回类型，一般是json,text等
+                //clearForm: true,//提交后是否清空表单数据
+                success: function (result) { //提交成功后自动执行的处理函数，参数data就是服务器返回的数据。
+                    if (result.status == 1) {
+                        alert('上传成功');
+
+                    } else {
+                        alert("上传失败！");
+                    }
+
+                },
+                // error: function() {  //提交失败自动执行的处理函数。
+                //     alert("上传文件出现错误！");
+                // }
+            });
+
+        };
+
+
+        // 作业要求：
+        function taskDemand(taskId) {
+
+            //发送ajax上传文件
+            $.ajax({
+                url: 'http://localhost:10001/queryCourseTask?taskId='+taskId+'&courseId='+courseId,
+                type: 'GET',
+                //crossDomain: true, //允许跨域请求
+                // data :  //请求的数据
+                dataType: 'json', //这里是返回类型，一般是json,text等
+                success: function (result) { //提交成功后自动执行的处理函数，参数data就是服务器返回的数据。
+                    var taskClaim = result.data;
+                    if (result.status == 1) {
+                        //alert(taskClaim.taskTitle);
+                        console.log("taskClaim.taskTitle text()===>" + $("h4.modal-title").text());
+                        console.log("taskClaim.taskContent val()===>" + $("#demandContext").text());
+                        $("#myModalLabel").text(taskClaim.taskTitle);
+                        $("#demandContext").text(taskClaim.taskContent);
+                    } else {
+                        alert("查看失败！");
+                    }
+                    // alert("ajax执行完毕！！！");
+                },
+
+            });
+
+        };
+    </script>
+
+</body>
+
+</html>

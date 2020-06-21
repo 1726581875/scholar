@@ -1,9 +1,9 @@
 package org.scholat.privider.task.studentHomeWork.controller;
 
-import org.scholat.common.pojo.CourseTask;
 import org.scholat.common.pojo.HomeWork;
 import org.scholat.common.utils.ResultUtil;
 import org.scholat.privider.task.studentHomeWork.service.IHomeWorkService;
+import org.scholat.privider.task.vo.HomeWorkVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,17 +19,17 @@ import java.util.List;
 public class HomeWorkController {
 
     @Autowired
-    IHomeWorkService iHomeWorkService;
+   private IHomeWorkService iHomeWorkService;
     /**
      * 查询用户的某一课程下的所有作业
      * @param courseId
      * @return
      */
     @PostMapping("/list/{courseId}")
-    Object getHomeWorkByCourseId (@PathVariable("courseId") int courseId){
+    public Object getHomeWorkByCourseId (@PathVariable("courseId") int courseId){
         System.err.println("HomeWorkController => courseId:"+courseId);
-        List<CourseTask> homeWorkByCourseId = iHomeWorkService.getHomeWorkByCourseId(courseId);
-        return  ResultUtil.success(homeWorkByCourseId);
+        HomeWorkVo homeWorkVo = iHomeWorkService.getHomeWorkByCourseId(courseId);
+        return  ResultUtil.success(homeWorkVo);
     }
 
     /**
@@ -37,7 +37,7 @@ public class HomeWorkController {
      * @return
      */
     @PostMapping("/list")
-    List<HomeWork> getAllHomeWork (){
+    public List<HomeWork> getAllHomeWork (){
         return null;
     }
 
@@ -47,7 +47,7 @@ public class HomeWorkController {
      * @return
      */
     @PutMapping("/update/workId}")
-    Object updateHomeWork (@PathVariable("workId") int workId){
+    public Object updateHomeWork (@PathVariable("workId") int workId){
         int i = iHomeWorkService.updateHomeWork(workId);
         if (i > 0){
            return ResultUtil.success(i);

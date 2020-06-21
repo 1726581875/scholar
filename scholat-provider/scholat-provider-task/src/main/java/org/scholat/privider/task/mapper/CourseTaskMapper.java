@@ -20,19 +20,19 @@ public interface CourseTaskMapper {
     List<CourseTask> getCourseTaskByCourseId(@Param("courseId") int courseId);
 
     //查看作业要求
-    @Select("select task_id, course_id, task_title, task_content, end_time, isDelaySubmit from task " +
+    @Select("select task_id, course_id, task_title, task_content, end_time, is_delay_submit from task " +
             "where course_id = #{courseId} and task_id = #{taskId}")
     CourseTask queryCourseTaskByCourseIdAndTaskId (@Param("courseId") int courseId, @Param("taskId") int taskId);
 
     //发布作业
-    @Insert("insert into task(task_title, task_content, annex_path, end_time, isDelaySubmit, ) " +
+    @Insert("insert into task(task_title, task_content, annex_path, end_time, is_delay_submit, ) " +
             "values(#{courseTask.taskTile}, #{courseTask.taskContent}," +
             "#{courseTask.annexPath}, #{courseTask.endTime}, #{courseTask.isDelaySubmit})")
     int addCourseTask(@Param("courseTask") CourseTask courseTask);
 
     //修改作业要求
     @Update("update task set task_title = #{courseTask.taskTitle}, task_content = #{courseTask.taskContent}," +
-           "annex_path = #{courseTask.annexPath}, end_time = #{courseTask.endTime}, isDelaySubmit = #{courseTask.isDelaySubmit}" +
+           "annex_path = #{courseTask.annexPath}, end_time = #{courseTask.endTime}, is_delay_submit = #{courseTask.isDelaySubmit}" +
             "where course_id = #{courseTask.courseId} and task_id = #{courseTask.taskId}")
     int updateCourseTask(@Param("courseTask") CourseTask courseTask);
 

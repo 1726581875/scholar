@@ -37,14 +37,14 @@
 		</dependency>
 
 		<!-- redis依赖引入 -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-redis</artifactId>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>org.springframework.boot</groupId>-->
+<!--			<artifactId>spring-boot-starter-data-redis</artifactId>-->
+<!--		</dependency>-->
 
 		<dependency>
 			<groupId>cn.edu.lingnan</groupId>
-			<artifactId>scholat-provider-common</artifactId>
+			<artifactId>scholat-common</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 
