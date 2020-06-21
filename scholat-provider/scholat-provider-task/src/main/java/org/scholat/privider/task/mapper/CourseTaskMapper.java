@@ -25,8 +25,8 @@ public interface CourseTaskMapper {
     CourseTask queryCourseTaskByCourseIdAndTaskId (@Param("courseId") int courseId, @Param("taskId") int taskId);
 
     //发布作业
-    @Insert("insert into task(task_title, task_content, annex_path, end_time, is_delay_submit, ) " +
-            "values(#{courseTask.taskTile}, #{courseTask.taskContent}," +
+    @Insert("insert into task(course_id, task_title, task_content, annex_path, end_time, is_delay_submit, ) " +
+            "values(#{courseTask.courseId}, #{courseTask.taskTile}, #{courseTask.taskContent}," +
             "#{courseTask.annexPath}, #{courseTask.endTime}, #{courseTask.isDelaySubmit})")
     int addCourseTask(@Param("courseTask") CourseTask courseTask);
 
