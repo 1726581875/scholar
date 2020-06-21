@@ -18,6 +18,7 @@ import java.io.IOException;
  */
 @Controller
 @CrossOrigin(allowedHeaders = "*", allowCredentials = "true")
+@RequestMapping("/task")
 public class UploadHomeWorkController {
 
     private static Logger LOGGER = LoggerFactory.getLogger(UploadHomeWorkController.class);

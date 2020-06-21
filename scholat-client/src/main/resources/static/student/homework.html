@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>作业提交页面</title>
+    <!-- 引入ajax的前缀路径，统一管理-->
+    <script src="path.js"></script>
     <link href="http://res.scholat.com/scholat/course/styles/T_BackManager.gzcss?_dc=e6e9b591575" rel="stylesheet"
         type="text/css" />
     <link href="http://res.scholat.com/scholat/course/styles/T_BackToolbar.gzcss?_dc=58b86543e2b" rel="stylesheet"
@@ -31,7 +33,7 @@
         </div>
         <div class="head-toolbar">
             <div id="lnews" class="head-toolbar-item head-toolbar-item-news"
-                onClick="javascript:window.location.href='/course/T_latestNews.html?courseId=2954'">
+                onClick="javascript:window.location.href=''">
                 <div class="head-toolbar-item-detail">
                     最新动态
                     <div style="font-size: 12px;">
@@ -40,7 +42,7 @@
                 </div>
             </div>
             <div id="nlist" class="head-toolbar-item head-toolbar-item-notice"
-                onClick="javascript:window.location.href='/course/T_noticeList.html?courseId=2954'">
+                onClick="javascript:window.location.href=''">
                 <div class="head-toolbar-item-detail">
                     教学公告
                     <div style="font-size: 12px;">
@@ -49,7 +51,7 @@
                 </div>
             </div>
             <div id="tresou" class="head-toolbar-item head-toolbar-item-resource"
-                onClick="javascript:window.location.href='/course/T_allResources.html?courseId=2954'">
+                onClick="javascript:window.location.href=''">
                 <div class="head-toolbar-item-detail w1">
                     教学资源
                     <div style="font-size: 12px;">
@@ -76,7 +78,7 @@
             </div>
 
             <div id="cinfo" class="head-toolbar-item head-toolbar-item-courseInfo"
-                onClick="window.location.href='/course/T_editCourseInfo.html?courseId=2954'">
+                onClick="window.location.href=''">
                 <div class="head-toolbar-item-detail w3">
                     班级信息
                     <div style="font-size: 12px;">
@@ -153,7 +155,10 @@
     <!-- 作业要求遮罩窗体 end-->
 
     <script>
-        var courseId = getUrlParam("courseId");
+        var courseId;
+        $(function () {
+            courseId = getUrlParam("courseId");
+        }
         //获取URL中的参数
         function getUrlParam(name) { //封装方法
             var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
@@ -164,10 +169,6 @@
 
         function getCourseIdAndTaskId() {
             courseId = getUrlParam("courseId");
-            taskId = getUrlParam("taskId");
-
-            console.log("courseId===>" + courseId);
-            console.log("taskId===>" + taskId);
         };
 
         $('#homeWork').click(function () {
@@ -175,7 +176,7 @@
             $("#taskTbody").empty();
             $.ajax({
                 type: "POST", //请求类型
-                url: "http://localhost:10001/homeWork/list/"+ courseId,
+                url: urlPath.task() + "/homeWork/list/"+ courseId,
                 // data: //发送到服务器的数据，要求是Object或string类型的参数。如果已经不是字符串，将自动转换为字符串格式。
                 dataType: "json", //预期服务器返回的数据类型
                 // crossDomain: true, //允许跨域请求
@@ -216,8 +217,7 @@
                                 +
                                 '|&nbsp;<a onclick="taskupdate(' + taskId +
                                 ')" style="cursor:pointer;">修改</a> <input type="file" onchange="selectUploadFile(' +
-                                taskId +
-                                ')"  style="display:none" id="uploadtask" name="homeWork" multiple/>' +
+                                taskId + ')"  style="display:none" id="uploadtask" name="homeWork" multiple/>' +
                                 '</td><td>' +
                                 '很好' +
                                 '</td></tr>';
@@ -244,7 +244,7 @@
             console.log("formdata====>" + formData);
             //发送ajax上传文件
             $.ajax({
-                url: 'http://localhost:10001/uploadHomeWork?taskId='+taskId+'&courseId='+courseId,
+                url: urlPath.task() +'/uploadHomeWork?taskId='+taskId+'&courseId='+courseId,
                 type: 'POST',
                 //crossDomain: true, //允许跨域请求
                 data: formData, //请求的数据
@@ -274,7 +274,7 @@
 
             //发送ajax上传文件
             $.ajax({
-                url: 'http://localhost:10001/queryCourseTask?taskId='+taskId+'&courseId='+courseId,
+                url: urlPath.task() + '/queryCourseTask?taskId='+taskId+'&courseId='+courseId,
                 type: 'GET',
                 //crossDomain: true, //允许跨域请求
                 // data :  //请求的数据

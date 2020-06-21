@@ -12,7 +12,7 @@ spring:
 #    port: 6379
 #    password: root 
     
-#注册进eureka服务列表内    
+#注册进eureka服务列表内
 eureka:
   client:
     service-url:

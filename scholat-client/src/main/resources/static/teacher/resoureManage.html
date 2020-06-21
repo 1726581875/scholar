@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>教学资源界面</title>
+    <!-- 引入ajax的前缀路径，统一管理-->
+    <script src="path.js"></script>
     <link href="http://res.scholat.com/scholat/course/styles/T_BackManager.gzcss?_dc=e6e9b591575" rel="stylesheet"
         type="text/css" />
     <link href="http://res.scholat.com/scholat/course/styles/T_BackToolbar.gzcss?_dc=58b86543e2b" rel="stylesheet"
@@ -99,9 +101,9 @@
     <hr />
     <!-- 添加课程按钮 -->
     <div style="text-align: center;">
-        <a href="#" class="btn btn-info btn-lg">
+        <a style="cursor: pointer" onclick="uploadResources()" class="btn btn-info btn-lg">
             <span class="glyphicon glyphicon-plus"></span> 添加资源
-        </a>
+        </a><input type="file" onchange="uploadResources()"  style="display:none" id="uploadtask" name="homeWork" multiple/>
     </div>
     <br />
     <div class="container">
@@ -162,5 +164,47 @@
     </div>
 
 </body>
+<script>
+    var courseId;
+    $(function () {
+        courseId = getUrlParam("courseId");
+    });
 
+    //获取URL中的参数
+    function getUrlParam(name) { //封装方法
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+        var r = window.location.search.substr(1).match(reg); //匹配目标参数
+        if (r != null) return unescape(r[2]);
+        return null; //返回参数值
+    };
+
+    function taskupdate() {
+        $("#uploadtask").click();
+    };
+
+    function uploadResources() {
+        var formData = new FormData();
+        formData.append('homeWork', $("#uploadtask")[0].files[0]);
+        //发送ajax上传资源文件
+        $.ajax({
+            url: urlPath.task() +'/uploadResources?courseId='+courseId,
+            type: 'POST',
+            //crossDomain: true, //允许跨域请求
+            data: formData, //请求的数据
+            contentType: false, // 当有文件要上传时，此项是必须的，否则后台无法识别文件流的起始位置
+            processData: false, // 是否序列化data属性，默认true(注意：false时type必须是post)
+            dataType: 'json', //这里是返回类型，一般是json,text等
+            //clearForm: true,//提交后是否清空表单数据
+            success: function (result) { //提交成功后自动执行的处理函数，参数data就是服务器返回的数据。
+                if (result.status == 1) {
+                    alert('上传成功');
+                } else {
+                    alert("上传失败！");
+                }
+            },
+
+        });
+
+    }
+</script>
 </html>

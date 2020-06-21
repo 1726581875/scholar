@@ -15,7 +15,7 @@ import java.util.List;
  */
 @RestController
 @CrossOrigin(allowedHeaders = "*",allowCredentials = "true") //允许跨域请求 (allowedHeaders = "*",allowCredentials = "true")
-@RequestMapping("/homeWork")
+@RequestMapping("/task/homeWork")
 public class HomeWorkController {
 
     @Autowired

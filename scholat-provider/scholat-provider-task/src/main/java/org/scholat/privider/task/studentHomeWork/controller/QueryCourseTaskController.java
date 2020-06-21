@@ -5,10 +5,7 @@ import org.scholat.common.pojo.CourseTask;
 import org.scholat.common.utils.ResultUtil;
 import org.scholat.privider.task.studentHomeWork.service.IQueryCourseTaskService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author yrk
@@ -16,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @CrossOrigin(allowedHeaders = "*",allowCredentials = "true") //允许跨域请求
+@RequestMapping("/task")
 public class QueryCourseTaskController {
 
     @Autowired

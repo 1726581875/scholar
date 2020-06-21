@@ -11,6 +11,10 @@ var urlPath = {
     },
     notice: function () {
         return this.gateway + '/notice'
+    },
+
+    question: function () {
+       return this.gateway + "/question"
     }
 
 };

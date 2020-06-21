@@ -5,6 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <title>作业管理页面</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <!-- 引入ajax的前缀路径，统一管理-->
+    <script src="path.js"></script>
     <link href="http://res.scholat.com/scholat/course/styles/T_BackManager.gzcss?_dc=e6e9b591575" rel="stylesheet"
         type="text/css" />
     <link href="http://res.scholat.com/scholat/course/styles/T_BackToolbar.gzcss?_dc=58b86543e2b" rel="stylesheet"
@@ -56,7 +59,7 @@
                     </div>
                 </div>
                 <div id="tresou" class="head-toolbar-item head-toolbar-item-resource"
-                    onClick="javascript:window.location.href='/course/T_allResources.html?courseId=2954'">
+                    onClick="resources()">
                     <div class="head-toolbar-item-detail w1">
                         教学资源
                         <div style="font-size: 12px;">
@@ -185,6 +188,10 @@
         return null; //返回参数值
     };
 
+    function resources() {
+        window.location.href="/resoureManager.html?courseId="+courseId;
+    };
+
 
     var flag = 0; //全选与反选的标记
     //全选
@@ -214,7 +221,7 @@
         //$("#taskTbody").empty();
         $.ajax({
             type: "POST", //请求类型
-            url: "http://localhost:10001/courseTask/list/"+courseId,
+            url: urlPath.task() + "/courseTask/list/"+courseId,
             // data: //发送到服务器的数据，要求是Object或string类型的参数。如果已经不是字符串，将自动转换为字符串格式。
             dataType: "json", //预期服务器返回的数据类型
             // crossDomain: true, //允许跨域请求
@@ -283,7 +290,7 @@
     function downLoad(taskId) {
         console.log("taskID====>" + taskId);
         $.ajax({
-            url: 'http://localhost:10001/homeworkZipDownLoad?className=17外包2班&taskId=' + taskId,
+            url: urlPath.task() + '/homeworkZipDownLoad?className=17外包2班&taskId=' + taskId,
             type: 'GET',
             xhrFields : {withCredentials : true},
             //crossDomain: true, //允许跨域请求

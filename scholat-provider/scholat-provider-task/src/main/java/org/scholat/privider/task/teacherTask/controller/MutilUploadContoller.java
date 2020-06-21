@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
  * @date 2020/6/15 - 16:08
  */
 @Controller
+@RequestMapping("/task")
 public class MutilUploadContoller {
 
     private static Logger LOGGER = LoggerFactory.getLogger(MutilUploadContoller.class);
