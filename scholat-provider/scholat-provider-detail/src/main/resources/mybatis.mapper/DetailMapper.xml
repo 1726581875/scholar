@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.scholat.provider.detail.mapper.DetailMapper">
+
+
+
+    <select id="findAll" resultType="UserDetail">
+        select * from user_detail
+    </select>
+
+    <select id="findById" resultType="UserDetail">
+        select user_image,user_name,user_sex,user_age,user_major,user_field,
+        user_type,user_school,description,create_time
+        from user_detail
+        where user_id=#{userId}
+    </select>
+
+    <insert id="insert">
+        insert into user_detail(user_id,user_image,user_name,user_sex,user_age,user_major,user_field,
+        user_type,user_school,description,create_time)
+        value(#{userId},#{userImage},#{userName},#{userSex},#{userAge},#{userMajor},
+        #{userField},#{userType},#{userSchool},#{description},#{createTime})
+    </insert>
+
+    <delete id="deleteById">
+        delete from user_detail where user_id = #{userId}
+    </delete>
+
+    <update id="update" parameterType="UserDetail">
+        update user_detail
+        <set>
+            <if test="userImage != null">user_image=#{userImage},</if>
+            <if test="userName != null">user_name=#{userName},</if>
+            <if test="userSex != null">user_sex=#{userSex}</if>
+            <if test="userAge != null">user_age=#{userAge},</if>
+            <if test="userMajor != null">user_major=#{userMajor},</if>
+            <if test="userField != null">user_field=#{userField}</if>
+            <if test="userType != null">user_type=#{userType}</if>
+            <if test="userSchool != null">user_school=#{userSchool},</if>
+            <if test="description != null">description=#{description},</if>
+            <if test="createTime != null">create_time=#{createTime}</if>
+
+        </set>
+        where user_id=#{userId}
+    </update>
+</mapper>
+
