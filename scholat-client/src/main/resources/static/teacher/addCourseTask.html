@@ -209,7 +209,7 @@
     <script>
         //全局变量
         var courseId; //课程Id
-        var taskId; //作业Id
+        //var taskId; //作业Id
 
         //获取homworkManager.html页面传过来的courseId和taskId
         $(function () {
@@ -233,11 +233,11 @@
             console.log("taskId===>" + taskId);
         }
 
-        //提交更新作业要求
+        //发布作业
         function submitUpdateTask() {
             var updateData = {};
             updateData.courseId = courseId;
-            updateData.taskId = taskId;
+           // updateData.taskId = taskId;
             updateData.taskTitle = $("#taskTitle").val();
             updateData.taskContent = $("#taskContext").val();
             console.log("$('#taskContext').val()" + $("#taskContext").val());
