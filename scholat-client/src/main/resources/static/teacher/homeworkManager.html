@@ -109,7 +109,7 @@
             <hr class="managehr" />
             <!-- 添加课程按钮 -->
             <div style="text-align: center;">
-                <a href="#" class="btn btn-info btn-lg">
+                <a style="cursor:pointer" onclick = "addCourseTask()" class="btn btn-info btn-lg">
                     <span class="glyphicon glyphicon-plus"></span> 添加作业
                 </a>
             </div>
@@ -310,6 +310,12 @@
         //将课程Id，作业Id传至editCourseTask.html页面
         url = "editCourseTask.html?courseId="+courseId+"&taskId="+taskId;//此处拼接内容
         window.location.href = url;
+    };
+    
+    //发布作业
+    function addCourseTask(){
+        url = "addCourseTask.html?courseId=" + courseId;
+        window.location.href=url;
 
     };
 </script>
