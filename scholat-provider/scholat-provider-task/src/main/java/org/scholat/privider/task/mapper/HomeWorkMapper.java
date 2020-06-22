@@ -31,4 +31,11 @@ public interface HomeWorkMapper {
 
     @Select("select course_name from course where course_id = #{courseId}")
     public String queryCourseName(@Param("courseId") int courseId);
+
+    @Select("select user_name from user_detail where user_id = #{userId}")
+    public String findUserNameByUserId(int userId);
+
+    @Select("select course_name from course where course_id = #{courseId}")
+    public String findCourseNameByCourseId(int courseId);
+
 }

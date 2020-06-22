@@ -37,6 +37,6 @@ zuul:
     scholat-course: /course/**
     scholat-question: /question/**
     scholat-notice: /notice/**
-    scholat-homework: /task/**
+    scholat-task: /task/**
     #微服务应用实例名: /xxxx/***
     

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>作业提交页面</title>
     <!-- 引入ajax的前缀路径，统一管理-->
-    <script src="path.js"></script>
+    <script src="../path.js"></script>
     <link href="http://res.scholat.com/scholat/course/styles/T_BackManager.gzcss?_dc=e6e9b591575" rel="stylesheet"
         type="text/css" />
     <link href="http://res.scholat.com/scholat/course/styles/T_BackToolbar.gzcss?_dc=58b86543e2b" rel="stylesheet"
@@ -156,9 +156,11 @@
 
     <script>
         var courseId;
+
         $(function () {
             courseId = getUrlParam("courseId");
-        }
+        });
+        console.log(courseId);
         //获取URL中的参数
         function getUrlParam(name) { //封装方法
             var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
@@ -171,7 +173,7 @@
             courseId = getUrlParam("courseId");
         };
 
-        $('#homeWork').click(function () {
+        //$('#homeWork').click(function () {
             //避免appen()重复最佳内容
             $("#taskTbody").empty();
             $.ajax({
@@ -191,7 +193,7 @@
                         }
 
                         //设置用户名，传入用户名
-                        $("div span").text("叶汝铿");
+                        $("div span").text( result.data.userName);
                         var htmlstr = "";
                         for (var i = 0; i < courseTask.length; i++) {
                             var taskId = courseTask[i].taskId;
@@ -228,7 +230,7 @@
                     }
                 }
             });
-        });
+     //   });
 
 
         //执行作业的提交与修改

@@ -1,0 +1,75 @@
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <script src="https://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.0.1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.0.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <table class="table">
+                <caption>User</caption>
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>用户编号</th>
+                    <th>手机</th>
+                    <th>邮箱</th>
+                    <th>密码</th>
+                    <th>权限</th>
+                    <th><input type='submit' id='submit' name='submit' value='提交'></th>
+                    <th><input type='button' id='delete' name='delete' value='删除'></th>
+                </tr>
+                </thead>
+                <tbody id="myTbody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript">
+    $(function(){
+        $.ajax({
+            url:"http://localhost:9001/user/findAll",
+            type:"GET",
+            dataType:'json',
+            contentType:"application/json;charset=utf-8",
+            success:function(data){
+                    for(var i = 0; i < data.length; i++){
+                        var ids = data[i].userId;
+                        var phone = data[i].userPhone;
+                        var Mail = data[i].userMail;
+                        var password = data[i].password;
+                        var role = data[i].role;
+                        var idsddd = ids;
+                        //输出格式并填充
+                        //1.复选框；7.编辑按钮。
+                        //ajax里按钮只能用input属性。
+                        var tr = "<tr>" +
+                            "<td><input type='checkbox' name='checkbox' value='"+ids+"'/>" + "</td>"+
+                            "<td>" + ids + "</td>"+
+                            "<td>" + phone + "</td>"+
+                            "<td>" + Mail + "</td>" +
+                            "<td>" + password + "</td>" +
+                            "<td>" + role +"</td>"+
+                            "<td><input type='button' id='edit' name='edit' value='编辑'>" + "</td>"+
+
+                            "</tr>";
+                        //将查得的数据每一条都插入到表格中
+                        $("#myTbody").append(tr);
+                    }
+
+            },
+            error: function(content) {
+                alert("失败");
+            }
+        });
+    });
+</script>
+
+
+</html>

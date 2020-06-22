@@ -10,7 +10,7 @@
     <script
             src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <!-- 引入ajax的前缀路径，统一管理-->
-    <script src="path.js"></script>
+    <script src="../path.js"></script>
 </head>
 <body>
 <div id="table-div">
@@ -99,7 +99,7 @@
     function getInformation(page) {
         $.ajax({
             type: "GET",
-            url: urlPath.question() +"/question/questions/allQuestion/" + page,
+            url: urlPath.question() +"/questions/allQuestion/" + page,
             success: function (result) {//如果ajax请求发送成功调用的回调函数
                 if (result.success) {//判断后台是否正常返回
                     totalPage = result.data.pageCount;      //获取总页数

@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @CrossOrigin(allowedHeaders = "*",allowCredentials = "true") //允许跨域请求
-@RequestMapping("/task")
 public class QueryCourseTaskController {
 
     @Autowired

@@ -1,12 +1,16 @@
 package org.scholat.privider.task.studentHomeWork.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.scholat.common.pojo.HomeWork;
+import org.scholat.common.utils.CookieUtil;
 import org.scholat.common.utils.ResultUtil;
 import org.scholat.privider.task.studentHomeWork.service.IHomeWorkService;
 import org.scholat.privider.task.vo.HomeWorkVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -15,7 +19,8 @@ import java.util.List;
  */
 @RestController
 @CrossOrigin(allowedHeaders = "*",allowCredentials = "true") //允许跨域请求 (allowedHeaders = "*",allowCredentials = "true")
-@RequestMapping("/task/homeWork")
+@RequestMapping("/homeWork")
+@Slf4j
 public class HomeWorkController {
 
     @Autowired
@@ -26,9 +31,14 @@ public class HomeWorkController {
      * @return
      */
     @PostMapping("/list/{courseId}")
-    public Object getHomeWorkByCourseId (@PathVariable("courseId") int courseId){
+    public Object getHomeWorkByCourseId (@PathVariable("courseId") int courseId, HttpServletRequest request){
+
+        Cookie cookie = CookieUtil.getCookie(request,"userId");
+        Integer userId = Integer.parseInt(cookie.getValue());
+        log.info("[task微服务] =======》 userId={}",userId);
         System.err.println("HomeWorkController => courseId:"+courseId);
         HomeWorkVo homeWorkVo = iHomeWorkService.getHomeWorkByCourseId(courseId);
+        homeWorkVo.setUserName(iHomeWorkService.findUserNameByUserId(userId));
         return  ResultUtil.success(homeWorkVo);
     }
 
@@ -55,4 +65,15 @@ public class HomeWorkController {
             return ResultUtil.fail("修改作业失败！");
         }
     }
+
+    @GetMapping("/get/user/name/{userId}")
+    public  Object findUserName(@PathVariable Integer userId){
+        return ResultUtil.success(iHomeWorkService.findUserNameByUserId(userId));
+    }
+
+    @GetMapping("/get/course/name/{courseId}")
+    public  Object findCourseName(@PathVariable Integer courseId){
+        return ResultUtil.success(iHomeWorkService.findCourseNameByCourseId(courseId));
+    }
+
 }

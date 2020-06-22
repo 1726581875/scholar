@@ -34,4 +34,8 @@ public interface IHomeWorkService {
      */
 
     int updateHomeWork (@RequestParam("workId") int workId);
+
+    public String findUserNameByUserId(int userId);
+
+    public String findCourseNameByCourseId(int courseId);
 }

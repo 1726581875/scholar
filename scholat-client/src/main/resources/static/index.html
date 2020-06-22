@@ -8,7 +8,10 @@
 
 		<link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.0.1/css/bootstrap.min.css" rel="stylesheet">
 		<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+
+
 		<script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.0.1/js/bootstrap.min.js"></script>
+
 
 
 		<script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
@@ -19,6 +22,9 @@
 		<script src="js/message.js"></script>
 		<link rel="stylesheet" type="text/css" href="http://cdn.bootcss.com/font-awesome/4.6.0/css/font-awesome.min.css">
 		<link rel="stylesheet" href="css/message.css">
+
+		<!--  cookie jquery依赖  -->
+		<script src="https://cdn.bootcdn.net/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 
 		<style>
 			li{list-style-type:none}
@@ -163,7 +169,7 @@
 										<div class="modal-footer">
 											<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
 
-											<button v-if="pageFlag == 1" type="button" class="btn btn-primary" @click.prevent="comfirmQuitCourse(1)">确定</button>
+											<button v-if="pageFlag == 1" type="button" class="btn btn-primary" @click.prevent="comfirmQuitCourse()">确定</button>
 											<button v-if="pageFlag == 2" type="button" class="btn btn-primary" @click.prevent="deleteCourse()">确定</button>
 											<button v-if="pageFlag == 0" type="button" class="btn btn-primary" @click.prevent="deleteCourse()">确定</button>
 										</div>
@@ -172,8 +178,6 @@
 								</div>
 
 							</div>
-
-
 
 
 							<ul class="pagination">
@@ -203,7 +207,7 @@
 		</div>
 
 		<script type="text/javascript">
-			//	axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+
 
 
 
@@ -216,22 +220,28 @@
 					pageFlag: 0,
 					courseId: 0,
 					notice: null,
+					userId : 0,
 					msgUnReadData: 0
 				},
 				mounted: function() {
-					this.findMyJoInCourse(1);
+
+					this.userId = $.cookie("userId");
+
+					console.log("userId="+this.userId);
+
+					//websocket
+
+					this.findMyJoInCourse(this.userId);
 
 					/**
 					 * 检查是否有未读通知
 					 */
 					this.checkMessage();
 
-                   //websocket
-					//var userId = $.cookie("userId");
-					var userId = 1;
+
 					var websocket = null;
 					if ('WebSocket' in window) {
-						websocket = new WebSocket('ws://localhost:9004/webSocket/' + userId);
+						websocket = new WebSocket('ws://localhost:9004/webSocket/' + this.userId);
 					} else {
 						alert('该浏览器不支持websocket');
 					}
@@ -265,7 +275,7 @@
 
 					checkMessage: function() {
 						axios
-							.get(urlPath.notice()+'/check?userId=2')
+							.get(urlPath.notice()+'/check?userId='+this.userId)
 							.then(response => {
 								this.msgUnReadData = response.data;
 							})
@@ -277,7 +287,7 @@
 
 					findMyJoInCourse: function(page) {
 						axios
-							.get(urlPath.course()+'/user/1/all/join?page=' + page)
+							.get(urlPath.course()+'/user/'+this.userId+'/all/join?page=' + page)
 							.then(response => {
 								this.courses = response.data.data.list;
 								this.pages = response.data.data.pages;
@@ -295,7 +305,7 @@
 
 					findMyCourse: function(page) {
 						axios
-							.get(urlPath.course()+'/user/1/all?page=' + page)
+							.get(urlPath.course()+'/user/'+this.userId+'/all?page=' + page)
 							.then(response => {
 								var mydata = response.data.data;
 								this.courses = mydata.list;
@@ -335,7 +345,7 @@
 						console.log('courseId=' + courseId);
 
 						var formData = new FormData()
-						formData.append('userId', userId);
+						formData.append('userId', this.userId);
 						formData.append('courseId', courseId);
 						//{headers:{'Content-Type':'application/x-www-form-urlencoded'}}
 						axios
@@ -355,8 +365,8 @@
 						this.courseId = id;
 					},
 
-					comfirmQuitCourse: function(userId) {
-						this.outCourse(userId, this.courseId);
+					comfirmQuitCourse: function() {
+						this.outCourse(this.userId, this.courseId);
 					},
 
 

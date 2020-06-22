@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- 重置文件 -->
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/restyle.css">
+  <title></title>
+</head>
+<body>
+  <div class="reg_div">
+    <p>注册</p>
+    <ul class="reg_ul">
+        <li>
+            <span>手机号码：</span>
+            <input type="email" name="" value=""  id="userPhone" placeholder="手机号" class="reg_mobile">
+            <span class="tip mobile_hint"></span>
+        </li>
+        <li>
+            <span>邮箱：</span>
+            <input type="text" name="" value="" id="userMail" placeholder="邮箱" class="reg_email">
+            <span class="tip email_hint"></span>
+        </li>
+        <li>
+            <span>密码：</span>
+            <input type="password" id="password" name="" value="" placeholder="6-16位密码" class="reg_password">
+            <span class="tip password_hint"></span>
+        </li>
+        <li>
+            <span>确认密码：</span>
+            <input type="password"  name="" value="" placeholder="确认密码" class="reg_confirm">
+            <span class="tip confirm_hint"></span>
+        </li>
+
+      <li>
+        <button type="button" name="button" id="regist" class="red_button">注册</button>
+      </li>
+    </ul>
+  </div>
+  <script type="text/javascript" src="js/jquery.min.js"></script>
+ <script type="text/javascript" src="js/script.js"></script>
+ <div style="text-align:center;margin:50px 0; font:normal 14px/24px 'MicroSoft YaHei';">
+</div>
+  <script type="text/javascript">
+      //页面加载完成
+      jQuery(document).ready(function(){
+          //登录按钮绑定click事件
+          $("#regist").on("click",function(){
+              $.ajax({
+                  type : "POST",
+                  contentType : "application/x-www-form-urlencoded",
+                  url : "http://localhost:9001/user/insert",
+                  data:{
+                      "userPhone" : $("#userPhone").val(),
+                      "userMail" : $("#userMail").val(),
+                      "password" : $("#password").val(),
+                  },
+                  success : function(result){//ajax发送成功，成功之后
+                      //转成字符串，弹框看看
+                      var resultString = JSON.stringify(result);
+                      alert(resultString);
+
+                      //比如跳转主页
+                      // window.location.href="regist.html";
+                  },
+                  //ajax发送失败
+                  error : function(result){
+                      alert("登录ajax发送失败:"+result.responseText);
+                  }
+              });
+          });
+      });
+  </script>
+</body>
+</html>

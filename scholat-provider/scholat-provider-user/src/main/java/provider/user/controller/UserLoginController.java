@@ -2,7 +2,6 @@ package provider.user.controller;
 
 import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.catalina.User;
 import org.scholat.common.constant.MyConstant;
 import org.scholat.common.pojo.UserLoginInfo;
 import org.scholat.common.utils.CookieUtil;
@@ -12,10 +11,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import provider.user.entity.UserLogin;
 import provider.user.service.LoginService;
 
@@ -51,11 +46,14 @@ public class UserLoginController {
         UserLoginInfo userInfo = new UserLoginInfo();
         BeanUtils.copyProperties(userLogin, userInfo);
         log.info("加密的用户信息 ======> {}", userInfo);
+
         String token = JwtUtil.generateJsonWebToken(userInfo);
+
         log.info("生成的jwt======>{}", token);
         //4.存到cookie
         CookieUtil.setCookie(resp, MyConstant.TOKEN_NAME, token, JwtUtil.EXPIRITION);
         CookieUtil.setCookie(resp, "userId", userLogin.getUserId().toString(), JwtUtil.EXPIRITION);
+        CookieUtil.setCookie(resp, "userName", userLogin.getUserId().toString(), JwtUtil.EXPIRITION);
         return ResultUtil.success();
     }
 

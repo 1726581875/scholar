@@ -17,7 +17,7 @@ import java.util.List;
  */
 @RestController
 @CrossOrigin(allowedHeaders = "*",allowCredentials = "true") //允许跨域请求
-@RequestMapping("/task/courseTask")
+@RequestMapping("/courseTask")
 public class CourseTaskController {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(CourseTaskController.class);

@@ -15,7 +15,7 @@ public class JwtUtil {
     /**
      * 设置token的过期时间
      */
-    public static final int EXPIRITION = 1000 * 10;
+    public static final int EXPIRITION = 1000 * 60  * 60;
     /**
      * 秘钥，不同的环境应该配置不同的秘钥，注意保存好，不要泄露
      */

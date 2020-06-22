@@ -13,7 +13,7 @@ import java.util.List;
 @Service
 public class CourseUserServiceImpl implements CourseUserService {
 
-    @Resource 
+    @Resource
     private CourseUserMapper courseUserMapper;
 
 

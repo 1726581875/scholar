@@ -16,15 +16,14 @@ spring:
 #mybatis配置文件位置
 mybatis:
   config-location: classpath:mybatis-config.xml
-  mapper-locations:
-  - classpath:mybatis/mapper/*.xml
-  type-aliases-package: org.scholat.provider.detail.entity
+  mapper-locations: classpath:mybatis/mapper/*.xml
+  type-aliases-package: provider.detail.entity
 
 
 #设置日志级别，输出sql执行过程
 logging:
   level:
-    org.scholat.proviser.course.mapper: trace #设置mapper包日志级别为trace
+    provider.detail.mapper: trace #设置mapper包日志级别为trace
 
 eureka:
   client: #客户端注册进eureka服务列表内

@@ -22,7 +22,6 @@ import java.io.*;
  */
 @Controller
 @CrossOrigin(allowedHeaders = "*",allowCredentials = "true") //允许跨域请求
-@RequestMapping("/task")
 public class HomeworkZipDownLoadController {
 
     private static Logger LOGGER = LoggerFactory.getLogger(HomeworkZipDownLoadController.class);

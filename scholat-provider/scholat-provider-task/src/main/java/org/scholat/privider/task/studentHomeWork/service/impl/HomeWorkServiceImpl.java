@@ -22,12 +22,15 @@ public class HomeWorkServiceImpl implements IHomeWorkService {
     @Override
     public HomeWorkVo getHomeWorkByCourseId(int courseId) {
 
+
+
         List<CourseTask> homeWorkByCourseId = homeWorkMapper.getHomeWorkByCourseId(courseId);
         List<CourseTask> taskList =  homeWorkMapper.getHomeWorkByCourseId(courseId);
         String courseName = homeWorkMapper.queryCourseName(courseId);
         System.out.println(courseName);
         HomeWorkVo homeWorkVo = new HomeWorkVo();
         homeWorkVo.setCourseName(courseName);
+
         homeWorkVo.setTaskList(taskList);
         return homeWorkVo;
     }
@@ -40,5 +43,15 @@ public class HomeWorkServiceImpl implements IHomeWorkService {
     @Override
     public int updateHomeWork(int workId) {
         return homeWorkMapper.updateHomeWork(workId);
+    }
+
+    @Override
+    public String findUserNameByUserId(int userId) {
+        return homeWorkMapper.findUserNameByUserId(userId);
+    }
+
+    @Override
+    public String findCourseNameByCourseId(int courseId) {
+        return homeWorkMapper.findCourseNameByCourseId(courseId);
     }
 }
