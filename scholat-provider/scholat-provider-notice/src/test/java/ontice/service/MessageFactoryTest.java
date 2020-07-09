@@ -19,7 +19,7 @@ public class MessageFactoryTest {
 
     @Test
     public void testGetHomeWork() {
-     messageFactory.getHomeWorkMessage(1,1).forEach(System.out::println);
+     messageFactory.getHomeWorkMessage(1,1,"1111111111").forEach(System.out::println);
     }
 
     @Test

@@ -88,7 +88,7 @@ public class MyWebSoket {
 
      //向某个人发通知
     public void sendMessage(String message,Integer toUser){
-        if(webSocketMap.get(toUser) != null){
+        if(webSocketMap!=null && webSocketMap.get(toUser) != null){
             log.info("[websocket消息] 向{}发消息，message={}",toUser,message);
             try {
                 webSocketMap.get(toUser).session.getBasicRemote().sendText(message);

@@ -17,7 +17,7 @@ public class MessageFactory {
      private CourseUserServiceApi courseUserApi;
 
 
-     public List<Notice> getHomeWorkMessage(Integer sendId , Integer courseId){
+     public List<Notice> getHomeWorkMessage(Integer sendId , Integer courseId,String message){
           List<Notice> noticeList = new ArrayList<>();
           List<CourseUserInfo> courseUserList = courseUserApi.findAllCourseUserByCourseId(courseId);
           courseUserList.forEach(e -> {
@@ -25,14 +25,28 @@ public class MessageFactory {
                        .setSendId(sendId)
                        .setAcceptId(e.getUserId())
                        .setNoticeType(1)
-                       .setNoticeContent("hello 你有新作业要提交~~")
+                       .setNoticeContent(message)
                        .setNoticeFlag(0));
           });
         return noticeList;
      }
 
+     /**
+      * 构造一个条简单消息
+      * @param sendId
+      * @param acceptId
+      * @param message
+      * @return
+      */
+     public Notice getSimpleMessage(Integer sendId , Integer acceptId,String message){
 
-
+          return  new Notice()
+                  .setSendId(sendId)
+                  .setAcceptId(acceptId)
+                  .setNoticeType(2)//类型2，个人信息
+                  .setNoticeContent(message)
+                  .setNoticeFlag(0);//未读
+     }
 
 
 

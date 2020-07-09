@@ -3,7 +3,7 @@ DROP DATABASE IF EXISTS scholat;
 CREATE DATABASE scholat;
 
 --  使用数据库
-use scholat
+use scholat;
 
 -- 创建用户登录表
 CREATE TABLE `user_login`(

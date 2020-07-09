@@ -31,8 +31,8 @@ public class CourseController {
 	 */
 	@GetMapping("/send")
 	public Object findAll(){
-	//	noticeServiceApi.sendMessageToCourseUser( 1,"交作业11111啦啦啦啦");
-		noticeServiceApi.sendMessageToOne(1,"交作业11111啦啦啦啦");
+	//	noticeServiceApi.sendMessageToCourseUser( 1,1,"交作业11111啦啦啦啦");
+		noticeServiceApi.sendMessageToOne(1,3,"hello 很高兴认识你");
 		return "ok";
 	}
 
