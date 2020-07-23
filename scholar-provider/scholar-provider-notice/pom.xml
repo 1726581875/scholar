@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>scholar-provider</artifactId>
+        <groupId>cn.edu.lingnan</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>scholar-provider-notice</artifactId>
+
+
+    <dependencies>
+        <!-- 使用jpa -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+        <!-- jpa增强库   -->
+        <dependency>
+            <groupId>top.spring-data-jpa</groupId>
+            <artifactId>zuji-jpa</artifactId>
+            <version>1.0.1</version>
+        </dependency>
+
+        <!-- mysql驱动 -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+
+        <!--课程 api -->
+        <dependency>
+            <groupId>cn.edu.lingnan</groupId>
+            <artifactId>scholar-provider-course-api</artifactId>
+            <version>${scholar.version}</version>
+        </dependency>
+
+        <!-- websocket依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
+        </dependency>
+
+    </dependencies>
+
+</project>

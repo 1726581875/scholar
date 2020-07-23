@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>cn.edu.lingnan</groupId>
+		<artifactId>scholar</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<groupId>cn.edu.lingnan</groupId>
+	<artifactId>scholar-zuul-gateway</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>scholar-zuul-gateway</name>
+
+	<description>网关zuul</description>
+
+	<dependencies>
+        <!-- 公共工具包 -->
+		<dependency>
+			<groupId>cn.edu.lingnan</groupId>
+			<artifactId>scholar-common</artifactId>
+			<version>${scholar.version}</version>
+		</dependency>
+
+		<!-- lombox -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+		</dependency>
+
+		<!-- eureka-client -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+		</dependency>
+		<!-- 服务网关 -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-zuul</artifactId>
+		</dependency>
+
+		<!-- redis依赖引入 -->
+<!--		<dependency>-->
+<!--			<groupId>org.springframework.boot</groupId>-->
+<!--			<artifactId>spring-boot-starter-data-redis</artifactId>-->
+<!--		</dependency>-->
+
+	</dependencies>
+</project>

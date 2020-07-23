@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.scholar.mapper.CourseUserMapper">
+
+
+	<select id="findCourseByUserId" resultType="CourseDto">
+		select c.course_id,c.course_name,c.course_image,c.course_desc,u.user_name
+		from course c ,user_detail u,course_user cu
+		where c.user_id = u.user_id and cu.course_id = c.course_id
+		and cu.user_id = #{userId}
+		order by c.create_time desc
+	</select>
+
+
+	<delete id="deleteById">
+		delete from course_user
+		where course_id = #{courseId} and user_id = #{userId}
+	</delete>
+
+	<insert id="insert">
+		insert into course_user(course_id ,user_id ,class_name,sno)
+        value(#{courseId},#{userId},#{className},#{sno})
+	</insert>
+
+	<update id="update" parameterType="CourseUser">
+		update course_user
+		<set>
+			<if test="className != null">class_name=#{className},</if>
+			<if test="sno != null">sno=#{sno},</if>
+		</set>
+		where course_id = #{courseId} and user_id = #{userId}
+	</update>
+
+
+
+	<select id="findCourseClass" resultType="String">
+		select distinct class_name
+		from course_user
+		where course_id = #{courseId}
+	</select>
+
+	<select id="findAllCourseUserByCourseId" resultType="CourseUser">
+         select * from course_user
+         where course_id = #{courseId}
+	</select>
+
+
+	<select id="findCourseUser" resultType="CourseUserDto">
+		select u.user_id , u.user_name, u.user_image ,c.class_name ,c.sno
+		from course_user c , user_detail u
+		where c.user_id = u.user_id
+		<if test="className != null"> and c.class_name=#{className}</if>
+		and c.course_id = #{courseId}
+	</select>
+
+
+
+	<!-- 根据courseId删除课程用户 -->
+	<delete id="deleteUserByCourseId">
+		delete from course_user
+		where course_id = #{courseId}
+	</delete>
+
+
+</mapper>
+ 

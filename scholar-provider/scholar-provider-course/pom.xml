@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>cn.edu.lingnan</groupId>
+		<artifactId>scholar-provider</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<groupId>cn.edu.lingnan</groupId>
+	<artifactId>scholar-provider-course</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>scholar-provider-course</name>
+
+	<dependencies>
+
+		<!-- 引用user服务api 依赖-->
+		<dependency>
+			<groupId>cn.edu.lingnan</groupId>
+			<artifactId>scholar-provider-user-api</artifactId>
+			<version>${scholar.version}</version>
+		</dependency>
+
+		<!-- 通知服务api 依赖-->
+		<dependency>
+			<groupId>cn.edu.lingnan</groupId>
+			<artifactId>scholar-provider-notice-api</artifactId>
+			<version>${scholar.version}</version>
+		</dependency>
+
+
+		<!-- mybatis 整合 springboot 的依赖 -->
+		<dependency>
+			<groupId>org.mybatis.spring.boot</groupId>
+			<artifactId>mybatis-spring-boot-starter</artifactId>
+		</dependency>
+
+		<!-- mysql 连接驱动 -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+
+
+       <!-- pagehelper分页插件 -->
+		<dependency>
+			<groupId>com.github.pagehelper</groupId>
+			<artifactId>pagehelper-spring-boot-starter</artifactId>
+			<version>1.2.10</version>
+		</dependency>
+
+
+	</dependencies>
+</project>

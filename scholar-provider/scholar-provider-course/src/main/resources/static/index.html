@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.0.1/css/bootstrap.min.css" rel="stylesheet">
+		<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+		<script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.0.1/js/bootstrap.min.js"></script>
+
+
+		<script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+		<script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+
+		<!--消息提示 -->
+		<script src="js/jquery.min.js"></script>
+		<script src="js/message.js"></script>
+		<link rel="stylesheet" type="text/css" href="http://cdn.bootcss.com/font-awesome/4.6.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="css/message.css">
+
+		<style>
+			li{list-style-type:none}
+		 </style>
+
+	</head>
+
+	<body>
+		<div id="app">
+
+			<div class="container">
+				<div class="row clearfix">
+					<div class="col-md-12 column">
+						<nav class="navbar navbar-default" role="navigation">
+							<div class="navbar-header">
+								<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+									<span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span
+									 class="icon-bar"></span></button> <a class="navbar-brand" href="#">Scholat</a>
+							</div>
+
+							<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+								<ul class="nav navbar-nav">
+
+									<li class="active" id="select1">
+										<a href="javascript:void(0);" @click="findMyJoInCourse(1)">加入的课程</a>
+									</li>
+									<li id="select2">
+										<a href="javascript:void(0);" @click="findMyCourse(1)">我的课程</a>
+									</li>
+
+									<li style="margin-top: 7px;">
+										<select class="form-control">
+											<option>我加入的</option>
+											<option>我创建的</option>
+											<option>搜索其他</option>
+										</select>
+									</li>
+								</ul>
+
+
+								<div class="navbar-form navbar-left" role="search">
+									<div class="form-group">
+										<input type="text" class="form-control" id="keyword" />
+									</div>
+									<button class="btn btn-default" @click="findCourseBySearch()">search</button>
+								</div>
+
+								<ul class="nav navbar-nav navbar-right">
+									<li>
+									<a href="mymsg.html">
+									   <div>	
+									    <span data-type='1' class='message-bell-btn' title='1条新消息'>
+									    <i class='fa fa-bell-o'></i> 
+									    <span v-if="msgUnReadData != 0" class='badge-dot'></span> 
+									    </span>
+									   </div>
+									 </a>
+									</li> 
+									
+                                  <!-- <li>
+										<a href="mymsg.html"><div id="message"></div></a>
+									</li> -->
+									<li class="dropdown">
+										<a href="#" class="dropdown-toggle" data-toggle="dropdown">更多<strong class="caret"></strong></a>
+										<ul class="dropdown-menu">
+											<li>
+												<a href="addCourseBs.html">新增课程</a>
+											</li>
+											<li>
+												<a href="#">扩展</a>
+											</li>
+											<li>
+												<a href="#">扩展</a>
+											</li>
+											<li class="divider">
+											</li>
+											<li>
+												<a href="#">扩展</a>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</div>
+
+						</nav>
+
+						<li v-if="notice != null">
+							<div class="alert alert-success alert-dismissable">
+								<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+								<h4>
+									注意!
+								</h4> <strong>Warning!</strong> {{notice}} <a href="#" class="alert-link">alert link</a>
+							</div>
+						</li>
+
+						<div class="row">
+							<li v-for="course in courses">
+								<div class="col-md-4" v-if="course != null">
+									<div class="thumbnail">
+										<div style="width:350px;height:225px">
+											<img alt="300x200" :src="'http://localhost:9002'+ course.courseImage" width="100%" height="100%" />
+										</div>
+										<div class="caption">
+											<h3>
+												{{course.courseName}}
+											</h3>
+											<p>
+
+											</p>
+											<p>
+												<a class="btn btn-primary" :href="'xxxx.html?courseId='+ course.courseId">进入查看</a>
+												<a class="btn" href="#">{{course.userName}}</a>
+
+												<a id="modal-610527" @click="getCourseId(course.courseId)" href="#modal-container-610527" role="button"
+												 class="btn" data-toggle="modal">
+													<span v-if="pageFlag == 1">退出</span>
+													<span v-if="pageFlag == 2">删除</span>
+													<span v-if="pageFlag == 0">加入</span>
+												</a>
+											</p>
+										</div>
+									</div>
+								</div>
+							</li>
+
+
+							<!-- 遮罩窗体-->
+							<div class="modal fade" id="modal-container-610527" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+											<h4 class="modal-title" id="myModalLabel">
+												提示
+											</h4>
+										</div>
+										<div class="modal-body">
+											是否要退出课程？
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+
+											<button v-if="pageFlag == 1" type="button" class="btn btn-primary" @click.prevent="comfirmQuitCourse(1)">确定</button>
+											<button v-if="pageFlag == 2" type="button" class="btn btn-primary" @click.prevent="deleteCourse()">确定</button>
+											<button v-if="pageFlag == 0" type="button" class="btn btn-primary" @click.prevent="deleteCourse()">确定</button>
+										</div>
+									</div>
+
+								</div>
+
+							</div>
+
+
+
+
+							<ul class="pagination">
+								<li>
+									<a v-if="pageFlag==1" href="javascript:void(0);" @click="findMyJoInCourse(nowPage -1)">Prev</a>
+									<a v-if="pageFlag==2" href="javascript:void(0);" @click="findMyCourse(nowPage - 1)">Prev</a>
+								</li>
+								<li v-for="n in pages">
+									<!-- <button :onclick="'findMyJoInCourse('+n+')'">{{n}}</button> -->
+									<a v-if="pageFlag==1" href="javascript:void(0);" @click="findMyJoInCourse(n)">{{n}}</a>
+									<a v-if="pageFlag==2" href="javascript:void(0);" @click="findMyCourse(n)">{{n}}</a>
+								</li>
+
+								<li>
+									<a v-if="pageFlag==1" href="javascript:void(0);" @click="findMyJoInCourse(nowPage+1)">Next</a>
+									<a v-if="pageFlag==2" href="javascript:void(0);" @click="findMyCourse(nowPage+1)">Next</a>
+								</li>
+							</ul>
+
+						</div>
+
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script type="text/javascript">
+			//	axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+
+
+
+			var vue = new Vue({
+				el: '#app',
+				data: {
+					courses: null,
+					pages: 5,
+					nowPage: 1,
+					pageFlag: 0,
+					courseId: 0,
+					notice: null,
+					msgUnReadData: 0
+				},
+				mounted: function() {
+					this.findMyJoInCourse(1);
+
+					/**
+					 * 检查是否有未读通知
+					 */
+					this.checkMessage();
+
+                   //websocket
+					//var userId = $.cookie("userId");
+					var userId = 1;
+					var websocket = null;
+					if ('WebSocket' in window) {
+						websocket = new WebSocket('ws://localhost:9004/webSocket/' + userId);
+					} else {
+						console.log('该浏览器不支持websocket');
+					}
+					//连接时
+					websocket.onopen = function(event) {
+						console.log('建立连接');
+					};
+					//关闭时 
+					websocket.onclose = function(event) {
+						console.log('连接关闭');
+					};
+					//收到信息
+					websocket.onmessage = function(event) {
+						//alert('收到消息：' + event.data);
+						vue.notice = event.data;
+						console.log(event.data);
+						vue.msgUnReadData = 1;
+					};
+					//发生错误弹框
+					websocket.onerror = function(event) {
+						console.log('websocket通信发生错误！');
+					};
+					//当关闭窗口关闭websocket
+					window.onbeforeunload = function() {
+						websocket.close();
+					};
+
+
+				},
+				methods: {
+
+					checkMessage: function() {
+						axios
+							.get('http://localhost:9004/check?userId=1')
+							.then(response => {
+								this.msgUnReadData = response.data;
+							})
+							.catch(function(error) {
+								console.log(error);
+							});
+
+					},
+
+					findMyJoInCourse: function(page) {
+						axios
+							.get('http://localhost:9002/user/1/all/join?page=' + page)
+							.then(response => {
+								this.courses = response.data.data.list;
+								this.pages = response.data.data.pages;
+								this.nowPage = response.data.data.pageNum;
+								this.pageFlag = 1;
+							})
+							.catch(function(error) {
+								console.log(error);
+							});
+
+						document.getElementById("select1").classList.add("active");
+						document.getElementById("select2").classList.remove("active");
+
+					},
+
+					findMyCourse: function(page) {
+						axios
+							.get('http://localhost:9002/user/1/all?page=' + page)
+							.then(response => {
+								var mydata = response.data.data;
+								this.courses = mydata.list;
+								this.pages = mydata.pages;
+								this.nowPage = mydata.pageNum;
+								this.pageFlag = 2;
+							})
+							.catch(function(error) {
+								console.log(error);
+							});
+
+						document.getElementById("select2").classList.add("active");
+						document.getElementById("select1").classList.remove("active");
+
+					},
+
+					findCourseBySearch: function() {
+						var keyword = document.getElementById("keyword").value;
+
+						axios
+							.get('http://localhost:9002/find?search=' + keyword)
+							.then(response => {
+								this.courses = response.data.data.list;
+								console.log(response.data.data);
+							})
+							.catch(function(error) {
+								console.log(error);
+							});
+
+						document.getElementById("select2").classList.remove("active");
+						document.getElementById("select1").classList.remove("active");
+					},
+
+					outCourse: function(userId, courseId) {
+						//	axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+						console.log('userId=' + userId);
+						console.log('courseId=' + courseId);
+
+						var formData = new FormData()
+						formData.append('userId', userId);
+						formData.append('courseId', courseId);
+						//{headers:{'Content-Type':'application/x-www-form-urlencoded'}}
+						axios
+							.post('http://localhost:9002/out', formData).then(response => {
+								console.log(response.data.msg);
+								alert("退出课程成功");
+							})
+							.catch(function(error) {
+								console.log(error);
+							});
+
+						location.reload();
+					},
+
+
+					getCourseId: function(id) {
+						this.courseId = id;
+					},
+
+					comfirmQuitCourse: function(userId) {
+						this.outCourse(userId, this.courseId);
+					},
+
+
+					deleteCourse: function() {
+						var formData = new FormData()
+						formData.append('courseId', this.courseId);
+						axios
+							.post('http://localhost:9002/delete', formData).then(response => {
+								console.log(response.data.msg);
+								alert("删除课程成功");
+							}).catch(function(error) {
+								console.log(error);
+							});
+
+						location.reload();
+
+					},
+
+				},
+
+			});
+
+        /**
+		 * 红点提示通知
+		 */
+			// $(function() {
+			// 	MessagePlugin.init({
+			// 		elem: "#message",
+			// 		msgUnReadData: vue.msgUnReadData
+			// 	});
+			// });
+		</script>
+	</body>
+</html>

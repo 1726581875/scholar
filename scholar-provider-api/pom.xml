@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>cn.edu.lingnan</groupId>
+    <artifactId>scholar</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <groupId>cn.edu.lingnan</groupId>
+  <artifactId>scholar-provider-api</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>scholar-provider-api</name>
+    <packaging>pom</packaging>
+
+    <description>服务之间通过feign 互相调用，这些api的共同依赖管理</description>
+  <dependencies>
+
+      <!-- 引入common 包 -->
+      <dependency>
+          <groupId>cn.edu.lingnan</groupId>
+          <artifactId>scholar-common</artifactId>
+          <version>${scholar.version}</version>
+      </dependency>
+
+       <!-- open feign -->
+       <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+        <!-- 引入服务熔断 Hystrix 的依赖 -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+        </dependency>
+
+  </dependencies>
+
+  <modules>
+       <module>scholar-provider-user-api</module>
+      <module>scholar-provider-task-api</module>
+      <module>scholar-provider-resource-api</module>
+      <module>scholar-provider-course-api</module>
+      <module>scholar-provider-notice-api</module>
+      <module>scholar-provider-detail-api</module>
+      <module>scholar-provider-question-api</module>
+  </modules>
+</project>

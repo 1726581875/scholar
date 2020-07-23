@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>cn.edu.lingnan</groupId>
-  <artifactId>scholat</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <packaging>pom</packaging>
-  
-<!--配置属性-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>cn.edu.lingnan</groupId>
+    <artifactId>scholar</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <!--配置属性-->
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -15,6 +16,7 @@
         <lombok.version>1.18.0</lombok.version>
         <log4j.version>1.2.16</log4j.version>
         <logback.version>1.2.3</logback.version>
+        <scholar.version>0.0.1-SNAPSHOT</scholar.version>
     </properties>
 
     <!-- 管理版本 -->
@@ -52,26 +54,22 @@
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
+                <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>log4j</groupId>
                 <artifactId>log4j</artifactId>
                 <version>${log4j.version}</version>
             </dependency>
-            <dependency>
-                <groupId>ch.qos.logback</groupId>
-                <artifactId>logback-core</artifactId>
-                <version>${logback.version}</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
-  
-  <modules>
-    <module>scholat-zuul-gateway</module>
-    <module>scholat-common</module>
-    <module>scholat-provider</module>
-    <module>scholat-eureka</module>
-    <module>scholat-provider-api</module>
-      <module>scholat-client</module>
-  </modules>
+
+    <modules>
+        <module>scholar-zuul-gateway</module>
+        <module>scholar-common</module>
+        <module>scholar-provider</module>
+        <module>scholar-eureka</module>
+        <module>scholar-provider-api</module>
+        <module>scholar-client</module>
+    </modules>
 </project>
